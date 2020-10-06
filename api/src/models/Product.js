@@ -4,11 +4,6 @@ const { DataTypes } = require('sequelize');
 module.exports = (sequelize) => {
   // defino el modelo
   sequelize.define('product', {
-    id: {
-      type: DataTypes.INTEGER,
-      autoIncrement: true,
-      primaryKey: true
-    },
     name: {
       type: DataTypes.STRING,
       allowNull: false,
@@ -20,25 +15,14 @@ module.exports = (sequelize) => {
     price: {
       type: DataTypes.FLOAT,
       allowNull: false,
-      defaultValue: 0.0
     },
     stock: {
-      type: DataTypes.STRING,
+      type: DataTypes.INTEGER,
       allowNull: false,
     },
-    categorias: {
-      type: DataTypes.NUMBER,
-      validate: {
-        notEmpty: true
-      }
-    },
-    // incorporar imagen
-    attribute: 'picture', 
-    mimetype: /^image/,
-    crop: true,
-    sizes: {
-     small: 64, //width 64
-     big: 150, //width 150
-   },
+    image: {
+      type: DataTypes.STRING,
+      allowNull: false
+    }
   });
 };
