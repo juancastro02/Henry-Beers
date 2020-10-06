@@ -1,0 +1,6 @@
+.formCrudCategory{
+    display: flex;
+    width: 300px;
+    text-align: center;
+    justify-content: center;
+}
