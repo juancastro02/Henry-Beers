@@ -1,14 +1,10 @@
 const { DataTypes } = require('sequelize');
+const { Category } = require('../db')
 // Exportamos una funcion que define el modelo
 // Luego le injectamos la conexion a sequelize.
 module.exports = (sequelize) => {
   // defino el modelo
   sequelize.define('product', {
-    id: {
-      type: DataTypes.INTEGER,
-      autoIncrement: true,
-      primaryKey: true
-    },
     name: {
       type: DataTypes.STRING,
       allowNull: false,
@@ -20,25 +16,23 @@ module.exports = (sequelize) => {
     price: {
       type: DataTypes.FLOAT,
       allowNull: false,
-      defaultValue: 0.0
     },
     stock: {
-      type: DataTypes.STRING,
+      type: DataTypes.INTEGER,
       allowNull: false,
     },
-    categorias: {
-      type: DataTypes.NUMBER,
-      validate: {
-        notEmpty: true
-      }
-    },
-    // incorporar imagen
-    attribute: 'picture', 
-    mimetype: /^image/,
-    crop: true,
-    sizes: {
-     small: 64, //width 64
-     big: 150, //width 150
-   },
+    image: {
+      type: DataTypes.STRING,
+      allowNull: false
+    },category: {
+       type: DataTypes.ARRAY({
+         type: DataTypes.INTEGER,
+         references: {
+           model: Category,
+           key: "id",
+           allowNull: true
+         },
+       })
+    }
   });
 };
