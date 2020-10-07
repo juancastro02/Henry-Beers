@@ -11,6 +11,5 @@ server.post('/create', (req, res)=>{
         res.status(400).json(err)
     })
 })
- 
 
 module.exports = server
