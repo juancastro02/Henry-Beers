@@ -1,4 +1,5 @@
 const { DataTypes } = require('sequelize');
+const { Category } = require('../db')
 // Exportamos una funcion que define el modelo
 // Luego le injectamos la conexion a sequelize.
 module.exports = (sequelize) => {
@@ -23,6 +24,15 @@ module.exports = (sequelize) => {
     image: {
       type: DataTypes.STRING,
       allowNull: false
+    },category: {
+       type: DataTypes.ARRAY({
+         type: DataTypes.INTEGER,
+         references: {
+           model: Category,
+           key: "id",
+           allowNull: true
+         },
+       })
     }
   });
 };
