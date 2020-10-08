@@ -2,6 +2,7 @@ const server = require('express').Router();
 const { Product } = require('../db.js');
 const { Sequelize:{Op}} = require('sequelize');
 
+
 server.get('/', (req, res, next) => {
 	Product.findAll()
 		.then(products => {
@@ -40,7 +41,7 @@ server.post('/create', (req,res)=>{
 	
 })
 
-server.put('/update/:id', (req,res)=>{
+server.put('/update/:id', (req,res)=>{// Es un put a /products/update/:id
   const id = req.params.id	
   const {name, description, price, stock, image, category} = req.body
   Product.update({
@@ -88,6 +89,20 @@ server.get('/find/search',(req,res) => {
 		res.status(404).json(error)
 	})
 })
+//CREAR RUTA PARA ELIMINAR PRODUCTO
+server.delete("/:id", (req, res) => { //modifiqué /id, el products está en el index 
+    const id = req.params.id;
+	Product.destroy({
+		where: { id: id }
+	}).then((id) => {
+		res.status(200).send("Producto" + id + "eliminado")//  Agregué status
+	}).catch(function (err) {
+		console.log("delete failed with error: " + err);
+		// handle error;
+	});
+    
+});
+
 
 module.exports = server;
 
