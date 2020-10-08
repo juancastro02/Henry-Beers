@@ -12,4 +12,20 @@ server.post('/create', (req, res)=>{
     })
 })
 
+server.put('/update/:id', (req, res)=>{
+    const  id = req.params.id
+    const {name, description} = req.body
+    Category.update({name, description}, {where: {id}})
+    .then(()=>{
+        res.status(201).send('Modificado Correctamente')
+    })
+    .catch(()=>{
+        res.status(404).send('Hubo un error')
+    })
+})
+
+
+
+
+
 module.exports = server

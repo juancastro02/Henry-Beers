@@ -1,5 +1,6 @@
 const server = require('express').Router();
 const { Product } = require('../db.js');
+const { Sequelize:{Op}} = require('sequelize');
 
 server.get('/', (req, res, next) => {
 	Product.findAll()
@@ -56,6 +57,37 @@ server.put('/update/:id', (req,res)=>{
 })
 
 
+server.get('/:id', (req, res)=>{
+   const id = req.params.id
+
+   Product.findOne({where: {id}})
+   .then(product => {
+	   res.status(201).json(product)
+   })
+   .catch(err =>{
+	   res.status(404).json(err)
+   })
+})
+
+
+server.get('/find/search',(req,res) => {
+	Product.findAll({
+		where: {
+			[Op.or]: {
+			  name: {
+				[Op.like]: `%${req.query.name}%`,
+			  },
+			  description: {
+				[Op.substring]: `${req.query.name}`,
+			  }
+			}
+		  }
+	}).then(products => {
+		res.status(200).json(products)}
+	).catch(error =>{ 
+		res.status(404).json(error)
+	})
+})
 
 module.exports = server;
 
