@@ -22,6 +22,19 @@ server.put('/update/:id', (req, res)=>{
     .catch(()=>{
         res.status(404).send('Hubo un error')
     })
+});
+
+//CREAR RUTA PARA PARA ELIMINAR CATEGORIA
+server.delete ("/:id", (req,res) => {// EL delete es a /category/:id
+     const id = req.params.id;
+	Category.destroy({
+		where: {id:id}
+	}).then((id) => {
+		res.status(200).send("Categoría" + id + "eliminada")
+	}).catch(function (err) {
+		console.log("delete failed with error: " + err);
+		// handle error;
+	});
 })
 
 
