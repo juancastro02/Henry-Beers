@@ -1,4 +1,6 @@
 import React, { useState } from 'react';
+import NavBar from '../Components/NavBar/NavBar.js';
+
 
 const SearchBar = ({ props }) => {
     const [listProducts, setListProducts] = useState({
@@ -21,6 +23,7 @@ const SearchBar = ({ props }) => {
     return (
         <form onSubmit={(e)=>onSubmit(e)} >
             <div>
+                <NavBar/>
                 <input
                     type="text"
                     placeholder="Producto..."
