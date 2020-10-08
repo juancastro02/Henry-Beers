@@ -25,7 +25,7 @@ server.put('/update/:id', (req, res)=>{
 });
 
 //CREAR RUTA PARA PARA ELIMINAR CATEGORIA
-server.delete ("/:id", (req,res) => {// EL delete es a /products/category/:id
+server.delete ("/:id", (req,res) => {// EL delete es a /category/:id
      const id = req.params.id;
 	Category.destroy({
 		where: {id:id}

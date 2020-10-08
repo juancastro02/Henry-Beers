@@ -90,12 +90,12 @@ server.get('/find/search',(req,res) => {
 	})
 })
 //CREAR RUTA PARA ELIMINAR PRODUCTO
-server.delete("/:id", (req, res) => { //modifiqué /id, el products está en el index 
+server.delete("/:id", (req, res) => { //modifiqué /:id, el products está en el index 
     const id = req.params.id;
 	Product.destroy({
 		where: { id: id }
 	}).then((id) => {
-		res.status(200).send("Producto" + id + "eliminado")//  Agregué status
+		res.status(200).send("Producto" + id + "eliminado")//  Agregué status//REVISAR CONSOLOGUEO, NO ACTUALIZA ID
 	}).catch(function (err) {
 		console.log("delete failed with error: " + err);
 		// handle error;
