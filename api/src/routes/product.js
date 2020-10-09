@@ -66,6 +66,7 @@ server.get('/:id', (req, res)=>{
 	   res.status(201).json(product)
    })
    .catch(err =>{
+	   console.log(err)
 	   res.status(404).json(err)
    })
 })

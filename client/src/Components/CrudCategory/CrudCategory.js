@@ -1,4 +1,5 @@
 import React, {useState} from 'react'
+import axios from 'axios'
 import './CrudCategory.css'
 
 const CrudCategory =()=>{
@@ -12,7 +13,6 @@ const CrudCategory =()=>{
     
     const handleSubmit = e => {
         e.preventDefault()
-        console.log(category)
         alert('Enviado!')
     }
 
@@ -26,6 +26,17 @@ const CrudCategory =()=>{
     }
     
 
+    const addCategory = async() =>{
+        const info = {
+            name: category.name,
+            description: category.description
+        }
+           const {data} = await axios.post('http://localhost:4000/category/create', info)
+           console.log(data)
+       }
+   
+   
+
     return(
         <div className='formCrudCategory' >
          <form onSubmit={(e) => handleSubmit(e) }>
@@ -33,7 +44,7 @@ const CrudCategory =()=>{
           <input type='text'   value={name} onChange={handleChange}  name='name'  /> 
              <h6>Description</h6>
           <input type='text'   value={description}  onChange={handleChange}  name='description'/><br/><br/>
-          <button type='submit'>Crear Categoria</button>     
+          <button type='submit' onClick={()=> addCategory()} >Crear Categoria</button>        
         </form>   
         </div>
     )

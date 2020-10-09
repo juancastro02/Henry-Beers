@@ -3,4 +3,8 @@
     width: 300px;
     text-align: center;
     justify-content: center;
+    background-color: orange;
+    border-radius: 10px;
+    margin-left: 15%;
+    margin-top: 5%;
 }

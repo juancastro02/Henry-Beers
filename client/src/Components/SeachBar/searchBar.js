@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import NavBar from '../Components/NavBar/NavBar.js';
+import NavBar from '../NavBar/NavBar.js';
 
 
 const SearchBar = ({ props }) => {
