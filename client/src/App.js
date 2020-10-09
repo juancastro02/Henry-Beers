@@ -1,7 +1,7 @@
 import React from 'react';
-import Product from './componentes/Product'
-import SearchBar from './componentes/searchBar'
-import CrudCurso from './Components/CrudCurso/CrudCurso'
+import Product from './Components/Product/Product'
+import Catalogo from './Components/Catalogo/Catalogo.js'
+import CrudBeer from './Components/CrudBeer/CrudBeer'
 import CrudCategory from './Components/CrudCategory/CrudCategory'
 import { BrowserRouter, Route } from 'react-router-dom';
 import NavBar from './Components/NavBar/NavBar'
@@ -12,12 +12,24 @@ function App() {
   return (
     <div >
       <BrowserRouter>
-        <Route path='/' component={NavBar} />
-        <Route exact path="/products/:productoId" component={Product} />
-        <Route exact path="/category" component={CrudCategory} />
-        <Route exact path="/products/:productoId" component={Product} />
-        <Route exact path="/products" component={CrudCurso} />
-        {/* <Route exact path='/catalogo' component={Catalogo} /> */}
+        <Route path='/' 
+        component={NavBar} 
+        />
+
+        <Route exact path="/products/:productoId" 
+        component={Product}
+         />
+
+        <Route exact path="/crud"
+         component={CrudCategory} 
+         />
+
+        <Route exact path="/crud" 
+        component={CrudBeer} 
+        />
+        <Route exact path='/catalogo' 
+         component={Catalogo} 
+         /> 
       </BrowserRouter>
     </div>
   );

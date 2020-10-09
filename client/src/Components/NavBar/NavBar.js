@@ -8,12 +8,13 @@ import InputBase from '@material-ui/core/InputBase';
 import Badge from '@material-ui/core/Badge';
 import MenuItem from '@material-ui/core/MenuItem';
 import Menu from '@material-ui/core/Menu';
-import MenuIcon from '@material-ui/icons/Menu';
 import SearchIcon from '@material-ui/icons/Search';
 import AccountCircle from '@material-ui/icons/AccountCircle';
 import MailIcon from '@material-ui/icons/Mail';
 import NotificationsIcon from '@material-ui/icons/Notifications';
 import MoreIcon from '@material-ui/icons/MoreVert';
+import Category from '../Categories/Categories'
+import {Link} from 'react-router-dom'
 
 const useStyles = makeStyles((theme) => ({
   grow: {
@@ -163,19 +164,12 @@ export default function PrimarySearchAppBar() {
 
   return (
     <div className={classes.grow}>
-      <AppBar position="static">
+      <AppBar position="static" style={{backgroundColor: "orange"}}>
         <Toolbar>
-          <IconButton
-            edge="start"
-            className={classes.menuButton}
-            color="inherit"
-            aria-label="open drawer"
-          >
-            <MenuIcon />
-          </IconButton>
-          <Typography className={classes.title} variant="h6" noWrap>
-            Material-UI
-          </Typography>
+          <button style={{backgroundColor: "orange", color: "white", fontFamily: "sans-serif", border: "0", fontSize: "20px"}}>
+         <Category/>
+          </button>
+
           <div className={classes.search}>
             <div className={classes.searchIcon}>
               <SearchIcon />
@@ -189,7 +183,13 @@ export default function PrimarySearchAppBar() {
               inputProps={{ 'aria-label': 'search' }}
             />
           </div>
+          <Link to='catalogo' ><Typography className={classes.title} variant="h6" noWrap>
+             Catalogo
+          </Typography></Link> 
           <div className={classes.grow} />
+          <Link to='/crud' ><Typography className={classes.title} variant="h6" noWrap>
+             Crud
+          </Typography></Link> 
           <div className={classes.sectionDesktop}>
             <IconButton aria-label="show 4 new mails" color="inherit">
               <Badge badgeContent={4} color="secondary">

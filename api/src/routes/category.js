@@ -1,6 +1,18 @@
 const server = require('express').Router();
 const { Category } = require('../db.js');
 
+
+server.get('/', (req, res) => {
+	Category.findAll()
+		.then(products => {
+			res.status(200).json(products);
+		})
+		.catch((err)=> {
+            res.status(400).json(err)
+        });
+});
+
+
 server.post('/create', (req, res)=>{
     const {name, description} = req.body
     Category.findOrCreate({where:{name, description}})
