@@ -12,7 +12,6 @@ const InicialState = {
 
 const GET_BEERS = 'GET_BEERS'
 const GET_BEER = 'GET_BEER'
-const UPDATE_BEER = 'UPDATE_BEER'
 
 //Reducer
 export default function beerReducer(state = InicialState, action) {
@@ -20,9 +19,7 @@ export default function beerReducer(state = InicialState, action) {
         case GET_BEER:
             return {...state, beer: action.payload}
         case GET_BEERS:
-            return { ...state, beers: action.payload }  
-        case UPDATE_BEER:
-            return {...state, payload: action.payload}      
+            return { ...state, beers: action.payload }       
         default: return state
     }
 }
@@ -53,29 +50,6 @@ export const getcerveza =(id)=> async (dispatch)=>{
             payload: res.data
         })
 
-    } catch (error) {
-        console.log(error)
-    }
-}
-
-
-export const updatebeer = (id, name, description, price, stock, image)=>(dispatch)=>{
-
-    try {
-      const info = {
-          name: name,
-          description: description,
-          price: price, 
-          stock: stock,
-          image: image
-      }
- 
-      const {data} = axios.update(`http://localhost:4000/products/update/${id}`, info)
-      console.log(data) 
-      dispatch({
-          type: UPDATE_BEER,
-          payload: data
-      })
     } catch (error) {
         console.log(error)
     }
