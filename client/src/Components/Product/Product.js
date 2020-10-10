@@ -6,7 +6,6 @@ const Product = (data) => {
   const dispatch = useDispatch()
   const beer = useSelector(store => store.beer.beer)
   console.log(data.match.params.productoId)
-  var id = 
   useEffect(()=>{
     dispatch(getcerveza(data.match.params.productoId))
   },[])
