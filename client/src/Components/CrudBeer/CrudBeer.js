@@ -94,10 +94,10 @@ const handleUpdate = async () => {
   }
   const classes = useStyles();
     return(
-      <div className="crud_content">
-      <div className="productsAdmin">
-          <h3 className='h111'>Products</h3>
-          <div className={classes.root}>
+      <div >
+      <div className="productsAdmin" >
+          <div className={classes.root}  style={{width: "260px", marginTop: "-180px"}} >
+          <h3 className='h111'>Beers</h3>
             <List component="nav" aria-label="secondary mailbox folders">
               {beer && beer.map(p => <ListItem button onClick={()=>handleSearch(p)} value={p.id}>
                 <ListItemText primary={p.name} secondary={p.price}/>
@@ -105,7 +105,7 @@ const handleUpdate = async () => {
             </List>
           </div>
       </div>
-        <div className='formCrudProduct' style={{marginTop: "5%"}} >
+        <div className='formCrudProduct' style={{marginLeft: "700px", marginTop: "-140px"}} >
         <form onSubmit={(e)=> handleSubmit(e)} >
           <h6>Name</h6>
           <input type='text'  value={name} onChange={handleChange} name='name' placeholder='Ingrese el nombre...'/>  

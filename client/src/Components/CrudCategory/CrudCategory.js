@@ -38,7 +38,8 @@ const CrudCategory =()=>{
    
 
     return(
-        <div className='formCrudCategory' >
+        <div className='formCrudCategory' style={{marginLeft: "350px"}} >
+    
          <form onSubmit={(e) => handleSubmit(e) }>
              <h6>Name</h6>
           <input type='text'   value={name} onChange={handleChange}  name='name'  /> 
