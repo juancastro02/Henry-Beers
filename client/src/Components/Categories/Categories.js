@@ -7,6 +7,7 @@ import ListItem from '@material-ui/core/ListItem';
 import ListItemText from '@material-ui/core/ListItemText';
 import {useSelector, useDispatch} from 'react-redux'
 import {getCategory} from '../../Redux/category'
+import {Link} from 'react-router-dom'
 
 export default function Category() {
   const [state, setState] = React.useState({
@@ -21,9 +22,8 @@ export default function Category() {
 
   useEffect(()=>{
      dispatch(getCategory())
-     console.log('soy Categories')
-  },[])
 
+  },[category])
 
 
   const toggleDrawer = (anchor, open) => (event) => {
@@ -39,7 +39,7 @@ export default function Category() {
       <List>
         {category.map((text) => (
           <ListItem>
-            <div>{text.name}</div>
+           <Link to={`/products/catalogo/${text.id}`} ><div>{text.name}</div></Link>
             <ListItemText />
           </ListItem>
         ))}
