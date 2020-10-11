@@ -9,7 +9,12 @@ function Catalogo ({category,search,products}) {
   const [productscatalogo, setProductscatalogo] = useState();
   const dispatch = useDispatch()
   const beer = useSelector(store => store.beer.beers)
- 
+
+  useEffect(()=>{
+   dispatch(getbeers())
+   console.log('soy Categories')
+  },[])
+
 
   useEffect(() => {
     dispatch(getbeers())

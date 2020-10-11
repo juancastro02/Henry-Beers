@@ -22,8 +22,8 @@ export default function Category() {
 
   useEffect(()=>{
      dispatch(getCategory())
-  },[category])
 
+  },[category])
 
 
   const toggleDrawer = (anchor, open) => (event) => {

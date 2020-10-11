@@ -1,10 +1,11 @@
 const server = require('express').Router();
-const { Product } = require('../db.js');
+const { Product, Category } = require('../db.js');
 const { Sequelize:{Op}} = require('sequelize');
 
-
 server.get('/', (req, res, next) => {
-	Product.findAll()
+	Product.findAll({
+		include: Category
+	})
 		.then(products => {
 			res.send(products);
 		})
@@ -13,35 +14,53 @@ server.get('/', (req, res, next) => {
 
 server.post('/create', (req,res)=>{
 
-	const {name, description, price, stock, image, category} = req.body
-	if(!category){
+	const {name, description, price, stock, image} = req.body
 		Product.findOrCreate({where:{
 			name, description, price, stock, image
-		},defaults: {category:[]} })
-	.then(product =>{
-			res.status(200).json('Agregado correctamente')
-		  })
-	.catch(err=>{
-			  console.log()
-			 res.status(400).json(err)
-	})
-	}else{
-		Product.findOrCreate({where:{
-			name, description, price, stock, image,category
 		}})
-	.then(product =>{
-			res.status(200).json('Agregado correctamente')
+	.then((obj) =>{
+			res.status(200).json(obj)
 		  })
 	.catch(err=>{
 			  console.log()
 			  res.status(400).json(err)
 	})
-	} 
-	
-	
 })
 
-server.put('/update/:id', (req,res)=>{// Es un put a /products/update/:id
+
+server.post('/:idProduct/category/:idCategory', (req, res) => {
+    const {idProduct, idCategory} = req.params;
+
+    Product.findByPk(idProduct)
+        .then((product) => {
+            product.addCategories(idCategory)
+            .then((newCategory) => {
+                res.status(201).json({message: 'Se agregó categoría', newCategory})
+            })
+        })
+        .catch((err) => {
+            throw new Error(err)
+        });
+});
+
+server.delete('/:idProduct/category/:idCategory', (req, res)=>{
+
+	const {idProduct, idCategory} = req.params;
+	Product.findByPk(idProduct)
+	.then((product)=>{
+		product.removeCategories(idCategory)
+		.then((newCategory)=> {
+			res.status(201).json({message: "Se elimino correctamente la categoria", newCategory})
+		})
+	})
+	.catch((err)=>{
+		throw new Error(err)
+	})
+
+})
+
+
+server.put('/:id', (req,res)=>{// Es un put a /products/update/:id
   const id = req.params.id	
   const {name, description, price, stock, image, category} = req.body
   Product.update({
@@ -61,7 +80,7 @@ server.put('/update/:id', (req,res)=>{// Es un put a /products/update/:id
 server.get('/:id', (req, res)=>{
    const id = req.params.id
 
-   Product.findOne({where: {id}})
+   Product.findOne({where: {id}, include: Category})
    .then(product => {
 	   res.status(201).json(product)
    })
@@ -90,6 +109,8 @@ server.get('/find/search',(req,res) => {
 		res.status(404).json(error)
 	})
 })
+
+
 //CREAR RUTA PARA ELIMINAR PRODUCTO
 server.delete("/:id", (req, res) => { //modifiqué /:id, el products está en el index 
     const id = req.params.id;
@@ -104,6 +125,22 @@ server.delete("/:id", (req, res) => { //modifiqué /:id, el products está en el
     
 });
 
+
+server.get('/categoria/:nombreCat', (req, res)=>{
+	const {nombreCat} = req.params
+	Product.findAll({include: {
+		model: Category, where: {
+			id: nombreCat 
+		}
+	}})
+	.then((products)=>{
+		res.status(201).json(products)
+	})
+	.catch((err)=>{
+		res.status(400).send(err)
+	})
+	
+})
 
 module.exports = server;
 

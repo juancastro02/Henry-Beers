@@ -1,5 +1,5 @@
 import axios from 'axios'
-
+ 
 
 //Inicial State
 
@@ -19,7 +19,7 @@ export default function beerReducer(state = InicialState, action) {
         case GET_BEER:
             return {...state, beer: action.payload}
         case GET_BEERS:
-            return { ...state, beers: action.payload }    
+            return { ...state, beers: action.payload }       
         default: return state
     }
 }
