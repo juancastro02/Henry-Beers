@@ -9,6 +9,7 @@ function Catalogo () {
   const beer = useSelector(store => store.beer.beers)
   useEffect(()=>{
    dispatch(getbeers())
+   console.log('soy Categories')
   },[])
 
 

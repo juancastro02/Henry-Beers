@@ -24,15 +24,6 @@ module.exports = (sequelize) => {
     image: {
       type: DataTypes.STRING,
       allowNull: false
-    },category: {
-       type: DataTypes.ARRAY({
-         type: DataTypes.INTEGER,
-         references: {
-           model: Category,
-           key: "id",
-           allowNull: true
-         },
-       })
     }
   });
 };
