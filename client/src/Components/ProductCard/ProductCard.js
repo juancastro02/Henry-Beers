@@ -49,7 +49,7 @@ export default function MediaCard({name, image, stock, description, categories, 
         <Button size="small" color="primary">
           Add Beer
         </Button>
-     <Link to={`/products/${id}`} > <Button size="small" color="primary"  onClick={() => handleButtonClick()} >
+     <Link to={`/catalogo/${id}`} > <Button size="small" color="primary"  onClick={() => handleButtonClick()} >
           More information 
         </Button> </Link>
         {buttonClicked ? <Product datas={name, description, price, stock}/> : null} 

@@ -23,8 +23,8 @@ const SearchBar = ({setSearchApp}) =>{
         console.log(data)
         setSearchApp({
             array: data,
-            word: search
-        })
+            word: search,
+        });
  
  }
  
