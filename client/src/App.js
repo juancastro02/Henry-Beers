@@ -1,4 +1,4 @@
-import React from 'react';
+import React,{useState} from 'react';
 import Product from './Components/Product/Product'
 import Catalogo from './Components/Catalogo/Catalogo.js'
 import CrudBeer from './Components/CrudBeer/CrudBeer'
@@ -9,11 +9,19 @@ import NavBar from './Components/NavBar/NavBar'
 
 
 function App() {
+
+  const [search, setSearchApp] = useState({
+    array: [],
+    word: "",
+  });
+
+
+
   return (
     <div >
       <BrowserRouter>
         <Route path='/' 
-        component={NavBar} 
+        render={()=> <NavBar setSearchApp={setSearchApp} />} 
         />
 
         <Route exact path="/products/:productoId" 

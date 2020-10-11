@@ -15,6 +15,7 @@ import NotificationsIcon from '@material-ui/icons/Notifications';
 import MoreIcon from '@material-ui/icons/MoreVert';
 import Category from '../Categories/Categories'
 import {Link} from 'react-router-dom'
+import SearchBar from '../SearchBar/SearchBar' // Importamos la SearchBar(cambiamos original de Material ui)
 
 const useStyles = makeStyles((theme) => ({
   grow: {
@@ -80,7 +81,7 @@ const useStyles = makeStyles((theme) => ({
   },
 }));
 
-export default function PrimarySearchAppBar() {
+export default function PrimarySearchAppBar({setSearchApp}) {
   const classes = useStyles();
   const [anchorEl, setAnchorEl] = React.useState(null);
   const [mobileMoreAnchorEl, setMobileMoreAnchorEl] = React.useState(null);
@@ -164,25 +165,16 @@ export default function PrimarySearchAppBar() {
 
   return (
     <div className={classes.grow}>
-      <AppBar position="static" style={{backgroundColor: "orange"}}>
+      <AppBar position="static" style={{backgroundColor: "violet"}}>{/* //cambia color de la navbar */}
         <Toolbar>
-          <button style={{backgroundColor: "orange", color: "white", fontFamily: "sans-serif", border: "0", fontSize: "20px"}}>
+          <button style={{backgroundColor: "grey", color: "white", fontFamily: "sans-serif", border: "0", fontSize: "20px"}}>
          <Category/>
           </button>
+          
+          
+          <SearchBar setSearchApp={setSearchApp}  />
 
-          <div className={classes.search}>
-            <div className={classes.searchIcon}>
-              <SearchIcon />
-            </div>
-            <InputBase
-              placeholder="Search…"
-              classes={{
-                root: classes.inputRoot,
-                input: classes.inputInput,
-              }}
-              inputProps={{ 'aria-label': 'search' }}
-            />
-          </div>
+
           <Link to='catalogo' ><Typography className={classes.title} variant="h6" noWrap>
              Catalogo
           </Typography></Link> 
