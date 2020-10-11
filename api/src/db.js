@@ -37,7 +37,7 @@ const { Category } = sequelize.models
 
 
 // Aca vendrian las relaciones
-Product.hasMany(Category)
+Product.belongsToMany(Category, {through: "category_products"})
 Category.belongsToMany(Product, {through: "category_products"})
 
 module.exports = {

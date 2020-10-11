@@ -21,6 +21,7 @@ export default function Category() {
 
   useEffect(()=>{
      dispatch(getCategory())
+     console.log('soy Categories')
   },[])
 
 

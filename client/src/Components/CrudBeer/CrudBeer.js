@@ -1,4 +1,5 @@
 import React, { useState, useEffect, Fragment } from 'react'
+import Select from 'react-select'
 import axios from 'axios'
 import './CrudBeer.css'
 import {useSelector, useDispatch} from 'react-redux'
@@ -14,7 +15,6 @@ const useStyles = makeStyles({
     borderRadius:'0 0 10px 10px',
     color: 'white',
     backgroundColor: 'rgb(108 117 125)',
-    overflow:'scroll'
   }
 });
 
@@ -23,39 +23,48 @@ const CrudBeer = () => {
   const dispatch = useDispatch()
   const categories = useSelector(store=> store.category.categories)
   const beer = useSelector(store => store.beer.beers)
-  useEffect(()=>{
+   useEffect(()=>{
    dispatch(getCategory())
    dispatch(getbeers())
-  },[beer,categories])
+  },[])
 
    const [video, setVideo] = useState({
        id: "",
        name: "",
        description:"",
-       price:0,
-       stock:0,
+       price:"",
+       stock:"",
        image:"",
-       category:[]
    });
-    
- const {name, description, price, stock, image, category} = video
 
-   const submitBeer= async()=>{
+  const [categoria, setCategory] = useState([])
+     
+ const {name, description, price, stock, image} = video
+
+   const handlePost= async()=>{
      const info = {
        name: video.name,
        description: video.description ,
        price: video.price,
        stock: video.stock,
        image: video.image,
-       category: video.category
      }
 
+     console.log(video.id, categoria)
      const {data} = await axios.post('http://localhost:4000/products/create', info)
+     console.log(data)
+     {categoria.map(async(e)=>{
+      console.log(e.value) 
+      console.log(data.id)
+       await axios.post(`http://localhost:4000/products/${data[0].id}/category/${e.value}`)
+     })}
+   
    }
+
 
    const handleSearch = async (product) => {
     setVideo(product)
-};
+   };
 
 
 
@@ -69,34 +78,36 @@ const handleUpdate = async () => {
       description: video.description,
       price: video.price,
       stock: video.stock,
-      image: video.image,
-      category: video.category
+      image: video.image
   };
 
    const {data} = axios.put(`http://localhost:4000/products/${video.id}` ,dataPost)
-
-   console.log(data)
+   console.log(categoria)
+   categoria.map(async(e)=>( 
+    await axios.post(`http://localhost:4000/products/${video.id}/category/${e.value}`)
+   ))
 };
 
 
 
    const handleSubmit =(e)=>{
      e.preventDefault()
-     console.log(video)
      alert('enviado')
    }
 
    const handleChange = e =>{
-    setVideo({
+   setVideo({
       ...video,
       [e.target.name] : e.target.value
     })
   }
+
+
   const classes = useStyles();
     return(
-      <div >
+      <div style={{marginTop: "-100px"}} >
       <div className="productsAdmin" >
-          <div className={classes.root}  style={{width: "260px", marginTop: "-180px"}} >
+          <div className={classes.root}  style={{width: "200px"}} >
           <h3 className='h111'>Beers</h3>
             <List component="nav" aria-label="secondary mailbox folders">
               {beer && beer.map(p => <ListItem button onClick={()=>handleSearch(p)} value={p.id}>
@@ -105,7 +116,7 @@ const handleUpdate = async () => {
             </List>
           </div>
       </div>
-        <div className='formCrudProduct' style={{marginLeft: "700px", marginTop: "-140px"}} >
+        <div className='formCrudProduct' style={{marginLeft: "700px"}} >
         <form onSubmit={(e)=> handleSubmit(e)} >
           <h6>Name</h6>
           <input type='text'  value={name} onChange={handleChange} name='name' placeholder='Ingrese el nombre...'/>  
@@ -117,14 +128,18 @@ const handleUpdate = async () => {
           <input type='number'  value={stock} onChange={handleChange} name='stock' />  
           <h6>Image</h6>
           <input  type='text'  value={image} onChange={handleChange} name='image'  /> <br/><br/>
-          {categories.map((e)=>(
-            <Fragment>
-            <input type='checkbox' value={category} onChange={handleChange} name='category'/> 
-            {console.log(category)}
-            <span>{e.name}</span>
-            </Fragment>
-          ))}
-          <button type='submit' onClick={()=> submitBeer()} >Enviar</button> 
+          <Select
+          isMulti
+        
+          options={categories.map((e)=> ({
+            label: e.name, value: e.id
+          }))}
+          className="basic-multi-select"
+          classNamePrefix="select"
+          onChange={setCategory}
+          name= "category"
+          />
+          <button type='submit' onClick={()=> handlePost()} >Enviar</button> 
           <button type='submit' onClick={()=> handleUpdate()} >Update</button>
         </form>
         </div>

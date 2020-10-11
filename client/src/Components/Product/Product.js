@@ -8,6 +8,7 @@ const Product = (data) => {
   console.log(data.match.params.productoId)
   useEffect(()=>{
     dispatch(getcerveza(data.match.params.productoId))
+    console.log('soy product')
   },[])
 
     return (
