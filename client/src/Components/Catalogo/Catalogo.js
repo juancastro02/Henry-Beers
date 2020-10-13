@@ -19,9 +19,7 @@ function Catalogo ({category,search,products}) {
   useEffect(() => {
     dispatch(getbeers())
     const fetchData = async()=>{
-        console.log(search)
-        const {data} = await axios.get(`http://localhost:4000/products/${search ? 'find/search?name='+search : ""}`)
-        console.log(data)
+        const {data} = await axios.get(`http://localhost:4000/products/${ category ? 'categoria/' + category : search ? 'find/search?name='+search : ""}`)
         setProductscatalogo(data)
     }
     fetchData()
@@ -32,7 +30,8 @@ function Catalogo ({category,search,products}) {
 console.log(productscatalogo)
 
     return ( 
-      <div className = 'catalogo'>
+      <div style={{backgroundColor: "gray", height: "2000px"}} >
+      <div className = 'catalogo'  >
                     {productscatalogo && productscatalogo.map(p=>(
                     <ProductCard
                     key={p.id}
@@ -45,7 +44,7 @@ console.log(productscatalogo)
                     />
                 ))}
       </div>
-
+      </div>
     );
     } 
 

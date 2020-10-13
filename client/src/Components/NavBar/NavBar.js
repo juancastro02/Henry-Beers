@@ -117,8 +117,7 @@ export default function PrimarySearchAppBar({setSearchApp}) {
       open={isMenuOpen}
       onClose={handleMenuClose}
     >
-      <MenuItem onClick={handleMenuClose}>Profile</MenuItem>
-      <MenuItem onClick={handleMenuClose}>My account</MenuItem>
+   <Link to='/admin' > <MenuItem onClick={handleMenuClose}>Admin</MenuItem> </Link>
     </Menu>
   );
 
@@ -164,30 +163,17 @@ export default function PrimarySearchAppBar({setSearchApp}) {
   );
 
   return (
-    <div className={classes.grow}>
-      <AppBar position="static" style={{backgroundColor: "violet"}}>{/* //cambia color de la navbar */}
+    <div className={classes.grow}  >
+      <AppBar position="static" style={{backgroundColor: "black"}}>{/* //cambia color de la navbar */}
         <Toolbar>
-          <button style={{backgroundColor: "grey", color: "white", fontFamily: "sans-serif", border: "0", fontSize: "20px"}}>
+          <button style={{backgroundColor: "black", color: "white", fontFamily: "sans-serif", border: "0", fontSize: "5px" }}>
          <Category/>
           </button>
-          
-          
           <SearchBar setSearchApp={setSearchApp}  />
-
-
-          <Link to='catalogo' ><Typography className={classes.title} variant="h6" noWrap>
-             Catalogo
-          </Typography></Link> 
-          <div className={classes.grow} />
-          <Link to='/crud' ><Typography className={classes.title} variant="h6" noWrap>
-             Crud
-          </Typography></Link> 
+          <Link to='/' ><img src='https://encrypted-tbn0.gstatic.com/images?q=tbn%3AANd9GcTNHmmYZlVXzUKTp_ZpULbph_mA-ew9jWaNcg&usqp=CAU' style={{backgroundColor: "gray", marginLeft: "300px",width: "100px", height: "75px"}} /></Link> 
+          <div className={classes.grow} /> 
           <div className={classes.sectionDesktop}>
-            <IconButton aria-label="show 4 new mails" color="inherit">
-              <Badge badgeContent={4} color="secondary">
-                <MailIcon />
-              </Badge>
-            </IconButton>
+
             <IconButton aria-label="show 17 new notifications" color="inherit">
               <Badge badgeContent={17} color="secondary">
                 <NotificationsIcon />

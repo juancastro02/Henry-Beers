@@ -9,13 +9,14 @@ import Button from '@material-ui/core/Button';
 import Typography from '@material-ui/core/Typography';
 import {Link} from 'react-router-dom'
 import Product from '../Product/Product'
+import './ProductCard.css'
 
 const useStyles = makeStyles({
   root: {
     maxWidth: 345,
   },
   media: {
-    height: 140,
+    height: 180,
   },
 });
 
@@ -29,7 +30,8 @@ export default function MediaCard({name, image, stock, description, categories, 
   const classes = useStyles();
 
   return (
-    <Card className={classes.root}  style={{marginLeft: "40px", marginRight: "40px", marginTop: "40px"}} >
+    <div className="containerClass"  >
+    <Card className={classes.root} style={{width: "340px"}} >
       <CardActionArea>
         <CardMedia
           className={classes.media}
@@ -40,20 +42,18 @@ export default function MediaCard({name, image, stock, description, categories, 
           <Typography gutterBottom variant="h5" component="h2">
             {name}
           </Typography>
-          <Typography variant="body2" color="textSecondary" component="p">
+          <Typography  color="textSecondary" component="h1">
            ${price}
           </Typography>
         </CardContent>
       </CardActionArea>
       <CardActions>
-        <Button size="small" color="primary">
-          Add Beer
-        </Button>
      <Link to={`/catalogo/${id}`} > <Button size="small" color="primary"  onClick={() => handleButtonClick()} >
           More information 
         </Button> </Link>
         {buttonClicked ? <Product datas={name, description, price, stock}/> : null} 
       </CardActions>
     </Card>
+    </div>
   );
 }
