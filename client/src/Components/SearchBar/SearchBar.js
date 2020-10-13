@@ -17,8 +17,7 @@ const SearchBar = ({setSearchApp}) =>{
         if(!search){
             alert('Ingrese una busqueda valida')
         }
- 
-        search.toLowerCase()
+
         const {data} = await axios.get(`http://localhost:4000/products/find/search?name=${search}`)
         console.log(data)
         setSearchApp({

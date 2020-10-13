@@ -37,7 +37,6 @@ const CrudCategory =()=>{
     
     const handleSubmit = e => {
         e.preventDefault()
-        alert('Enviado!')
     }
 
     const handleChange = e =>{
@@ -61,6 +60,12 @@ const CrudCategory =()=>{
         }
            const {data} = await axios.post('http://localhost:4000/category/create', info)
            console.log(data)
+           alert('Categoria creada!')
+           setCategory({
+            id: "",
+            name: "",
+            description: ""
+           })
        }
 
     const updateCategory = async() =>{
@@ -70,12 +75,24 @@ const CrudCategory =()=>{
         }
            const {data} = await axios.put(`http://localhost:4000/category/update/${category.id}`, info)
            console.log(data)
+           alert('Categoria Modificada!')
+           setCategory({
+            id: "",
+            name: "",
+            description: ""
+           })
        }
        
 
     const deleteCategory = async()=>{
      
         const {data} = await axios.delete(`http://localhost:4000/category/${category.id}`)
+        alert('Categoria borrada!')
+        setCategory({
+          id: "",
+          name: "",
+          description: ""
+         })
     }   
 
     return(
