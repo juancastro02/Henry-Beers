@@ -4,7 +4,7 @@ import './Profile.css'
 
 const Profile = () =>{
     var now = new Date().toLocaleTimeString();
-    setTimeout(now, 1000)
+    setTimeout("now()", 1000)
     
     return(
            <div style={{ display: 'flex', flexDirection: "column", textAlign: "center"}} >

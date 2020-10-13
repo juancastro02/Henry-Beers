@@ -27,7 +27,7 @@ const CrudBeer = () => {
    useEffect(()=>{
    dispatch(getCategory())
    dispatch(getbeers())
-  },[])
+  },[beer])
 
    const [video, setVideo] = useState({
        id: "",
@@ -59,7 +59,15 @@ const CrudBeer = () => {
       console.log(data.id)
        await axios.post(`http://localhost:4000/products/${data[0].id}/category/${e.value}`)
      })}
-   
+   alert('Producto creado')
+   setVideo({
+    id: "",
+    name: "",
+    description:"",
+    price:"",
+    stock:"",
+    image:"",
+   })
    }
 
 
@@ -89,6 +97,7 @@ const handleUpdate = async () => {
    categoria.map(async(e)=>( 
     await axios.post(`http://localhost:4000/products/${video.id}/category/${e.value}`)
    ))
+   alert('El producto fue modificado')
 };
  
 
@@ -101,7 +110,7 @@ const handleDelete = async () => {
 
    const handleSubmit =(e)=>{
      e.preventDefault()
-     alert('enviado')
+     alert('Producto creado exitosamente')
    }
 
    const handleChange = e =>{
