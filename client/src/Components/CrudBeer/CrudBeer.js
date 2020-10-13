@@ -12,9 +12,10 @@ import ListItemText from '@material-ui/core/ListItemText';
 
 const useStyles = makeStyles({
   root: {
-    borderRadius:'0 0 10px 10px',
+    borderRadius:' 10px',
     color: 'white',
-    backgroundColor: 'rgb(108 117 125)',
+    backgroundColor: 'rgb(70 70 70)',
+    
   }
 });
 
@@ -64,6 +65,8 @@ const CrudBeer = () => {
 
    const handleSearch = async (product) => {
     setVideo(product)
+    // setCategory(product.categories.name)
+    // console.log(product.categories)
    };
 
 
@@ -81,13 +84,19 @@ const handleUpdate = async () => {
       image: video.image
   };
 
-   const {data} = axios.put(`http://localhost:4000/products/${video.id}` ,dataPost)
+   const {data} = axios.put(`http://localhost:4000/products/${video.id}`, dataPost)
    console.log(categoria)
    categoria.map(async(e)=>( 
     await axios.post(`http://localhost:4000/products/${video.id}/category/${e.value}`)
    ))
 };
+ 
 
+const handleDelete = async () => {
+  alert('Eliminado con exito')
+  const {data} = await axios.delete(`http://localhost:4000/products/${video.id}`)
+
+};
 
 
    const handleSubmit =(e)=>{
@@ -105,18 +114,9 @@ const handleUpdate = async () => {
 
   const classes = useStyles();
     return(
-      <div style={{marginTop: "-100px"}} >
-      <div className="productsAdmin" >
-          <div className={classes.root}  style={{width: "200px"}} >
-          <h3 className='h111'>Beers</h3>
-            <List component="nav" aria-label="secondary mailbox folders">
-              {beer && beer.map(p => <ListItem button onClick={()=>handleSearch(p)} value={p.id}>
-                <ListItemText primary={p.name} secondary={p.price}/>
-              </ListItem>)}
-            </List>
-          </div>
-      </div>
-        <div className='formCrudProduct' style={{marginLeft: "700px"}} >
+      <div style={{backgroundColor: "rgb(108 117 125)", height: '2000px', marginTop: "-110px"}} >
+      <div style={{display: "flex", marginLeft: "25px", marginTop: "-20px", paddingTop: "100px"}} >
+        <div className='formCrudProduct' >
         <form onSubmit={(e)=> handleSubmit(e)} >
           <h6>Name</h6>
           <input type='text'  value={name} onChange={handleChange} name='name' placeholder='Ingrese el nombre...'/>  
@@ -130,7 +130,7 @@ const handleUpdate = async () => {
           <input  type='text'  value={image} onChange={handleChange} name='image'  /> <br/><br/>
           <Select
           isMulti
-        
+
           options={categories.map((e)=> ({
             label: e.name, value: e.id
           }))}
@@ -139,11 +139,28 @@ const handleUpdate = async () => {
           onChange={setCategory}
           name= "category"
           />
-          <button type='submit' onClick={()=> handlePost()} >Enviar</button> 
-          <button type='submit' onClick={()=> handleUpdate()} >Update</button>
+          <div style={{display: "flex", justifyContent: 'space-between', marginTop: "10px" }} >
+          <button type='submit' className='create' onClick={()=> handlePost()} >Create</button> 
+          <button type='submit' className='update' onClick={()=> handleUpdate()} >Update</button>
+          <button type='submit' className='delete'  onClick={()=> handleDelete()}>Delete</button>
+          </div>
         </form>
         </div>
+
+        <div>
+        <div className={classes.root}  style={{width: "200px", marginTop: "-80px"}} >
+          <h3 className='h111'  style={{display: "flex", marginLeft: "20px"}} >Beers</h3>
+            <List component="nav" aria-label="secondary mailbox folders" style={{height: "300px", overflow: "scroll"}} >
+              {beer && beer.map(p => <ListItem button onClick={()=>handleSearch(p)} value={p.id} >
+                <ListItemText primary={p.name} secondary={p.price}/>
+              </ListItem>)}
+            </List>
+          </div>
+        </div>
+
+
       </div>  
+      </div>
     )
 }
 

@@ -23,7 +23,7 @@ export default function Category() {
   useEffect(()=>{
      dispatch(getCategory())
 
-  },[category])
+  },[])
 
 
   const toggleDrawer = (anchor, open) => (event) => {
@@ -35,25 +35,26 @@ export default function Category() {
   };
 
   const list = () => (
-    <div>
-      <List>
+    <div >
+      <List  >
+      <ListItem  >
+        <Link to='/catalogo' >All beers</Link></ListItem>
         {category.map((text) => (
           <ListItem>
            <Link to={`/products/catalogo/${text.id}`} ><div>{text.name}</div></Link>
-            <ListItemText />
+         
           </ListItem>
         ))}
       </List>
-      <Divider />
     </div>
   );
 
   return (
     <div>
-      {['Categories'].map((anchor) => (
+      {['Beers'].map((anchor) => (
         <React.Fragment key={anchor}>
           <Button onClick={toggleDrawer(anchor, true)} style={{color: "white"}}>{anchor}</Button>
-          <Drawer anchor={anchor} open={state[anchor]} onClose={toggleDrawer(anchor, false)}>
+          <Drawer anchor={anchor} open={state[anchor]} onClose={toggleDrawer(anchor, false)} >
             {list(anchor)}
           </Drawer>
         </React.Fragment>

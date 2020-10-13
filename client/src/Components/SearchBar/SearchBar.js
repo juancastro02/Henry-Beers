@@ -33,7 +33,7 @@ const SearchBar = ({setSearchApp}) =>{
         <form onSubmit={(e)=>handleSubmit(e)}  >
           <div>
               <input name='search' type='text' onChange={(e)=>handleChange(e)} />
-              <Link to={`/products/search?name=${search}`} ><button type='submit' onClick={(e)=>handleSubmit(e)} ><SearchIcon/></button></Link>
+              <Link to={`/products/search?name=${search}`} ><button type='submit' onClick={(e)=>handleSubmit(e)}  style={{backgroundColor: "black",color: "white", borderRadius: "10px", border: "0px" }} ><SearchIcon/></button></Link>
           </div>
         </form>
     )
