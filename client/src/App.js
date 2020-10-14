@@ -11,6 +11,7 @@ import { getCategory } from './Redux/category'
 import Admin from './Components/Admin/Admin';
 import Inicio from './Components/index/index';
 import Login from './Components/User/Login'
+import NuevaCuenta from './Components/User/NuevaCuenta'
 
 
 function App() {
@@ -43,6 +44,9 @@ function App() {
         />
         <Route exact path="/login"
           component={Login}
+        />
+        <Route exact path="/nuevacuenta"
+          component={NuevaCuenta}
         />
 
         <Route

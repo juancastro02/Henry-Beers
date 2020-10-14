@@ -1,5 +1,4 @@
-// // const Usuario = require('../models/User');
-// const {User} = require('../db');
+// const Usuario = require('../models/User');
 // const bcryptjs = require('bcryptjs');
 // const { validationResult } = require('express-validator');
 // const jwt = require('jsonwebtoken');
@@ -16,7 +15,7 @@
 
 //     try {
 //         // Revisar que sea un usuario registrado
-//         let usuario = await User.findOne({ email });
+//         let usuario = await Usuario.findOne({ email });
 //         if(!usuario) {
 //             return res.status(400).json({msg: 'El usuario no existe'});
 //         }
@@ -53,7 +52,7 @@
 // // Obtiene que usuario esta autenticado
 // exports.usuarioAutenticado = async (req, res) => {
 //     try {
-//         const usuario = await User.findById(req.usuario.id).select('-password');
+//         const usuario = await Usuario.findById(req.usuario.id).select('-password');
 //         res.json({usuario});
 //     } catch (error) {
 //         console.log(error);
