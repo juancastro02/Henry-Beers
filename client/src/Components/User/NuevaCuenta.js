@@ -82,7 +82,7 @@ const NuevaCuenta = (props) => {
         <div className="form-usuario">
             {/* { alerta ? ( <div className={`alerta ${alerta.categoria}`}> {alerta.msg} </div> )  : null } */}
             <div className="contenedor-form sombra-dark">
-                <h1>Obtener una cuenta</h1>
+                <h1>Crear una cuenta</h1>
 
                 <form
                     onSubmit={onSubmit}
