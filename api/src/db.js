@@ -36,10 +36,15 @@ const { Product } = sequelize.models;
 const { Category } = sequelize.models
 const { User } = sequelize.models
 const { Carrito } = sequelize.models
+const { Orden } = sequelize.models
 
-// Aca vendrian las relaciones
+// Aca vendrian las relaciones 
 Product.belongsToMany(Category, {through: "category_products"})
 Category.belongsToMany(Product, {through: "category_products"})
+User.belongsToMany(Carrito, {through: Orden})
+Carrito.belongsToMany(Product, {through: Orden})
+User.hasMany(Carrito, {as: "user"});
+Product.hasMany(Carrito, {as: 'product'})
 
 
 

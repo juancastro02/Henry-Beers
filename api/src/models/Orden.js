@@ -4,8 +4,10 @@ const { DataTypes } = require('sequelize');
 module.exports = (sequelize) => {
   // defino el modelo
   sequelize.define('orden', {
-    contador: {
-        type: DataTypes.INTEGER,
+    id: {
+      type: DataTypes.INTEGER,
+      unique: true,
+      primaryKey: true
     }
   })
 };
