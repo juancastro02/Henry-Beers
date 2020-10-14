@@ -37,6 +37,7 @@ const { Category } = sequelize.models
 const { User } = sequelize.models
 const { Carrito } = sequelize.models
 
+
 // Aca vendrian las relaciones
 Product.belongsToMany(Category, {through: "category_products"})
 Category.belongsToMany(Product, {through: "category_products"})

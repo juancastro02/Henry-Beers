@@ -2,6 +2,7 @@ import React, { useState, useContext, useEffect } from 'react';
 import { Link } from 'react-router-dom';
 import AlertaContext from '../Alertas/alertaContext';
 import AuthContext from '../Alertas/authContext';
+import {getUsers, createUser, updateUser} from '../../Redux/user' 
 
 
 const NuevaCuenta = (props) => {
@@ -46,34 +47,40 @@ const NuevaCuenta = (props) => {
     // Cuando el usuario quiere iniciar sesión
     const onSubmit = e => {
         e.preventDefault();
+        //crear axios al registro
 
-        // // Validar que no haya campos vacios
-        // if( nombre.trim() === '' || 
-        //     email.trim() === '' || 
-        //     password.trim() === '' || 
-        //     confirmar.trim() === '' ) {
-        //         mostrarAlerta('Todos los campos son obligatorios', 'alerta-error');
-        //         return;
-        //     }
+        
+        
+        /*   const dispatch = useDispatch()
+        cuando presiones registrar haga el llamado a   */
 
-    //     // Password minimo de 6 caracteres
-    //     if(password.length < 6) {
-    //         mostrarAlerta('El password debe ser de al menos 6 caracteres', 'alerta-error');
-    //         return;
-    //     }
+        //  Validar que no haya campos vacios
+       /*  if( nombre.trim() === '' || 
+         email.trim() === '' || 
+         password.trim() === '' || 
+        confirmar.trim() === '' ) {
+            alert('Todos los campos son obligatorios', 'alerta-error');
+           return;
+         }
 
-    //     // Los 2 passwords son iguales
-    //     if(password !== confirmar) {
-    //         mostrarAlerta('Los passwords no son iguales', 'alerta-error');
-    //         return;
-    //     }
+         // Password minimo de 6 caracteres
+         if(password.length < 6) {
+            alert('El password debe ser de al menos 6 caracteres', 'alerta-error');
+             return;
+         }
 
-    //     // Pasarlo al action
-    //     registrarUsuario({
-    //         nombre, 
-    //         email, 
-    //         password
-    //     });
+        //  Los 2 passwords no son iguales
+         if(password !== confirmar) {
+            alert('Los passwords no son iguales', 'alerta-error');
+             return;
+         }
+ */
+        //  Pasarlo al action
+        /*  registrarUsuario({
+             nombre, 
+             email, 
+             password
+         }); */
      }
 
 
@@ -136,7 +143,7 @@ const NuevaCuenta = (props) => {
                     </div>
 
                     <div className="campo-form">
-                        <input type="submit" className=" btn btn-primario btn-block" value="Registrarme" />
+                        <input type="submit" className=" btn btn-primario btn-block" value="Registrarme" onClick={() => {createUser()}} />
                     </div>
                 </form>
 
