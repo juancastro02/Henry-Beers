@@ -1,5 +1,8 @@
 import React, { useState } from "react";
 import { Link } from "react-router-dom";
+import updateUser from '../../Redux/user'
+
+//falta la auth que compare las pass para loguear.
 
 const Login = () => {
   // State para iniciar sesión
@@ -22,6 +25,42 @@ const Login = () => {
     e.preventDefault();
     //aca pasar axios para SIGNUP / LOGIN
   };
+
+
+
+
+  //trabajaria sobre un segundo estado, a cual tenemos acceso a esos datos
+  // name , username,email,password. --- > models/user
+ 
+  // const update = () => {--------------->??? ES NECESARIO CREAR OTRO ESTADO PARA UPDATEAR?
+  //   // State para iniciar sesión
+  //   const [userdata, setuserData] = useState({
+  //     name: "",
+  //     username: "",
+  //     email: "",
+  //     password:"",
+  //     isAdmin: false
+  //   });
+ 
+ 
+  // //Updatear usuario
+  //  const updateUsuario = async() =>{
+  //   const info = {
+  //     name: user.name,
+  //     username: user.username,
+  //     email: user.email,
+  //     password:user.password,
+  //     isAdmin: user.isAdmin,
+  //   }
+  //      const {data} = await axios.put(`http://localhost:4000/users/:id`, info)
+  //      console.log(data)
+  //      alert('Usuario actualizado')
+  //      setUser({
+  //       // id: "",
+  //       // name: "",------------> ???
+  //       // description: ""
+  //      })
+  //  }
 
   return (
     <div className="form-usuario">
@@ -53,8 +92,8 @@ const Login = () => {
 
           <input
             type="submit"
-            value="Iniciar Sesión"
             className="btn btn-primario btn-block"
+            /* onClick={}  agregar la funcion  que compara el usuario autenticado*/
           />
         </form>
           <Link to={"/NuevaCuenta"} className="enlace-cuenta">No tenes cuenta? Registrate</Link>

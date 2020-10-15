@@ -52,7 +52,6 @@ const CrudCategory =()=>{
     }
     
     
-
     const addCategory = async() =>{
         const info = {
             name: category.name,

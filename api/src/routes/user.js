@@ -7,7 +7,7 @@ const { check } = require('express-validator');
 server.post('/', async (req, res) => {
     const user = new User({
       name: req.body.name,
-      username:req.body.email,
+      // username:req.body.email,
       email: req.body.email,
       password: req.body.password,
       isAdmin:req.body.isAdmin
@@ -32,7 +32,7 @@ server.delete('/:id', (req,res)=>{    //DELETE a /users/:id
 	User.destroy({
 		where: { id: id }
 	}).then((id) => {
-		res.status(200).send("Producto " + id + " eliminado")//  Agregué status//REVISAR CONSOLOGUEO, NO ACTUALIZA ID
+		res.status(200).send("Usuario " + id + " eliminado")//  Agregué status//REVISAR CONSOLOGUEO, NO ACTUALIZA ID
 	}).catch(function (err) {
 		console.log("delete failed with error: " + err);
 		// handle error;
@@ -42,14 +42,27 @@ server.delete('/:id', (req,res)=>{    //DELETE a /users/:id
 
 //para traer todos los usuarios  ---->funcionando
 server.get('/usuarios', (req, res, next) => { // GET a /users/usuarios
-	User.findAll({})
+	User.findAll()
 		.then(users => {
-			res.send(users);
+			res.status(201).send(users);
 		})
 		.catch(next);
 });
 
+// server.get('/usuario/:id', (req, res)=>{ // GET a /users/usuario/:id (TRAE 1 SOLO USUARIO)
+//                                         TRAEMOS 1 USUARIO, PARA LUEGO UPDATEARLO
+//   const {id} = req.params
 
+//   User.findOne({where:{
+//     id
+//   }})
+//   .then(user=>{
+//     res.status(201).send(user)
+//   })
+//   .catch(err=>{
+//     res.status(400).send(err)
+//   })
+// })
 
 //Update user
 //PUT /users/:id//update ---->funcionando
@@ -93,7 +106,7 @@ server.put('/:id', async (req, res) => {
   });
 
 // crear admin
-server.get('/createadmin', async (req, res) => {
+server.post('/createadmin', async (req, res) => {
     try {
       const user = new User({
         name: 'admin',
