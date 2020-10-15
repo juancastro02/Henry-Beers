@@ -2,9 +2,14 @@
 
  module.exports = (sequelize) => {
   sequelize.define('user', {
+    name: {
+       type: DataTypes.STRING, 
+       required: true ,
+       allowNull: true
+      },
     username: {
       type: DataTypes.STRING,
-      allowNull: false,
+      allowNull: true,
       unique: true,
     },
     email: {
@@ -15,6 +20,25 @@
       isEmail:true,
        }
      },
-    
+     password: {
+        type: DataTypes.STRING,
+         required: true 
+      },
+  
+     isAdmin: {
+        type: DataTypes.BOOLEAN,
+        allowNull: true,
+         required: true,
+         default: false 
+        }
   }); 
  };
+
+//  user {
+//    name: "",
+//    username: "",
+//    email: "",
+//    password:"",
+//    isAdmin: false
+
+//  }
