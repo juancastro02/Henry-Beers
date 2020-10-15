@@ -47,7 +47,7 @@ server.delete('/:idProduct/category/:idCategory', (req, res)=>{
 
 	const {idProduct, idCategory} = req.params;
 	Product.findByPk(idProduct)
-	.then((product)=>{
+	.then((product)=>{a
 		product.removeCategories(idCategory)
 		.then((newCategory)=> {
 			res.status(201).json({message: "Se elimino correctamente la categoria", newCategory})

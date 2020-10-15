@@ -3,9 +3,11 @@ const { DataTypes } = require('sequelize');
 // Luego le injectamos la conexion a sequelize.
 module.exports = (sequelize) => {
   // defino el modelo
-  sequelize.define('orden', {
-    contador: {
-        type: DataTypes.INTEGER,
-    }
-  })
+  //
+   sequelize.define('orden',{
+   quantity:{
+    type: DataTypes.INTEGER,
+    allowNull: true
+  }}
+  )
 };
