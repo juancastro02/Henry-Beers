@@ -5,11 +5,11 @@
     name: {
        type: DataTypes.STRING, 
        required: true ,
-       allowNull: false
+       allowNull: true
       },
     username: {
       type: DataTypes.STRING,
-      allowNull: false,
+      allowNull: true,
       unique: true,
     },
     email: {
@@ -27,6 +27,7 @@
   
      isAdmin: {
         type: DataTypes.BOOLEAN,
+        allowNull: true,
          required: true,
          default: false 
         }

@@ -25,17 +25,8 @@ const UPDATE_USERS = "UPDATE_USERS"; //actualiza un usuario
 export default function usersReducer(state = InicialState, action) {
   switch (action.type) {
     case GET_USERS:
-      return { ...state, users: action.payload };
-    case POST_USERS:
-      return { ...state, users: state.users.push(action.payload) };
-    case DELETE_USERS:
-      return {
-        ...state,
-        users: state.users.filter((item) => item.id !== action.payload.id),
-      };
-    case UPDATE_USERS:
-      return { ...state, usersname: state.users.name };
-    default:
+      return { ...state, users: action.payload }; //---> case: POST, DELETE Y UPDATE, LO PROBEMOS
+    default:                                      //DIRECTAMENTE EN NuevaCuenta.js
       return state;
   }
 }
