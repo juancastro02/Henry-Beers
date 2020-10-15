@@ -41,11 +41,10 @@ const { Orden } = sequelize.models
 // Aca vendrian las relaciones 
 Product.belongsToMany(Category, {through: "category_products"})
 Category.belongsToMany(Product, {through: "category_products"})
-User.belongsToMany(Carrito, {through: Orden})
 Carrito.belongsToMany(Product, {through: Orden})
+Product.belongsToMany(Carrito, {through: Orden})
 User.hasMany(Carrito, {as: "user"});
 Product.hasMany(Carrito, {as: 'product'})
-
 
 
 module.exports = {
