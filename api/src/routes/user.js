@@ -1,8 +1,6 @@
 const server = require('express').Router();
 
 const { User, Carrito, Product, Orden } = require('../db.js');
-const usuarioController = require('../controllers/usuarioController');
-const { check } = require('express-validator');
 
 // CART
 
@@ -72,6 +70,75 @@ server.get('/get', (req, res)=>{
 })
 
 
+server.put('/procesando/:carritoId' , (req,res)=> {
+
+   const carritoId = req.params.carritoId
+   
+   Carrito.update({status:"procesando"},{
+    where:{
+           id: carritoId
+        }
+       })
+       .then((carrito)=>{
+         res.status(201).send(carrito)
+       })
+       .catch((err)=> {
+         console.log(err)
+         res.status(400).send(err)
+       })
+    
+})
+
+
+
+
+// Update queries also accept the where option, just like the read queries shown above.
+
+// // Change everyone without a last name to "Doe"
+// await User.update({ lastName: "Doe" }, {
+//   where: {
+//     lastName: null
+//   }
+// });
+
+
+
+server.get('/:userId/carritos', (req, res)=>{
+  
+  const {userId} = req.params
+
+  Carrito.findOne({
+    where:{
+      userId,  
+      status:"carrito"
+    },
+    include: Product
+  },{
+    include: Orden,
+  })
+
+  .then(carrito =>{
+    res.status(201).send(carrito)
+  })
+  .catch(err =>{
+    res.status(400).send(err)
+  })
+})
+
+
+
+
+
+//------------------------------------------------>
+
+
+
+
+
+
+
+
+
 //This will add methods getUsers, setUsers, addUsers to Project, and getProjects
 //, setProjects and addProject to User.
 
@@ -81,7 +148,7 @@ server.get('/get', (req, res)=>{
 server.post('/', async (req, res) => {
     const user = new User({
       name: req.body.name,
-      // username:req.body.email,
+     username:req.body.email,
       email: req.body.email,
       password: req.body.password,
       isAdmin:req.body.isAdmin

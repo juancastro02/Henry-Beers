@@ -1,4 +1,5 @@
-import React, {useState} from 'react';
+import axios from 'axios'
+import React, {useState, useEffect} from 'react';
 import { makeStyles } from '@material-ui/core/styles';
 import Card from '@material-ui/core/Card';
 import CardActionArea from '@material-ui/core/CardActionArea';
@@ -10,7 +11,8 @@ import Typography from '@material-ui/core/Typography';
 import {Link} from 'react-router-dom'
 import Product from '../Product/Product'
 import './ProductCard.css'
-
+import {getcarrito} from '../../Redux/Carrito'
+import {useSelector, useDispatch} from 'react-redux'
 const useStyles = makeStyles({
   root: {
     maxWidth: 345,
@@ -20,10 +22,29 @@ const useStyles = makeStyles({
   },
 });
 
+
+
 export default function MediaCard({name, image, stock, description, categories, price, id}) {
+  
+  const carrito = useSelector(store => store.carrito.carrito)
+  const dispatch = useDispatch()
+
+  useEffect(()=>{
+    dispatch(getcarrito(1))
+    
+  },[])
+  
+  console.log(carrito)
   const [buttonClicked, setButtonClicked] = useState(false);
 
- const handleButtonClick = () => {
+
+  const handleCart = async()=>{
+     const {data} = await axios.post(`http://localhost:4000/users/${id}/orden/${carrito[0].id}`)
+    alert('Producto agregado')
+   }
+
+
+  const handleButtonClick = () => {
       setButtonClicked(true)
   }
 
@@ -51,6 +72,9 @@ export default function MediaCard({name, image, stock, description, categories, 
      <Link to={`/catalogo/${id}`} > <Button size="small" color="primary"  onClick={() => handleButtonClick()} >
           More information 
         </Button> </Link>
+     <Button size="small" color="primary"  onClick={() => handleCart()} >
+         Add
+      </Button>  
         {buttonClicked ? <Product datas={name, description, price, stock}/> : null} 
       </CardActions>
     </Card>

@@ -12,7 +12,7 @@ import Admin from './Components/Admin/Admin';
 import Inicio from './Components/index/index';
 import Login from './Components/User/Login'
 import NuevaCuenta from './Components/User/NuevaCuenta'
-
+import Carrito from './Components/Carrito/Carrito'
 
 function App() {
 
@@ -66,6 +66,11 @@ function App() {
         <Route exact path='/catalogo'
           component={Catalogo}
 
+        />
+
+        <Route
+         exact path='/carrito'
+         component={Carrito}
         />
 
         <Route

@@ -188,9 +188,9 @@ export default function PrimarySearchAppBar({ setSearchApp }) {
           <div className={classes.grow} />
           <div className={classes.sectionDesktop}>
             <IconButton aria-label="carrito" color="inherit">
-              <Badge badgeContent={0} color="secondary">
+             <Link to='/carrito' > <Badge badgeContent={0} color="secondary">
                 <AddShoppingCartIcon />
-              </Badge>
+              </Badge></Link>
             </IconButton>
             
               {/* LINK A ADMIN */}
