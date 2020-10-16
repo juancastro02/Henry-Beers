@@ -1,5 +1,5 @@
 const server = require('express').Router();
-
+const { Sequelize } = require('sequelize');
 const { User, Carrito, Product, Orden } = require('../db.js');
 
 // CART
@@ -20,11 +20,26 @@ server.post('/:userId/carrito', (req, res)=>{
 
 })
 
-server.put('/product/:productId/ordencreada/:carritoId', (req, res)=>{
-    const {productId, carritoId} = req.params
-    const {quantity} = req.body
+server.delete('/:userId/deletecart/:carritoId', (req, res)=>{
+  const id = req.params.userId  
+  const carritoId = req.params.carritoId
+  
+  Carrito.destroy({where:{ userId: id, id: carritoId }})
 
-    Orden.update({ quantity},{where:{
+  .then(product =>{
+      res.sendStatus(201)
+  })
+  .catch(err =>{
+      console.log(err)
+      res.sendStatus(400)
+  })
+
+})
+
+server.put('/product/:productId/increment/:carritoId', (req, res)=>{
+    const {productId, carritoId} = req.params
+
+    Orden.update({ quantity: Sequelize.literal('quantity + 1')},{where:{
     productId, carritoId
     }})
     .then(order=>{
@@ -36,6 +51,45 @@ server.put('/product/:productId/ordencreada/:carritoId', (req, res)=>{
     })
 
 })
+
+
+
+server.delete('/product/:productId/delete/:carritoId', (req, res)=>{
+  const {productId, carritoId} = req.params
+  Carrito.findByPk(carritoId)
+  .then((carrito) =>{
+      carrito.removeProducts(productId) 
+      .then((newOrden)=>{ 
+          res.status(201).send({message: 'se elimino la orden', newOrden})
+      })
+  })
+  .catch((err) => {
+      console.log(err)
+      res.status(400).send(err)
+ });
+  
+
+})
+
+
+server.put('/product/:productId/decrement/:carritoId', (req, res)=>{
+  const {productId, carritoId} = req.params
+
+  Orden.update({ quantity: Sequelize.literal('quantity - 1')},{where:{
+  productId, carritoId
+  }})
+  .then(order=>{
+      res.status(201).send(order)
+  })
+  .catch(err=>{
+      console.log(err)
+      res.status(400).send(err)
+  })
+
+})
+
+
+//Model.update({ field: sequelize.literal('field + 2') }, { where: { id: model_id } });
 
 server.post('/:productId/orden/:carritoId', (req, res)=>{
   const {productId, carritoId} = req.params
@@ -148,7 +202,7 @@ server.get('/:userId/carritos', (req, res)=>{
 server.post('/', async (req, res) => {
     const user = new User({
       name: req.body.name,
-     username:req.body.email,
+     username:req.body.username,
       email: req.body.email,
       password: req.body.password,
       isAdmin:req.body.isAdmin

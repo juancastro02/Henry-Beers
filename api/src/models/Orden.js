@@ -7,6 +7,7 @@ module.exports = (sequelize) => {
    sequelize.define('orden',{
    quantity:{
     type: DataTypes.INTEGER,
+    defaultValue: 1,
     allowNull: true
   }}
   )

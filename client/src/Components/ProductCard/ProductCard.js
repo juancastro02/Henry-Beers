@@ -39,7 +39,7 @@ export default function MediaCard({name, image, stock, description, categories, 
 
 
   const handleCart = async()=>{
-     const {data} = await axios.post(`http://localhost:4000/users/${id}/orden/${carrito[0].id}`)
+     const {data} = await axios.post(`http://localhost:4000/users/${id}/orden/${carrito.id}`)
     alert('Producto agregado')
    }
 

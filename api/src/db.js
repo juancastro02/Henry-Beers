@@ -44,7 +44,7 @@ Carrito.belongsToMany(Product, {through: Orden})
 Product.belongsToMany(Carrito, {through: Orden})
 User.hasMany(Carrito, {as: "user"});
 Product.hasMany(Carrito, {as: 'product'})
-
+ 
 
 module.exports = {
   ...sequelize.models, // para poder importar los modelos así: const { Product, User } = require('./db.js');
