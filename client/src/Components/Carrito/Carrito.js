@@ -47,6 +47,7 @@ const Carrito = () => {
 
     const Increment = async(id)=>{ //Realiza el put, y aumenta la cantidad del mismo producto
        const {data} = await axios.put(`http://localhost:4000/users/product/${id}/increment/${carrito.id}`)
+       await axios.put(`http://localhost:4000/products/decrement/${id}`)
     }
 
     const Decrement = async(id,quantity)=>{ // Usa misma ruta que el delete prod en el caso de que la cantidad llegue a cero
@@ -54,6 +55,7 @@ const Carrito = () => {
         const {data} = await axios.delete(`http://localhost:4000/users/product/${id}/delete/${carrito.id}`)
       }else if(quantity > 0){
         const {data} = await axios.put(`http://localhost:4000/users/product/${id}/decrement/${carrito.id}`)
+        await axios.put(`http://localhost:4000/products/increment/${id}`)
       }
    }
 
