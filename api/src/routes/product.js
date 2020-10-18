@@ -1,6 +1,7 @@
 const server = require('express').Router();
 const { Product, Category } = require('../db.js');
 const { Sequelize:{Op}} = require('sequelize');
+const { Sequelize } = require('sequelize')
 
 server.get('/', (req, res, next) => {
 	Product.findAll({
@@ -141,6 +142,40 @@ server.get('/categoria/:nombreCat', (req, res)=>{
 	})
 	
 })
+
+
+server.put('/increment/:productId', (req, res)=>{
+    const {productId} = req.params
+
+    Product.update({ stock: Sequelize.literal('stock + 1')},{where:{
+    id: productId
+    }})
+    .then(product=>{
+        res.status(201).send(product)
+    })
+    .catch(err=>{
+        console.log(err)
+        res.status(400).send(err)
+    })
+
+})
+
+server.put('/decrement/:productId', (req, res)=>{
+    const {productId} = req.params
+
+    Product.update({ stock: Sequelize.literal('stock - 1')},{where:{
+    id: productId
+    }})
+    .then(product=>{
+        res.status(201).send(product)
+    })
+    .catch(err=>{
+        console.log(err)
+        res.status(400).send(err)
+    })
+
+})
+
 
 module.exports = server;
 
