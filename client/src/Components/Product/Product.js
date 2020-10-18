@@ -2,6 +2,17 @@ import React, {useEffect} from 'react';
 import {useSelector, useDispatch} from 'react-redux'
 import {getcerveza} from '../../Redux/beer'
 import './Product.css'
+import { makeStyles } from '@material-ui/core/styles';
+import Button from '@material-ui/core/Button';
+
+const useStyles = makeStyles((theme) => ({
+  root: {
+    '& > *': {
+      margin: theme.spacing(1),
+    },
+  },
+}));
+
 
 const Product = (data) => {
   const dispatch = useDispatch()
@@ -11,14 +22,16 @@ const Product = (data) => {
     dispatch(getcerveza(data.match.params.productoId))
     console.log(data)
   },[])
-
+  const classes = useStyles();
     return (
       <div style={{backgroundColor: "gray", height: "600px"}} >
         <div style={{paddingTop: "20px"}} >
           <div className="card text-center" style={{backgroundColor: "whiteSmoke", color: "black", marginLeft: "auto", marginRight: "auto", width: "500px"}} >
           <a href="javascript:history.back(1)" className='btn1' style={{marginTop: "10px"}} >
-             <div >
-            <button type="button" className="btn btn-danger">X</button>
+             <div  >
+             <Button variant="contained" color="secondary"  >
+              X
+            </Button>
             </div></a>
             <h2 className="card-title">{beer.name}</h2><hr/>
                     <div class="card-body">

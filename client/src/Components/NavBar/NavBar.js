@@ -1,4 +1,4 @@
-import React from "react";
+import React, {useEffect} from "react";
 import { fade, makeStyles } from "@material-ui/core/styles";
 import AppBar from "@material-ui/core/AppBar";
 import Toolbar from "@material-ui/core/Toolbar";
@@ -13,6 +13,9 @@ import { Link } from "react-router-dom";
 import SearchBar from "../SearchBar/SearchBar"; // Importamos la SearchBar(cambiamos original de Material ui)
 import AddShoppingCartIcon from "@material-ui/icons/AddShoppingCart";
 import BuildIcon from "@material-ui/icons/Build";
+import {getcarrito} from '../../Redux/Carrito'
+import {useSelector, useDispatch} from 'react-redux'
+
 
 const useStyles = makeStyles((theme) => ({
   grow: {
@@ -79,6 +82,22 @@ const useStyles = makeStyles((theme) => ({
 }));
 
 export default function PrimarySearchAppBar({ setSearchApp }) {
+
+  const carrito = useSelector(store => store.carrito.carrito)
+  const dispatch = useDispatch()
+
+  useEffect(()=>{
+
+      dispatch(getcarrito(1))
+
+      // const fetchData =async()=>{
+      //   await axios.post(`http://localhost:4000/users/1/carrito`)    
+      // }
+      // fetchData()
+  },[])
+
+
+
   const classes = useStyles();
   const [anchorEl, setAnchorEl] = React.useState(null);
   const [mobileMoreAnchorEl, setMobileMoreAnchorEl] = React.useState(null);
@@ -188,7 +207,7 @@ export default function PrimarySearchAppBar({ setSearchApp }) {
           <div className={classes.grow} />
           <div className={classes.sectionDesktop}>
             <IconButton aria-label="carrito" color="inherit">
-             <Link to='/carrito' > <Badge badgeContent={0} color="secondary">
+             <Link to='/carrito' > <Badge badgeContent={carrito.products && carrito.products[0] && carrito.products.length} color="secondary">
                 <AddShoppingCartIcon />
               </Badge></Link>
             </IconButton>

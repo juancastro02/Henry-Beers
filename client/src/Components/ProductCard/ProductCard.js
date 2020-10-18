@@ -13,6 +13,8 @@ import Product from '../Product/Product'
 import './ProductCard.css'
 import {getcarrito} from '../../Redux/Carrito'
 import {useSelector, useDispatch} from 'react-redux'
+import AddShoppingCartIcon from "@material-ui/icons/AddShoppingCart";
+
 const useStyles = makeStyles({
   root: {
     maxWidth: 345,
@@ -72,8 +74,8 @@ export default function MediaCard({name, image, stock, description, categories, 
      <Link to={`/catalogo/${id}`} > <Button size="small" color="primary"  onClick={() => handleButtonClick()} >
           More information 
         </Button> </Link>
-     <Button size="small" color="primary"  onClick={() => handleCart()} >
-         Add
+     <Button size="small" color="primary" style={{marginLeft: "100px"}} onClick={() => handleCart()} >
+     <AddShoppingCartIcon />
       </Button>  
         {buttonClicked ? <Product datas={name, description, price, stock}/> : null} 
       </CardActions>
