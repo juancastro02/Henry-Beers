@@ -16,10 +16,10 @@ const useStyles = makeStyles((theme) => ({
 const Carrito = () => {
 
     const classes = useStyles();
-    const carrito = useSelector(store => store.carrito.carrito)
+    const carrito = useSelector(store => store.carrito.carrito) //Accedo al estado del carrito
     const dispatch = useDispatch()
 
-    useEffect(()=>{
+    useEffect(()=>{  //Hago que siempre se actualice la pág. Cuando la pág, encuentra que el cart está en "procesando"
 
         dispatch(getcarrito(1))
 
@@ -31,27 +31,27 @@ const Carrito = () => {
 
     console.log(carrito)
 
-    const DestroyCart = async()=>{
+    const DestroyCart = async()=>{ //Vacía el carrito
      const {data} = await axios.delete(`http://localhost:4000/users/1/deletecart/${carrito.id}`)
      alert('Carrito eliminado correctamente')
     }
 
-    const handleBuy = async() =>{
+    const handleBuy = async() =>{ // Manejador de la compra: cambia el status de "creado" a "procesando"
     const {data} = await axios.put(`http://localhost:4000/users/procesando/${carrito.id}`) 
     alert('Compra exitosa')
     }
 
-    const DeleteProduct = async(id)=>{
+    const DeleteProduct = async(id)=>{ //  Elimina el producto
      const {data} = await axios.delete(`http://localhost:4000/users/product/${id}/delete/${carrito.id}`)
     }
 
-    const Increment = async(id)=>{
+    const Increment = async(id)=>{ //Realiza el put, y aumenta la cantidad del mismo producto
        const {data} = await axios.put(`http://localhost:4000/users/product/${id}/increment/${carrito.id}`)
        await axios.put(`http://localhost:4000/products/decrement/${id}`)
     }
 
-    const Decrement = async(id,quantity)=>{
-      if(quantity <= 1){
+    const Decrement = async(id,quantity)=>{ // Usa misma ruta que el delete prod en el caso de que la cantidad llegue a cero
+      if(quantity <= 1){                   //Mientras tanto, va decrementando normalmente
         const {data} = await axios.delete(`http://localhost:4000/users/product/${id}/delete/${carrito.id}`)
       }else if(quantity > 0){
         const {data} = await axios.put(`http://localhost:4000/users/product/${id}/decrement/${carrito.id}`)
