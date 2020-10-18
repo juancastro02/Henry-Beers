@@ -8,7 +8,7 @@ server.post('/:userId/carrito', (req, res)=>{
   const id = req.params.userId  
   const productId = req.params.productId
   
-  Carrito.findOrCreate({where:{ userId: id, status:'carrito' }})
+  Carrito.findOrCreate({where:{ userId: id, status:'carrito' }}) // Se setea por default el estado "carrito(está en 0)"
 
   .then(product =>{
       res.status(201).send(product)
@@ -20,18 +20,18 @@ server.post('/:userId/carrito', (req, res)=>{
 
 })
 
-server.delete('/:userId/deletecart/:carritoId', (req, res)=>{
+server.delete('/:userId/deletecart/:carritoId', (req, res)=>{ //Elimina el carrito completo
   const id = req.params.userId  
   const carritoId = req.params.carritoId
   
   Carrito.destroy({where:{ userId: id, id: carritoId }})
 
   .then(product =>{
-      res.sendStatus(201)
+      res.sendStatus(201) // El destroy no permite enviar json, por eso solo enviamos sendStatus
   })
   .catch(err =>{
       console.log(err)
-      res.sendStatus(400)
+      res.sendStatus(400) // El destroy no permite enviar json, por eso solo enviamos sendStatus
   })
 
 })
@@ -54,13 +54,13 @@ server.put('/product/:productId/increment/:carritoId', (req, res)=>{
 
 
 
-server.delete('/product/:productId/delete/:carritoId', (req, res)=>{
+server.delete('/product/:productId/delete/:carritoId', (req, res)=>{ //Elimina un producto de un determinado carrito
   const {productId, carritoId} = req.params
   Carrito.findByPk(carritoId)
   .then((carrito) =>{
       carrito.removeProducts(productId) 
       .then((newOrden)=>{ 
-          res.status(201).send({message: 'se elimino la orden', newOrden})
+          res.status(201).send({message: 'Se eliminó el producto', newOrden})
       })
   })
   .catch((err) => {
@@ -91,8 +91,8 @@ server.put('/product/:productId/decrement/:carritoId', (req, res)=>{
 
 //Model.update({ field: sequelize.literal('field + 2') }, { where: { id: model_id } });
 
-server.post('/:productId/orden/:carritoId', (req, res)=>{
-  const {productId, carritoId} = req.params
+server.post('/:productId/orden/:carritoId', (req, res)=>{ //Las tablas intermedias pueden tener: GET, SET, ADD y REMOVE
+  const {productId, carritoId} = req.params              
 
   Carrito.findByPk(carritoId)
   .then((carrito) =>{
@@ -109,9 +109,9 @@ server.post('/:productId/orden/:carritoId', (req, res)=>{
 })
 
 
-server.get('/get', (req, res)=>{
+server.get('/get', (req, res)=>{ //TRAE TODOS LOS CARRITOS
     Carrito.findAll({
-        include: Product
+        include: Product  //Con el include, uno tablas
     }, { 
         include: Orden
     })
