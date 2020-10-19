@@ -13,21 +13,25 @@ import Inicio from './Components/index/index';
 import Login from './Components/User/Login'
 import NuevaCuenta from './Components/User/NuevaCuenta'
 import Carrito from './Components/Carrito/Carrito'
+import Orden from './Components/Orden/orden'
+import { getOrdenes } from "./Redux/Carrito";
 
 function App() {
 
   const [search, setSearchApp] = useState({
-    array: [],
+array: [],
     word: "",
   });
 
   const dispatch = useDispatch()
   const category = useSelector(store => store.category.categories)
   const products = useSelector(store => store.beer.beers)
+  const ordenes = useSelector(store => store.carrito.ordenes);
 
   useEffect(() => { // Similar al componentDidMount
     dispatch(getbeers())
     dispatch(getCategory())
+    dispatch(getOrdenes())
   }, [])
 
 
@@ -72,6 +76,8 @@ function App() {
          exact path='/carrito'
          component={Carrito}
         />
+
+
 
         <Route
           path='/admin'

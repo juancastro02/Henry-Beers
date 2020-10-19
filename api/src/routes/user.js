@@ -122,6 +122,25 @@ server.get('/get', (req, res)=>{ //TRAE TODOS LOS CARRITOS
         res.status(400).send(err)
     })
 })
+server.get('/orden/:id', (req, res)=>{ //para traer una sola orden
+  const Id = req.params.id
+  Carrito.findOne({
+    where:{
+      
+      id:Id,  
+    },
+    include: Product
+  },{
+    include: Orden,
+  })
+  .then(carrito=>{
+      res.status(201).send(carrito)
+  })
+  .catch(err=>{
+    console.log(err)
+      res.status(400).send(err)
+  })
+})
 
 
 server.put('/procesando/:carritoId' , (req,res)=> {
@@ -141,6 +160,43 @@ server.put('/procesando/:carritoId' , (req,res)=> {
          res.status(400).send(err)
        })
     
+})
+
+server.put('/cancelada/:carritoId' , (req,res)=> {
+
+  const carritoId = req.params.carritoId
+  
+  Carrito.update({status:"cancelada"},{
+   where:{
+          id: carritoId
+       }
+      })
+      .then((carrito)=>{
+        res.status(201).send(carrito)
+      })
+      .catch((err)=> {
+        console.log(err)
+        res.status(400).send(err)
+      })
+   
+})
+server.put('/creada/:carritoId' , (req,res)=> {
+
+  const carritoId = req.params.carritoId
+  
+  Carrito.update({status:"creada"},{
+   where:{
+          id: carritoId
+       }
+      })
+      .then((carrito)=>{
+        res.status(201).send(carrito)
+      })
+      .catch((err)=> {
+        console.log(err)
+        res.status(400).send(err)
+      })
+   
 })
 
 

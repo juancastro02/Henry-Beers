@@ -45,13 +45,17 @@ const Carrito = () => {
      const {data} = await axios.delete(`http://localhost:4000/users/product/${id}/delete/${carrito.id}`)
     }
 
-    const Increment = async(id)=>{ //Realiza el put, y aumenta la cantidad del mismo producto
-       const {data} = await axios.put(`http://localhost:4000/users/product/${id}/increment/${carrito.id}`)
-       await axios.put(`http://localhost:4000/products/decrement/${id}`)
+    const Increment = async(id, stock)=>{ //Realiza el put, y aumenta la cantidad del mismo producto
+       if(stock<=1){
+         alert ('No hay stock suficiente')
+       }else if (stock > 0){
+        const {data} = await axios.put(`http://localhost:4000/users/product/${id}/increment/${carrito.id}`)
+        await axios.put(`http://localhost:4000/products/decrement/${id}`)
+       }
     }
 
     const Decrement = async(id,quantity)=>{ // Usa misma ruta que el delete prod en el caso de que la cantidad llegue a cero
-      if(quantity <= 1){                   //Mientras tanto, va decrementando normalmente
+      if(quantity <=-1){                   //Mientras tanto, va decrementando normalmente
         const {data} = await axios.delete(`http://localhost:4000/users/product/${id}/delete/${carrito.id}`)
       }else if(quantity > 0){
         const {data} = await axios.put(`http://localhost:4000/users/product/${id}/decrement/${carrito.id}`)
@@ -81,7 +85,7 @@ const Carrito = () => {
          <td>{e.price}</td>
          <td>{e.stock}</td>
          <td >{e.orden.quantity}</td>
-         <td  ><Button variant="contained" onClick={()=>Increment(e.id)} >+</Button><span>    </span><Button variant="contained" onClick={()=> Decrement(e.id,e.orden.quantity)} >-</Button></td>
+         <td  ><Button variant="contained" onClick={()=>Increment(e.id, e.stock)} >+</Button><span>    </span><Button variant="contained" onClick={()=> Decrement(e.id,e.orden.quantity)} >-</Button></td>
       <td ><label for={e.name}>${e.price * e.orden.quantity }</label></td>
          <td scope="col"> <Button variant="contained" color="secondary" onClick={()=> DeleteProduct(e.id)} >Delete</Button></td>
         </tr>
