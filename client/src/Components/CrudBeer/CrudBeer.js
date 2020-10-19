@@ -82,6 +82,7 @@ const CrudBeer = () => {
 const handleUpdate = async () => {
   if (!video.name || !video.description || !video.price || !video.stock || !video.image) {
       return alert("Debe completar todos los campos para agregar un producto");
+      
   };
   
   const dataPost = {
@@ -98,19 +99,34 @@ const handleUpdate = async () => {
     await axios.post(`http://localhost:4000/products/${video.id}/category/${e.value}`)
    ))
    alert('El producto fue modificado')
+   setVideo({
+    id: "",
+    name: "",
+    description:"",
+    price:"",
+    stock:"",
+    image:"",
+   })
 };
  
 
 const handleDelete = async () => {
   alert('Eliminado con exito')
   const {data} = await axios.delete(`http://localhost:4000/products/${video.id}`)
+  setVideo({
+    id: "",
+    name: "",
+    description:"",
+    price:"",
+    stock:"",
+    image:"",
+   })
 
 };
 
 
    const handleSubmit =(e)=>{
      e.preventDefault()
-     alert('Producto creado exitosamente')
    }
 
    const handleChange = e =>{
