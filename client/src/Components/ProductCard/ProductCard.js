@@ -1,5 +1,5 @@
 import axios from 'axios'
-import React, {useState, useEffect} from 'react';
+import React, {useState, useEffect, Fragment} from 'react';
 import { makeStyles } from '@material-ui/core/styles';
 import Card from '@material-ui/core/Card';
 import CardActionArea from '@material-ui/core/CardActionArea';
@@ -53,7 +53,8 @@ export default function MediaCard({name, image, stock, description, categories, 
   const classes = useStyles();
 
   return (
-    <div className="containerClass"  >
+    <Fragment>
+    {stock > 0 && <div className="containerClass"  >
     <Card className={classes.root} style={{width: "340px"}} >
       <CardActionArea>
         <CardMedia
@@ -80,6 +81,36 @@ export default function MediaCard({name, image, stock, description, categories, 
         {buttonClicked ? <Product datas={name, description, price, stock}/> : null} 
       </CardActions>
     </Card>
-    </div>
+    </div>}
+    { stock <= 0 && <div className="containerClass"  >
+    <Card className={classes.root} style={{width: "340px", backgroundColor: "#cebcb5"}}  >
+      <CardActionArea>
+        <CardMedia
+          className={classes.media}
+          image={image}
+          title="Cerveza Artesanal"
+        />
+        <CardContent>
+          <Typography gutterBottom variant="h5" component="h2">
+            {name}
+          </Typography>
+          <Typography  color="textSecondary" component="h1">
+           ${price}
+          </Typography>
+        </CardContent>
+      </CardActionArea>
+      <CardActions>
+      <label style={{position: "absolute", fontSize: "30px", paddingTop: "20px", paddingLeft: "100px"}} >No Stock</label>
+     {/* <Link to={`/catalogo/${id}`} > <Button size="small" color="primary"  onClick={() => handleButtonClick()} >
+          More information 
+        </Button> </Link>
+     <Button size="small" color="primary" style={{marginLeft: "100px"}} onClick={() => handleCart()} >
+     <AddShoppingCartIcon />
+      </Button>  
+        {buttonClicked ? <Product datas={name, description, price, stock}/> : null}  */}
+      </CardActions>
+    </Card>
+    </div>}
+    </Fragment>
   );
 }
