@@ -4,6 +4,8 @@ import CrudBeer from '../CrudBeer/CrudBeer'
 import { Link } from 'react-router-dom'
 import { BrowserRouter, Route } from 'react-router-dom'
 import Profile from '../Profile/Profile'
+import Ordenes from '../Ordenes/ordenes'
+import Orden from '../Orden/orden'
 
 const Admin = () => {
 
@@ -16,6 +18,9 @@ const Admin = () => {
                     </div>
                     <div>
                         <Link to='/admin/categories'> <h6 style={{color:"white", textAlign:"center" }}>Categories</h6> </Link>
+                    </div>
+                    <div>
+                        <Link to='/admin/ordenes'> <h6 style={{color:"white", textAlign:"center" }}>Ordenes</h6> </Link>
                     </div>
                 </div>
             </div>
@@ -30,6 +35,15 @@ const Admin = () => {
                 <Route
                     exact path='/admin/categories'
                     render={() => <CrudCategory />}
+                />
+                  <Route
+                    exact path='/admin/ordenes'
+                    render={() => <Ordenes />}
+                />
+
+                <Route
+                 exact path='/orden/:id'
+                 component={Orden}
                 />
 
                 <Route

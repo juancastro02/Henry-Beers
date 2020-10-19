@@ -110,7 +110,7 @@ const handleDelete = async () => {
 
    const handleSubmit =(e)=>{
      e.preventDefault()
-     alert('Producto creado exitosamente')
+     /* alert('Producto creado exitosamente') */
    }
 
    const handleChange = e =>{
