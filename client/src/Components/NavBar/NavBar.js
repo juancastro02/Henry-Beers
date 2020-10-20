@@ -139,6 +139,10 @@ export default function PrimarySearchAppBar({ setSearchApp }) {
         {" "}
         <MenuItem onClick={handleMenuClose}>Login</MenuItem>{" "}
       </Link>
+      <Link to="/NuevaCuenta">
+        {" "}
+        <MenuItem onClick={handleMenuClose}>Registrate</MenuItem>{" "}
+      </Link>
 
     </Menu>
   );
@@ -198,9 +202,10 @@ export default function PrimarySearchAppBar({ setSearchApp }) {
               src="https://encrypted-tbn0.gstatic.com/images?q=tbn%3AANd9GcTNHmmYZlVXzUKTp_ZpULbph_mA-ew9jWaNcg&usqp=CAU"
               style={{
                 backgroundColor: "gray",
-                marginLeft: "300px",
-                width: "100px",
-                height: "75px",
+                marginLeft: "600px",
+                width: "150px",
+                height: "100px",
+                               
               }}
             />
           </Link>

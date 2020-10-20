@@ -38,7 +38,8 @@ export default function Category() {
     <div >
       <List  >
       <ListItem  >
-        <Link to='/catalogo' >All beers</Link></ListItem>
+        <Link to='/catalogo' >All beers</Link>
+        </ListItem>
         {category.map((text) => (
           <ListItem>
            <Link to={`/products/catalogo/${text.id}`} ><div>{text.name}</div></Link>
