@@ -1,6 +1,6 @@
 import React from "react";
 import Carousel from "react-material-ui-carousel";
-import { Paper, Button } from "@material-ui/core";
+import { Paper, Button, Container } from "@material-ui/core";
 import Catalogo from "../Catalogo/Catalogo";
 
 function Carrusel(props) {
@@ -28,12 +28,15 @@ function Carrusel(props) {
 
 function Item(props) {
   return (
+    <Container maxWidth="sm">
     <Paper>
       <h2>{props.item.name}</h2>
+      <div>{props.item.div}</div>
       <p>{props.item.description}</p>
 
       <Button className="CheckButton">Check it out!</Button>
     </Paper>
+    </Container>
   );
 }
 
