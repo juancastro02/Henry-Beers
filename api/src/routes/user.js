@@ -1,5 +1,6 @@
 const server = require('express').Router();
 const { Sequelize } = require('sequelize');
+const bcrypt = require('bcrypt');
 const { User, Carrito, Product, Orden } = require('../db.js');
 
 // CART
@@ -255,27 +256,18 @@ server.get('/:userId/carritos', (req, res)=>{
 
 
 //Register (creación de usuario) ---> funcionando
-server.post('/', async (req, res) => {
-    const user = new User({
-      name: req.body.name,
-     username:req.body.username,
-      email: req.body.email,
-      password: req.body.password,
-      isAdmin:req.body.isAdmin
-    });
-    const newUser = await user.save();
-    if (newUser) {
-      res.send({
-        name: newUser.name,
-        username: newUser.username,
-        email: newUser.email,
-        password: newUser.password,
-        isAdmin: newUser.isAdmin,
-      });
-    } else {
-      res.status(401).send({ message: 'Información Inválida' });
-    }
-  });
+server.post("/", (req, res) => {
+  const { email, password, name} = req.body;
+  User.create({ 
+      name,
+      email,
+      password: bcrypt.hashSync(password, 10),
+    })
+  .then(user => {return res.status(201).json(user)})
+  .catch(error => {
+    console.log(error)
+    res.status(400).json(error)})
+});
 
 //Delete user ---->funcionando
 server.delete('/:id', (req,res)=>{    //DELETE a /users/:id
