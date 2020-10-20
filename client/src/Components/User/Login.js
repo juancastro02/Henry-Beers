@@ -2,6 +2,7 @@ import React, { useState, useEffect } from "react";
 import { Link } from "react-router-dom";
 import { loginUser } from "../../Redux/user.js";
 import { useDispatch, useSelector } from "react-redux"; 
+import ResetPass from './ResetPass'
 
 //falta la auth que compare las pass para loguear.
 
@@ -77,6 +78,7 @@ const Login = ({history}) => {
           />
         </form>
           <Link to={"/NuevaCuenta"} className="enlace-cuenta">No tenes cuenta? Registrate</Link>
+          <Link to={"/resetPass"} className="enlace-cuenta">cambiar contraseña</Link>
       </div>
     </div>
   );

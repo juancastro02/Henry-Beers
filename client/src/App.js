@@ -15,6 +15,7 @@ import NuevaCuenta from './Components/User/NuevaCuenta'
 import Carrito from './Components/Carrito/Carrito'
 import Orden from './Components/Orden/orden'
 import { getOrdenes } from "./Redux/Carrito";
+import ResetPass from './Components/User/ResetPass'
 
 function App() {
 
@@ -51,6 +52,9 @@ array: [],
         />
         <Route exact path="/nuevacuenta"
           component={NuevaCuenta}
+        />
+        <Route exact path="/resetPass"
+          component={ResetPass}
         />
 
         <Route
