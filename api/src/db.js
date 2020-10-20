@@ -37,6 +37,7 @@ const { Category } = sequelize.models
 const { User } = sequelize.models
 const { Carrito } = sequelize.models 
 const { Orden } = sequelize.models
+const { Review } = sequelize.models
 
 Product.belongsToMany(Category, {through: "category_products"})
 Category.belongsToMany(Product, {through: "category_products"})
@@ -44,6 +45,9 @@ Carrito.belongsToMany(Product, {through: Orden}) //Carrito se relaciona con much
 Product.belongsToMany(Carrito, {through: Orden})//Producto se relaciona con muchos Carritos, a través de "Orden"
 User.hasMany(Carrito, {as: "user"}); // Con esto le damos el id de Usuario al carrito
 // Product.hasMany(Carrito, {as: 'product'})
+User.belongsToMany(Product, {through: Review})
+Product.belongsToMany(User, {through: Review})
+//Product.hasMany(User, {as: "product"});
  
 
 module.exports = {
