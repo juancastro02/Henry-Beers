@@ -12,7 +12,7 @@ const store = generateStore()
 
 ReactDOM.render(
   <Provider store={store}>
-  <BrowserRouter>
+  <BrowserRouter forceRefresh={true} >
     <App />
   </BrowserRouter>
   </Provider>,

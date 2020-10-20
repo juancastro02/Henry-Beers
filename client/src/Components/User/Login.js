@@ -1,10 +1,22 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import { Link } from "react-router-dom";
-import updateUser from '../../Redux/user'
+import { loginUser } from "../../Redux/user.js";
+import { useDispatch, useSelector } from "react-redux"; 
 
 //falta la auth que compare las pass para loguear.
 
-const Login = () => {
+const Login = ({history}) => {
+
+  const usuario = useSelector(store => store.user.user)
+  const dispatch = useDispatch();
+
+  useEffect(() => {
+    if (usuario.token) {
+      history.push('/')
+    }
+
+  }, [ usuario])
+
   // State para iniciar sesión
   const [user, setUser] = useState({
     email: "",
@@ -26,41 +38,9 @@ const Login = () => {
     //aca pasar axios para SIGNUP / LOGIN
   };
 
-
-
-
-  //trabajaria sobre un segundo estado, a cual tenemos acceso a esos datos
-  // name , username,email,password. --- > models/user
- 
-  // const update = () => {--------------->??? ES NECESARIO CREAR OTRO ESTADO PARA UPDATEAR?
-  //   // State para iniciar sesión
-  //   const [userdata, setuserData] = useState({
-  //     name: "",
-  //     username: "",
-  //     email: "",
-  //     password:"",
-  //     isAdmin: false
-  //   });
- 
- 
-  // //Updatear usuario
-  //  const updateUsuario = async() =>{
-  //   const info = {
-  //     name: user.name,
-  //     username: user.username,
-  //     email: user.email,
-  //     password:user.password,
-  //     isAdmin: user.isAdmin,
-  //   }
-  //      const {data} = await axios.put(`http://localhost:4000/users/:id`, info)
-  //      console.log(data)
-  //      alert('Usuario actualizado')
-  //      setUser({
-  //       // id: "",
-  //       // name: "",------------> ???
-  //       // description: ""
-  //      })
-  //  }
+  const handleLogin = () => {
+      dispatch(loginUser(user))
+  }
 
   return (
     <div className="form-usuario">
@@ -93,7 +73,7 @@ const Login = () => {
           <input
             type="submit"
             className="btn btn-primario btn-block"
-            /* onClick={}  agregar la funcion  que compara el usuario autenticado*/
+            onClick={(e)=>handleLogin(e)}
           />
         </form>
           <Link to={"/NuevaCuenta"} className="enlace-cuenta">No tenes cuenta? Registrate</Link>
