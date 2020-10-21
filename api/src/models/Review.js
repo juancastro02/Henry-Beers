@@ -7,11 +7,11 @@ module.exports = (sequelize) => {
    sequelize.define('review',{
    commentary: {
     type: DataTypes.TEXT,
-    allowNull: false,
+    allowNull: true,
   },
    calification: {
     type: DataTypes.INTEGER,
-    allowNull: false,
+    allowNull: true,
    }
   }
   )
