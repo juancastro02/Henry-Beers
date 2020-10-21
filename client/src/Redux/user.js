@@ -8,7 +8,8 @@ const InicialState = {
     id: "",
     email: "",
     password: "",
-    isAdmin: false
+    isAdmin: false, 
+    message: ""
   },
 };
 
@@ -18,7 +19,8 @@ const POST_USER = "POST_USER"
 const SET_USER = 'SET_USER'
 const ERROR_LOGIN = 'ERROR_LOGIN'
 const CLEAN_MESSAGE_USER_CREATE = 'CLEAN_MESSAGE_USER_CREATE'
-
+const ERROR_POST = "ERROR_POST"
+const LOGOUT_USER = 'LOGOUT_USER'
 //Reducer
 export default function usersReducer(state = InicialState, action) {
   switch (action.type) {
@@ -31,15 +33,30 @@ export default function usersReducer(state = InicialState, action) {
         ...state,
         user: action.payload
       } 
+    case ERROR_POST:
+        return {
+            ...state,
+        error: 'Usuario o contraseña incorrectos.'
+        }  
     case ERROR_LOGIN:
       return {
           ...state,
-          error: 'Usuario o contraseña incorrectos.'
+       error: 'Usuario o contraseña incorrectos.'
       }  
+    case LOGOUT_USER:
+        return {
+          ...state,
+          user: {
+            username: '',
+            email: "",
+            password: "",
+          }
+        }  
     case CLEAN_MESSAGE_USER_CREATE:
         state.message = '';
         return {
-          ...state
+          ...state,
+          error: ""
         }   
     default:                                      
       return state;
@@ -57,8 +74,15 @@ export const postUser = (datos) => async (dispatch) => {
       payload: data
     })
   } catch (error) {
-    console.log(error)
+    dispatch({
+      type: ERROR_POST
+    })
   }
+}
+
+export const logoutUser = () => (dispatch) => {
+  localStorage.removeItem("token");
+  dispatch({ type: LOGOUT_USER })
 }
 
 export const loginUser = (user) => (dispatch, getState) => {
@@ -66,7 +90,7 @@ export const loginUser = (user) => (dispatch, getState) => {
 
     axios.post('http://localhost:4000/auth/login', user)
       .then(user => {
-        localStorage.setItem("token", user.data.token);
+        localStorage.setItem("token", user.data.token); // aca se envia el token como user.token
         dispatch({
           type: SET_USER,
           payload: user.data
