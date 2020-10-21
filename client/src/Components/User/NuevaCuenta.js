@@ -3,27 +3,28 @@ import { Link } from 'react-router-dom';
 import { postUser, cleanMessage } from '../../Redux/user'
 import { useDispatch, useSelector } from 'react-redux'
 import axios from 'axios'
-
+import { useAlert } from "react-alert";
 
 
 const NuevaCuenta = ({ history }) => {
-
-    const user = useSelector(store => store.user.user);
+    const usuario = useSelector(store => store.user.user);
+    const error = useSelector(store => store.user.error)
     const dispatch = useDispatch()
-
-
+    console.log(usuario)
+    const [err, setError] = useState(false)
+    const [passworderr, setPassword] = useState(false)
+    const [access, accessPassword] = useState(false)
     useEffect(() => {
-        if (user.token) {
+
+        if (usuario.token) {
             history.push('/')
           }
-    
-        return () => dispatch(cleanMessage())
-    
-      }, [user])
 
+      }, [usuario,error])
+      const alert = useAlert();
 
     // State para iniciar sesión
-    const [usuario, guardarUsuario] = useState({
+    const [user, guardarUsuario] = useState({
         nombre: '',
         email: '',
         password: '',
@@ -31,70 +32,49 @@ const NuevaCuenta = ({ history }) => {
     });
 
     // extraer de usuario
-    const { nombre, email, password, confirmar } = usuario;
+    const { nombre, email, password, confirmar } = user;
 
     const onChange = e => {
         guardarUsuario({
-            ...usuario,
+            ...user,
             [e.target.name]: e.target.value
         })
+        setError(false)
+        setPassword(false)
+        dispatch(cleanMessage())
     }
 
 
     const onSubmit = (e) =>{
         e.preventDefault()
+        if(!email || !password || !confirmar)
+        return setError(true)
+        if(password !== confirmar)
+        return setPassword(true)
     }
 
     // Cuando el usuario quiere iniciar sesión
-    const regisCuenta = async () => {
-        //e.preventDefault();
-
-        //crear axios al registro
-        // const { data } = await axios.post('http://localhost:4000/users')
-        const info = {
-            name: usuario.nombre,
-            email: usuario.email,
-            password: usuario.password
-            /* confirmar: "" */// esto no va por bbdd
-        }
-        const { data } = await axios.post('http://localhost:4000/users', info)
-        console.log(data)
-        alert('Usuario Creado!')
-        guardarUsuario({
-            name: "",
-            email: "",
-            password: ""
-            /* confirmar: "" */// esto no va por bbdd, si no que es una funcion comparadora entre pass
-        })
-
-     
-    }
 
     const handleCreate = () => {
         const info = {
-            name: usuario.nombre,
-            email: usuario.email,
-            password: usuario.password
+            name: user.nombre,
+            email: user.email,
+            password: user.password
         }
-    
-          dispatch(postUser(info))
-          history.push('/login');
-        
+        if(user.nombre && user.email && user.password === user.confirmar){
+            dispatch(postUser(info))
+        }
+        accessPassword(true)
       }
 
 
     return (
         <div className="form-usuario">
-            {/* { alerta ? ( <div className={`alerta ${alerta.categoria}`}> {alerta.msg} </div> )  : null } */}
             <div className="contenedor-form sombra-dark">
                 <h1>Crear una cuenta</h1>
 
                 <form
-                 onSubmit={(e)=>onSubmit(e)}  //<form onSubmit={(e)=> (e)} > 
-                //  const handleSubmit =(e)=>{
-                //  e.preventDefault()
-                //  alert('Producto creado exitosamente')
-                //    }
+                 onSubmit={(e)=>onSubmit(e)} 
                 >
                     <div className="campo-form">
                         <label htmlFor="nombre">Nombre</label>
@@ -145,10 +125,15 @@ const NuevaCuenta = ({ history }) => {
                     </div>
 
                     <div className="campo-form">
-                        <input type="submit" className=" btn btn-primario btn-block" onClick={(e) => handleCreate(e)} />
+                        <button type="submit" className=" btn btn-primario btn-block" onClick={(e) => handleCreate(e)} >Crear usuario</button>
                     </div>
                 </form>
-
+                {
+             error && <div className='mx-auto text-center'><span className='text-center text-danger mb-1'>{error}</span></div>
+              }
+                {err && <div className='mx-auto text-center'><span className='text-center text-danger mb-1'>Los campos son obligatorios</span></div>}
+                {!error && access && <div className='mx-auto text-center'><span className='text-center text-access mb-1' style={{paddingTop:"10px", fontSize: "20px", color: "green"}} >Usuario creado</span></div>}
+                {passworderr && <div className='mx-auto text-center' ><span className='text-center text-danger mb-1'>Las contraseñas no coinciden</span></div>}
                 <Link to={'/login'} className="enlace-cuenta">
                     Volver a Iniciar Sesión
                 </Link>

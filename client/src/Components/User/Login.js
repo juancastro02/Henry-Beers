@@ -1,22 +1,26 @@
 import React, { useState, useEffect } from "react";
 import { Link } from "react-router-dom";
-import { loginUser } from "../../Redux/user.js";
+import { loginUser , cleanMessage} from "../../Redux/user.js";
 import { useDispatch, useSelector } from "react-redux"; 
 import ResetPass from './ResetPass'
+import { useAlert } from "react-alert";
 
 //falta la auth que compare las pass para loguear.
 
 const Login = ({history}) => {
 
   const usuario = useSelector(store => store.user.user)
+  const error = useSelector(store => store.user.error)
   const dispatch = useDispatch();
+  const [err, setError] = useState(false)
 
   useEffect(() => {
     if (usuario.token) {
       history.push('/')
     }
+  }, [usuario])
 
-  }, [ usuario])
+  const alert = useAlert();
 
   // State para iniciar sesión
   const [user, setUser] = useState({
@@ -31,12 +35,14 @@ const Login = ({history}) => {
       ...user,
       [e.target.name]: e.target.value,
     });
-    console.log(email);
+    setError(false)
+    dispatch(cleanMessage())
   };
 
   const onSubmit = (e) => {
     e.preventDefault();
-    //aca pasar axios para SIGNUP / LOGIN
+    if(!email || !password)
+    return setError(true)
   };
 
   const handleLogin = () => {
@@ -77,9 +83,14 @@ const Login = ({history}) => {
             onClick={(e)=>handleLogin(e)}
           />
         </form>
+        {
+             error && <div className='mx-auto text-center'><span className='text-center text-danger mb-1'>{error}</span></div>
+              }
+        {err && <div className='mx-auto text-center'><span className='text-center text-danger mb-1'>Los campos son obligatorios</span></div>}
           <Link to={"/NuevaCuenta"} className="enlace-cuenta">No tenes cuenta? Registrate</Link>
-          <Link to={"/resetPass"} className="enlace-cuenta">cambiar contraseña</Link>
+          <Link to={"/resetPass"} className="enlace-cuenta">Cambiar contraseña</Link>
       </div>
+     
     </div>
   );
 };
