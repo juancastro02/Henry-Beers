@@ -45,8 +45,8 @@ Carrito.belongsToMany(Product, {through: Orden}) //Carrito se relaciona con much
 Product.belongsToMany(Carrito, {through: Orden})//Producto se relaciona con muchos Carritos, a través de "Orden"
 User.hasMany(Carrito, {as: "user"}); // Con esto le damos el id de Usuario al carrito
 // Product.hasMany(Carrito, {as: 'product'})
-User.belongsToMany(Product, {through: Review})
-Product.belongsToMany(User, {through: Review})
+User.belongsToMany(Product, {through: Review}) //TE da el product id
+Product.belongsToMany(User, {through: Review}) // Te da el user id        EL producto tiene reviews de muchos usuarios
 //Product.hasMany(User, {as: "product"});
  
 

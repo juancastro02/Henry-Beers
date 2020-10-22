@@ -11,6 +11,7 @@ server.post('/product/:idProd/user/:idUser', (req, res) => {
      .then((product) =>{
       product.addUsers(idUser) 
       .then((newReview)=>{ 
+        console.log(newReview)
           res.status(201).send({message: 'se agrego la review', newReview})
 
       })
@@ -74,6 +75,51 @@ server.get('/product/:idProd', (req, res)=>{
 
 })
  
+//::::::: Eliminar una review :::::::::::
+
+// server.delete('/product/:idProd/:idReview', async (req, res)=>{ // DELETE a /review/product/:id/:idReview (distinto a task-borré review)
+  
+//   const {idProd, idReview} = req.params;
+  
+// 	try {
+// 		const review = await Reviews.findOne({where: {id: idReview, idProd}});
+
+// 		if (!review) return res.status(404).send('No encontramos la review');
+	
+
+// 		await review.destroy();
+
+// 		return res.send('Review eliminada');
+// 	} catch (error) {
+// 		return res.status(400).send(error.message);
+// 	}
+// });
+
+
+
+server.delete('/product/:idProd/delete/:idUser', (req, res)=>{ // DELETE a /review/product/:id/:idReview (distinto a task-borré review)
+  
+  const {idProd, idUser} = req.params;
+
+  Product.findByPk (idProd)
+
+    .then (product => {
+
+     product.destroy({where:{userId:idUser}}) 
+
+     })//Es una tabla intermedia: //Las tablas intermedias pueden tener: GET, SET, ADD y REMOVE
+		.then(()=> {
+			res.status(201).send({message:'se elimino la review'})
+		})
+     .catch((err)=>{
+       console.log(err)
+		 res.status(400).send(err)
+  })
+})
+
+
+
+
 
 
 module.exports = server;
