@@ -87,16 +87,16 @@ const Carrito = () => {
          <td >{e.orden.quantity}</td>
          <td  ><Button variant="contained" onClick={()=>Increment(e.id, e.stock)} >+</Button><span>    </span><Button variant="contained" onClick={()=> Decrement(e.id,e.orden.quantity)} >-</Button></td>
       <td ><label for={e.name}>${e.price * e.orden.quantity }</label></td>
-         <td scope="col"> <Button variant="contained" color="secondary" onClick={()=> DeleteProduct(e.id)} >Delete</Button></td>
+         <td scope="col"> <Button variant="contained" color="secondary" onClick={()=> DeleteProduct(e.id)} >Borrar</Button></td>
         </tr>
       ))}
   </tbody>
 </table>
-<Button variant="contained" style={{backgroundColor: "green", color: "white", marginLeft: "10px"}} onClick={()=> handleBuy()} >Buy</Button> 
-<Button variant="contained" style={{backgroundColor: "red", color: "white", marginLeft: "30px"}} onClick={()=> DestroyCart()} >Delete Cart</Button></div>}
+<Button variant="contained" style={{backgroundColor: "green", color: "white", marginLeft: "10px"}} onClick={()=> handleBuy()} >Comprar</Button> 
+<Button variant="contained" style={{backgroundColor: "red", color: "white", marginLeft: "30px"}} onClick={()=> DestroyCart()} >Borrar carrito</Button></div>}
 {carrito.products && !carrito.products[0] && <div className='titnocarrito' style={{marginLeft: "340px"}}>
                     <div className='divcarritovacio'>
-                    <h2>¡Your Shopping Cart is empty!</h2>
+                    <h2>¡Tu carrito está vacío!</h2>
                     </div>
                 </div>}
         </div>

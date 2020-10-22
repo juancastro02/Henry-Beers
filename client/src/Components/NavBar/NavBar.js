@@ -137,7 +137,7 @@ export default function PrimarySearchAppBar({ setSearchApp}) {
       {/* crear funcion op.ternario para rol admin = true --> show admin features */}
      {!usuario.token && <Link to="/login">
         {" "}
-        <MenuItem onClick={handleMenuClose}>Login</MenuItem>{" "}
+        <MenuItem onClick={handleMenuClose}>Iniciá Sesión</MenuItem>{" "}
       </Link>}
       {!usuario.token && <Link to="/NuevaCuenta">
         {" "}
@@ -145,7 +145,7 @@ export default function PrimarySearchAppBar({ setSearchApp}) {
       </Link>}
       {usuario.token && <Link to="/">
         {" "}
-        <MenuItem onClick={()=>dispatch(logoutUser())}>Logout</MenuItem>{" "}
+        <MenuItem onClick={()=>dispatch(logoutUser())}>Cerrar Sesión</MenuItem>{" "}
       </Link>}
     </Menu>
   );
