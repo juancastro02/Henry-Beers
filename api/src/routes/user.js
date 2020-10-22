@@ -353,12 +353,12 @@ server.post('/createadmin', async (req, res) => {
     try {
       const user = new User({
         name: 'admin',
-        email: 'admin@example.com',
-        password: '1234',
+        email: 'admin@admin.com',
+        password: bcrypt.hashSync('admin', 10),
         isAdmin: true,
-      });
+      }); 
       const newUser = await user.save();
-      res.send(newUser);
+      res.send(newUser);   
     } catch (error) {
       res.send({ message: error.message });
     }

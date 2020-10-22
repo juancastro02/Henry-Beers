@@ -14,6 +14,7 @@ import SearchBar from "../SearchBar/SearchBar"; // Importamos la SearchBar(cambi
 import AddShoppingCartIcon from "@material-ui/icons/AddShoppingCart";
 import BuildIcon from "@material-ui/icons/Build";
 import {getcarrito} from '../../Redux/Carrito'
+import {logoutUser} from '../../Redux/user'
 import {useSelector, useDispatch} from 'react-redux'
 
 
@@ -81,20 +82,19 @@ const useStyles = makeStyles((theme) => ({
   },
 }));
 
-export default function PrimarySearchAppBar({ setSearchApp }) {
-
+export default function PrimarySearchAppBar({ setSearchApp}) {
+  const usuario = useSelector(store => store.user.user)
   const carrito = useSelector(store => store.carrito.carrito)
   const dispatch = useDispatch()
 
   useEffect(()=>{
 
       dispatch(getcarrito(1))
-
       // const fetchData =async()=>{
       //   await axios.post(`http://localhost:4000/users/1/carrito`)    
       // }
       // fetchData()
-  },[])
+  },[usuario])
 
 
 
@@ -135,15 +135,18 @@ export default function PrimarySearchAppBar({ setSearchApp }) {
     >
       {/* <Link to='/admin' > <MenuItem onClick={handleMenuClose}>Admin</MenuItem> </Link> */}
       {/* crear funcion op.ternario para rol admin = true --> show admin features */}
-      <Link to="/login">
+     {!usuario.token && <Link to="/login">
         {" "}
         <MenuItem onClick={handleMenuClose}>Login</MenuItem>{" "}
-      </Link>
-      <Link to="/NuevaCuenta">
+      </Link>}
+      {!usuario.token && <Link to="/NuevaCuenta">
         {" "}
         <MenuItem onClick={handleMenuClose}>Registrate</MenuItem>{" "}
-      </Link>
-
+      </Link>}
+      {usuario.token && <Link to="/">
+        {" "}
+        <MenuItem onClick={()=>dispatch(logoutUser())}>Logout</MenuItem>{" "}
+      </Link>}
     </Menu>
   );
   const mobileMenuId = "primary-search-account-menu-mobile";
@@ -220,13 +223,13 @@ export default function PrimarySearchAppBar({ setSearchApp }) {
             </IconButton>
             
               {/* LINK A ADMIN */}
-            <Link to="/admin">
+           { usuario.isAdmin && <Link to="/admin">
             <IconButton aria-label="admin" color="inherit">
               <Badge  color="secondary">
                 <BuildIcon />
               </Badge>
             </IconButton>
-            </Link>
+            </Link>}
             <IconButton
               edge="end"
               aria-label="account of current user"

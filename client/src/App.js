@@ -15,6 +15,14 @@ import NuevaCuenta from './Components/User/NuevaCuenta'
 import Carrito from './Components/Carrito/Carrito'
 import Orden from './Components/Orden/orden'
 import { getOrdenes } from "./Redux/Carrito";
+import ResetPass from './Components/User/ResetPass'
+import { positions, Provider as ProviderAlert } from "react-alert";
+import AlertTemplate from "react-alert-template-basic";
+
+const options = {
+  timeout: 5000,
+  position: positions.MIDDLE
+};
 
 function App() {
 
@@ -37,7 +45,7 @@ array: [],
 
   return (
     <div >
-
+ <ProviderAlert template={AlertTemplate} {...options}>
       <BrowserRouter>
         <Route path='/'
           render={() => <NavBar setSearchApp={setSearchApp} />}
@@ -51,6 +59,9 @@ array: [],
         />
         <Route exact path="/nuevacuenta"
           component={NuevaCuenta}
+        />
+        <Route exact path="/resetPass"
+          component={ResetPass}
         />
 
         <Route
@@ -85,6 +96,7 @@ array: [],
         />
 
       </BrowserRouter>
+      </ProviderAlert>
     </div>
   );
 }
