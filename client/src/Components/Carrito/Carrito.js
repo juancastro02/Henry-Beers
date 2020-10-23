@@ -14,6 +14,7 @@ const useStyles = makeStyles((theme) => ({
   },
 }));
 const Carrito = () => {
+    const user = useSelector(store => store.user.user)
 
     const classes = useStyles();
     const carrito = useSelector(store => store.carrito.carrito) //Accedo al estado del carrito
@@ -21,18 +22,16 @@ const Carrito = () => {
 
     useEffect(()=>{  //Hago que siempre se actualice la pág. Cuando la pág, encuentra que el cart está en "procesando"
 
-        dispatch(getcarrito(1))
-
+        dispatch(getcarrito(user.id))
+        console.log(user)
         const fetchData =async()=>{
-          await axios.post(`http://localhost:4000/users/1/carrito`)    
+          await axios.post(`http://localhost:4000/users/${user.id}/carrito`)    
         }
         fetchData()
     },[carrito])
 
-    console.log(carrito)
-
     const DestroyCart = async()=>{ //Vacía el carrito
-     const {data} = await axios.delete(`http://localhost:4000/users/1/deletecart/${carrito.id}`)
+     const {data} = await axios.delete(`http://localhost:4000/users/${user.id}/deletecart/${carrito.id}`)
      alert('Carrito eliminado correctamente')
     }
 
