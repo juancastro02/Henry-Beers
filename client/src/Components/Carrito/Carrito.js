@@ -24,10 +24,10 @@ const Carrito = () => {
 
         dispatch(getcarrito(user.id))
         console.log(user)
-        const fetchData =async()=>{
-          await axios.post(`http://localhost:4000/users/${user.id}/carrito`)    
-        }
-        fetchData()
+        // const fetchData =async()=>{
+        //   await axios.post(`http://localhost:4000/users/${user.id}/carrito`)    
+        // }
+        // fetchData()
     },[carrito])
 
     const DestroyCart = async()=>{ //Vacía el carrito
@@ -93,7 +93,7 @@ const Carrito = () => {
 </table>
 <Button variant="contained" style={{backgroundColor: "green", color: "white", marginLeft: "10px"}} onClick={()=> handleBuy()} >Comprar</Button> 
 <Button variant="contained" style={{backgroundColor: "red", color: "white", marginLeft: "30px"}} onClick={()=> DestroyCart()} >Borrar carrito</Button></div>}
-{carrito.products && !carrito.products[0] && <div className='titnocarrito' style={{marginLeft: "340px"}}>
+{!carrito && <div className='titnocarrito' style={{marginLeft: "340px"}}>
                     <div className='divcarritovacio'>
                     <h2>¡Tu carrito está vacío!</h2>
                     </div>

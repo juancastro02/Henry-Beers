@@ -1,4 +1,5 @@
 import React, { useState, useEffect } from 'react';
+import axios from 'axios'
 import Product from './Components/Product/Product'
 import Catalogo from './Components/Catalogo/Catalogo.js'
 import CrudBeer from './Components/CrudBeer/CrudBeer'
@@ -43,7 +44,7 @@ array: [],
     dispatch(getbeers())
     dispatch(getCategory())
     dispatch(getOrdenes())
-  }, [])
+  }, []) 
 
 
   return (

@@ -201,7 +201,24 @@ server.put('/creada/:carritoId' , (req,res)=> {
 })
 
 
+server.put('/completada/:carritoId' , (req,res)=> {
 
+  const carritoId = req.params.carritoId
+  
+  Carrito.update({status:"completa"},{
+   where:{
+          id: carritoId
+       }
+      })
+      .then((carrito)=>{
+        res.status(201).send(carrito)
+      })
+      .catch((err)=> {
+        console.log(err)
+        res.status(400).send(err)
+      })
+   
+})
 
 // Update queries also accept the where option, just like the read queries shown above.
 

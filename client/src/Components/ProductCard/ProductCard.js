@@ -28,12 +28,18 @@ const useStyles = makeStyles({
 
 export default function MediaCard({name, image, stock, description, categories, price, id}) {
   
+  const user = useSelector(store => store.user.user)
   const carrito = useSelector(store => store.carrito.carrito)
   const dispatch = useDispatch()
 
   useEffect(()=>{
-    dispatch(getcarrito(1))
+    dispatch(getcarrito(user.id))
     
+    const fetchData =async()=>{
+      await axios.post(`http://localhost:4000/users/${user.id}/carrito`)    
+    }
+    fetchData()
+
   },[])
   
   console.log(carrito)
