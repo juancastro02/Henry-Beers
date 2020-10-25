@@ -21,6 +21,20 @@ server.post('/:userId/carrito', (req, res)=>{
 
 })
 
+server.post('/guest/carrito', (req, res)=>{
+  
+  Carrito.findOrCreate({where:{  status:'carrito' }}) // Se setea por default el estado "carrito(está en 0)"
+
+  .then(product =>{
+      res.status(201).send(product)
+  })
+  .catch(err =>{
+      console.log(err)
+      res.status(400).send(err)
+  })
+
+})
+
 server.delete('/:userId/deletecart/:carritoId', (req, res)=>{ //Elimina el carrito completo
   const id = req.params.userId  
   const carritoId = req.params.carritoId
