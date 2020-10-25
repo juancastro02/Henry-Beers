@@ -292,20 +292,20 @@ server.get('/usuarios', (req, res, next) => { // GET a /users/usuarios
 		.catch(next);
 });
 
-// server.get('/usuario/:id', (req, res)=>{ // GET a /users/usuario/:id (TRAE 1 SOLO USUARIO)
-//                                         TRAEMOS 1 USUARIO, PARA LUEGO UPDATEARLO
-//   const {id} = req.params
+server.get('/usuario/:id', (req, res)=>{ // GET a /users/usuario/:id (TRAE 1 SOLO USUARIO)
+                                       // TRAEMOS 1 USUARIO, PARA LUEGO UPDATEARLO
+  const {id} = req.params
 
-//   User.findOne({where:{
-//     id
-//   }})
-//   .then(user=>{
-//     res.status(201).send(user)
-//   })
-//   .catch(err=>{
-//     res.status(400).send(err)
-//   })
-// })
+  User.findOne({where:{
+    id
+  }})
+  .then(user=>{
+    res.status(201).send(user)
+  })
+  .catch(err=>{
+    res.status(400).send(err)
+  })
+})
 
 //Update user
 //PUT /users/:id//update ---->funcionando
