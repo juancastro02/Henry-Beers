@@ -73,8 +73,12 @@ array: [],
           render={() => <Catalogo products={search.array} search={search.word} />}
         />
 
-        <Route exact path="/catalogo/:productoId"
-          component={Product}
+        <Route exact path="/catalogo/:id"
+
+          render={({ match })=>
+          <div className='product'>
+          <Product user={user} data={products.filter(p => p.id === Number(match.params.id))} />
+        </div>}
         />
 
         <Route

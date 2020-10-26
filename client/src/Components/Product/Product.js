@@ -4,6 +4,7 @@ import {getcerveza} from '../../Redux/beer'
 import './Product.css'
 import { makeStyles } from '@material-ui/core/styles';
 import Button from '@material-ui/core/Button';
+import ReviewCreate from '../Review/reviewcreate'
 
 const useStyles = makeStyles((theme) => ({
   root: {
@@ -14,14 +15,19 @@ const useStyles = makeStyles((theme) => ({
 }));
 
 
-const Product = (data) => {
+const Product = ({data, userId}) => {
+ 
   const dispatch = useDispatch()
   const beer = useSelector(store => store.beer.beer)
-  console.log(data.match.params.productoId)
+  // console.log(userId)
+  // console.log(data.id)
+  // console.log(data[0])
+  // console.log(data[0][id])
   useEffect(()=>{
-    dispatch(getcerveza(data.match.params.productoId))
-    console.log(data)
+    dispatch(getcerveza(data[0]))
   },[])
+  console.log(beer)
+  console.log(beer.name)
   const classes = useStyles();
     return (
       <div style={{backgroundColor: "gray", height: "600px"}} >
@@ -48,6 +54,15 @@ const Product = (data) => {
                </div>
           </div> 
           </div>
+
+          <div>
+            {/* <ReviewCreate id={beer.id} userId={userId}/> */}
+          </div>
+          <div>
+            
+          </div>
+
+
           </div>
     );
 }
