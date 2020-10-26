@@ -67,21 +67,55 @@ export default function NewAdmin () {  ///CTRL+K+C COMENTAR Y CTRL+K+U DESCOMENT
                          ASIGNAR ADMIN
                           
                         </Button>
-
+{/* 
                         <span>    </span>
                         <Button variant="contained" color="primary" onClick={()=> handleChange(e.id) } >
                           QUITAR ADMIN
                       
-                        </Button>
+                        </Button> */}
 
                       </td>
                       
                       </td>
                     </tr>
                   ))}
+
               </tbody>
             </table>
-              
+            <div class="table-responsive">
+            <h5>ADMINISTRADORES</h5>
+            <table class="table table-striped table-dark">
+    <thead>
+        <tr>
+            <th>ID</th>
+            <th>NOMBRE</th>
+            <th>EMAIL</th>
+            <th>ROL</th>
+        </tr>
+    </thead>
+    <tbody>
+    {usersList &&
+                  usersList.map((e) => (
+                    <tr>
+                      <td>{e.id}</td>
+                      <td>{e.name}</td>
+                      <td>{e.email}</td>
+                      <td scope="col">
+                      <td>
+                      {usersList && e.isAdmin === true ? e.isAdmin : null }
+                      <Button variant="contained" color="primary" onClick={()=> handleChange(e.id) } >
+                          QUITAR ADMIN
+                      
+                        </Button>
+                    </td>
+                    </td>
+        </tr>
+       
+    ))}
+    </tbody>
+</table>
+</div>
+
           </div>
         )}
       </div>
