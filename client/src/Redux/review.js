@@ -23,10 +23,10 @@ const GET_REVIEWS= 'GET_REVIEWS'
 
 //Action
 
-export const getReviews = (idProd)=> async(dispatch)=>{
+export const getReviews = (id)=> async(dispatch)=>{
 
    try {
-       const {data} = await axios.get(`http://localhost:4000/review/product/'${idProd}`)//busca el producto
+       const {data} = await axios.get(`http://localhost:4000/review/product/${id}`)//busca el producto
        dispatch({
            type: GET_REVIEWS,
            payload: data

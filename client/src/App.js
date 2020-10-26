@@ -77,9 +77,10 @@ array: [],
 
           render={({ match })=>
           <div className='product'>
-          <Product user={user} data={products.filter(p => p.id === Number(match.params.id))} />
+          <Product user={user.id} product={products.filter(p => p.id === Number(match.params.id))}/>
         </div>}
         />
+        {/* product={products.filter(p => p.id === Number(match.params.id))} */}
 
         <Route
           exact path="/products/catalogo/:id"

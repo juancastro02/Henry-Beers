@@ -2,7 +2,8 @@ import React, {useState} from 'react'
 import Rating from '@material-ui/lab/Rating';
 import axios from "axios";
 
-const ReviewCreate = ({id, userId}) => {
+const ReviewCreate = ({productId, userId}) => {
+
 
     const [review, setReview] = useState({
         calification: parseInt(null),
@@ -23,8 +24,8 @@ const ReviewCreate = ({id, userId}) => {
             commentary: review.commentary,
             calification: review.calification
         }
-     const {data} = await axios.post(`http://localhost:4000/review/product/${id}/user/${userId}`)
-
+     const {data} = await axios.post(`http://localhost:4000/review/product/${productId}/user/${userId}`, info)
+     alert('Se agrego un comentario...')
     }
 
 
@@ -36,17 +37,18 @@ const ReviewCreate = ({id, userId}) => {
     return(
         <div>
         <form onSubmit={(e)=>handleSubmit(e)}>
-          <div className='stars' >
+        
+          <div className='stars' style={{marginLeft: "50px", marginTop: "10px"}} >
                     <Rating name="calification" name='calification' value={calification} size="large" onChange={(e)=> onChange(e)} />
          </div>
          <div>
-             <input type='text' value={commentary} name='commentary' onChange={(e)=> onChange(e)} />
+             <input style={{marginLeft: "20px", marginTop: "10px"}} type='text' value={commentary} name='commentary' onChange={(e)=> onChange(e)} />
          </div>
-         <button type='submit' onClick={()=>ReviewPost()}>Send review</button>
+         <button style={{marginLeft: "50px", marginTop: "10px", border: "0", backgroundColor: "black", color: "white", heigth: "20px", borderRadius: "10px"  }} type='submit' onClick={()=>ReviewPost()}>Enviar Comentario</button>
         </form>
         </div>
     )
-}
+} 
 
 export default ReviewCreate
 
