@@ -236,6 +236,23 @@ server.get('/:userId/carritos', (req, res)=>{
   })
 })
 
+server.get('/carrito/:id', (req, res) => { // Trae todos los carritos de un usuario, Get a /users/carrito/:id
+  const id = req.params.id
+
+  Carrito.findAll({
+    where: {
+      userId: id
+    }
+  })
+		.then(carrito => {
+			res.status(201).send(carrito);
+		})
+		.catch(error => {
+      console.log(error)
+      res.status(404).send(error)
+    }) ;
+});
+
 
 
 
@@ -364,5 +381,5 @@ server.post('/createadmin', async (req, res) => {
     }
   });
   
+  
 module.exports = server;
-

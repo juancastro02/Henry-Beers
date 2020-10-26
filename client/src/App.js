@@ -19,6 +19,7 @@ import ResetPass from './Components/User/ResetPass'
 import { positions, Provider as ProviderAlert } from "react-alert";
 import AlertTemplate from "react-alert-template-basic";
 import {validation} from './Redux/user'
+import UserActivity from './Components/userActivity/userActivity'
 
 const options = {
   timeout: 5000,
@@ -60,6 +61,7 @@ array: [],
         <Route exact path="/login"
           component={Login}
         />
+        
         <Route exact path="/nuevacuenta"
           component={NuevaCuenta}
         />
@@ -90,7 +92,12 @@ array: [],
          exact path='/carrito'
          component={Carrito}
         />
-
+        
+        
+        <Route
+         exact path='/userActivity'
+         component={UserActivity}
+        />
 
 
         <Route
