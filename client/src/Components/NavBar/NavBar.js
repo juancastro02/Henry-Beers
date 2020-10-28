@@ -16,6 +16,7 @@ import BuildIcon from "@material-ui/icons/Build";
 import {getcarrito} from '../../Redux/Carrito'
 import {logoutUser} from '../../Redux/user'
 import {useSelector, useDispatch} from 'react-redux'
+import './NavBar.css'
 
 
 const useStyles = makeStyles((theme) => ({
@@ -145,10 +146,11 @@ export default function PrimarySearchAppBar({ setSearchApp}) {
         {" "}
         <MenuItem onClick={handleMenuClose}>Registrate</MenuItem>{" "}
       </Link>}
+      {usuario.id ? <h6 className= "logueado">Logueado como {usuario.name}</h6> : null}
       {usuario.id && <Link to= "/userActivity">
-        {" "}
+        {" "}  
         <MenuItem onClick={handleMenuClose}>Actividad del Usuario</MenuItem>{" "}
-        </Link>}
+        </Link>}  
       {usuario.id && <Link to="/">
         {" "}
         <MenuItem onClick={()=>dispatch(logoutUser())}>Cerrar Sesión</MenuItem>{" "}
