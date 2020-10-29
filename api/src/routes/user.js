@@ -416,7 +416,8 @@ server.post("/createadmin", async (req, res) => {
   }
 });
 
-//checkout compra
+//checkout compra http://localhost:4000/users/:userId/carrito/:id
+
 server.post("/:userId/carrito/:id", (req, res) => {
   const { userId, id } = req.params;
   const { pais, ciudad, direccion_envio, codigo_postal, numero_telefono} = req.body;
