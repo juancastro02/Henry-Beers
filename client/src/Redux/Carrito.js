@@ -5,7 +5,7 @@ import axios from "axios";
 const InicialState = {
   carrito: [],
   ordenes:[],
-  orden:[]
+  orden:[],
 };
 
 //Constantes

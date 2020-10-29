@@ -161,11 +161,11 @@ const Carrito = () => {
          <td scope="col"> <Button variant="contained" color="secondary" onClick={()=> DeleteProduct(e.id)} >Borrar</Button></td>
         </tr>
       ))}
-  </tbody>
+  </tbody> 
 </table>
 <Button variant="contained" style={{backgroundColor: "green", color: "white", marginLeft: "10px"}} onClick={()=> handleBuy()} >Comprar</Button> 
 <Button variant="contained" style={{backgroundColor: "red", color: "white", marginLeft: "30px"}} onClick={()=> DestroyCart()} >Borrar carrito</Button></div>}
-{user.id && !carrito.products[0] && <div className='titnocarrito' style={{marginLeft: "340px"}}>
+{user.id && carrito.products && !carrito.products[0] && <div className='titnocarrito' style={{marginLeft: "340px"}}>
                     <div className='divcarritovacio'>
                     <h2>¡Tu carrito está vacío!</h2>
                     </div>

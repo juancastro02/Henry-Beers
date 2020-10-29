@@ -58,7 +58,7 @@ const Inicio = () => {
     <h2>Que opinan nuestros clientes</h2>
         <Carrusel />
       </div>
-      <h2>Hecha un vistazo a nuestros productos estrellas</h2>
+      <h2>Echa un vistazo a nuestros productos estrellas</h2>
       <div>
         <Catalogo />
       </div>

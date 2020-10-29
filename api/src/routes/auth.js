@@ -132,7 +132,7 @@ server.post("/:id/passwordReset", function (req, res) {
     where: { id: userId },
   }).then(function (user) {
     if (!user) {
-      return { mesagge: "No user found with that email address." };
+      return { mesagge: "No user found with that email eireccion_envio." };
     }
     ResetPassword.findOne({
       where: { userId: user.id, status: 0 },
