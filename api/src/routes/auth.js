@@ -219,16 +219,6 @@ server.put('/reset-password', (req, res) => {
           });
         })
 
-    });
-
-  } else {
-    return res.status(401).json({
-      error: 'Error de autenticación , token no enviado'
-    });
-  }
-
-});
-
 
 
 server.put('/promote/:id', (req, res)=> {

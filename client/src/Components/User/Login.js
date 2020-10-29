@@ -4,7 +4,8 @@ import { loginUser , cleanMessage} from "../../Redux/user.js";
 import { useDispatch, useSelector } from "react-redux"; 
 import ResetPass from './ResetPass'
 import { useAlert } from "react-alert";
-import { useHistory } from 'react-router'
+import { useHistory } from 'react-router';
+import GoogleLogin from 'react-google-login';
 
 //falta la auth que compare las pass para loguear.
 
@@ -57,6 +58,12 @@ const Login = ({history}) => {
     <div className="form-usuario">
       <div className="contenedor-form sombra-dark">
         <h1>Iniciar Sesión</h1>
+        <div>
+        <GoogleLogin className= "botonGoogle"
+             buttonText= "Ingresá con tu cuenta de Google"
+           />
+           </div>
+           <br/><br/>
         <form onSubmit={onSubmit}>
           <div className="campo-form">
             <label htmlFor="email"> Email </label>

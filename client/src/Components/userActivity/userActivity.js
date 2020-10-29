@@ -7,12 +7,19 @@ import {logoutUser} from '../../Redux/user'
 
 
 
-const UserActivity = ({}) => {
-    
-    
+const UserActivity = ({history}) => {
+
     const usuario = useSelector(store => store.user.user)
     const dispatch = useDispatch()
 
+
+   useEffect(()=> {
+    if (!usuario.id) {
+        history.push("/")
+    }
+
+   },[usuario]);
+    
     return (
         <BrowserRouter>
         <h1>Panel de Usuario</h1>
@@ -28,7 +35,7 @@ const UserActivity = ({}) => {
                         <Link> <h6 style={{color:"white", textAlign:"center" }}>Mis compras</h6> </Link>
                     </div>
                     <div>
-                        <Link to= "/" onClick={()=>dispatch(logoutUser())}>  
+                       <Link to= "/" onClick={()=>dispatch(logoutUser())}>  
                         <h6 style={{color:"white", textAlign:"center" }}>Cerrar Sesión</h6> 
                         </Link>
                     </div>
