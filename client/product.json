@@ -1,0 +1,78 @@
+{
+    "products": [
+      {
+        "title": "Waikiki Summer Ale",
+        "price": "155",
+        "image": "./images/c1.png",
+        "category": "featured"
+      },
+      {
+        "title": "MAR DEL PLATA BOHEMIAN PILSENER",
+        "price": "155",
+        "image": "./images/c2.png",
+        "category": "trend"
+      },
+      {
+        "title": "Willy DéPOÓ Doble Honey",
+        "price": "155",
+        "image": "./images/c3.png",
+        "category": "featured"
+      },
+      {
+        "title": "LOBOS DEL MAR American Amber Ale",
+        "price": "165",
+        "image": "./images/c4.png",
+        "category": "trend"
+      },
+      {
+        "title": "Pomelo Wheat",
+        "price": "165",
+        "image": "./images/c5.png",
+        "category": "featured"
+      },
+      {
+        "title": "Lima Wheat",
+        "price": "165",
+        "image": "./images/c6.png",
+        "category": "recent"
+      },
+      {
+        "title": "Monsieur Chocolat F. Extra Stout Barrel Aged",
+        "price": "230",
+        "image": "./images/c7.png",
+        "category": "trend"
+      },
+      {
+        "title": "CHOCÓ EL BANANA F. EXTRA STOUT Barrel Aged",
+        "price": "260",
+        "image": "./images/c8.png",
+        "category": "featured"
+      },
+      {
+        "title": "CITRA SESSION IPA",
+        "price": "280",
+        "image": "./images/c9.png",
+        "category": "recent"
+      },
+      {
+        "title": "SATIVA SESSION IPA",
+        "price": "290",
+        "image": "./images/c10.png",
+        "category": "trend"
+      },
+      {
+        "title": "JOKER IPA",
+        "price": "280",
+        "image": "./images/c11.png",
+        "category": "special"
+      },
+      {
+        "title": "V8 IPA",
+        "price": "300",
+        "image": "./images/c12.png",
+        "category": "special"
+      }
+      
+    ]
+  }
+  

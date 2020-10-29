@@ -15,6 +15,11 @@ function Carrusel(props) {
       name: "Amy Lee",
       description: "Very nice beers! And with a lot of body!",
     },
+    {
+      name: "Amy Lee",
+      description: "Very nice beers! And with a lot of body!",
+      img: '',
+    },
   ];
 
   return (

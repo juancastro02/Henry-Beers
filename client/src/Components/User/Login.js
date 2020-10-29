@@ -6,6 +6,7 @@ import ResetPass from './ResetPass'
 import { useAlert } from "react-alert";
 import { useHistory } from 'react-router';
 import GoogleLogin from 'react-google-login';
+import './User.css'
 
 //falta la auth que compare las pass para loguear.
 

@@ -1,16 +1,15 @@
-import React, { useState, useEffect } from 'react';
-import axios from 'axios'
+import React, { useState, useEffect } from "react";
+import "./index.css";
+import Header from "./Compo2/Header";
+import Footer from "./Compo2/Footer.jsx";
 import Product from './Components/Product/Product'
 import Catalogo from './Components/Catalogo/Catalogo.js'
-import CrudBeer from './Components/CrudBeer/CrudBeer'
-import CrudCategory from './Components/CrudCategory/CrudCategory'
+import axios from 'axios'
 import { BrowserRouter, Route } from 'react-router-dom';
-import NavBar from './Components/NavBar/NavBar'
 import { useSelector, useDispatch } from 'react-redux'
 import { getbeers } from './Redux/beer'
 import { getCategory } from './Redux/category'
 import Admin from './Components/Admin/Admin';
-import Inicio from './Components/index/index';
 import Login from './Components/User/Login'
 import NuevaCuenta from './Components/User/NuevaCuenta'
 import Carrito from './Components/Carrito/Carrito'
@@ -21,6 +20,8 @@ import { positions, Provider as ProviderAlert } from "react-alert";
 import AlertTemplate from "react-alert-template-basic";
 import {validation} from './Redux/user'
 import UserActivity from './Components/userActivity/userActivity'
+import Home from './Compo2/Home'
+import NavBar from './Components/NavBar/NavBar'
 
 
 const options = {
@@ -29,7 +30,6 @@ const options = {
 };
 
 function App() {
-
   const [search, setSearchApp] = useState({
     array: [],
     word: "",
@@ -48,17 +48,19 @@ function App() {
     dispatch(getOrdenes())
   }, []) 
 
-
   return (
     <div >
  <ProviderAlert template={AlertTemplate} {...options}>
       <BrowserRouter>
         {/* <Route path='/'
-          render={() => <NavBar setSearchApp={setSearchApp} />}
+           render={() => <Home setSearchApp={setSearchApp} />}
         /> */}
 
         <Route exact path="/"
-          component={Inicio}
+          component={Header}
+        />
+        <Route exact path="/"
+          component={Footer}
         />
         <Route exact path="/login"
           component={Login}
@@ -117,5 +119,4 @@ function App() {
     </div>
   );
 }
-
 export default App;
