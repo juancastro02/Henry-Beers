@@ -305,9 +305,10 @@ server.get('/carrito/:id', (req, res) => { // Trae todos los carritos de un usua
 
 //Register (creación de usuario) ---> funcionando
 server.post("/", (req, res) => {
-  const { email, password, name} = req.body;
+  const { email, password, name, username} = req.body;
   User.create({ 
       name,
+      username,
       email,
       password: bcrypt.hashSync(password, 10),
     })

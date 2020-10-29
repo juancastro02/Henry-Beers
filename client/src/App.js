@@ -21,6 +21,7 @@ import { positions, Provider as ProviderAlert } from "react-alert";
 import AlertTemplate from "react-alert-template-basic";
 import {validation} from './Redux/user'
 import UserActivity from './Components/userActivity/userActivity'
+import ForgotPass from './Components/User/ForgotPass'
 
 const options = {
   timeout: 5000,
@@ -66,8 +67,9 @@ array: [],
         <Route exact path="/nuevacuenta"
           component={NuevaCuenta}
         />
-        <Route exact path="/resetPass"
-          component={ResetPass}
+        <Route 
+        exact path='/resetpassword/:token'
+        render={({match}) => <ResetPass  token={match.params.token}/>}
         />
 
         <Route
@@ -91,6 +93,11 @@ array: [],
 
         <Route exact path='/catalogo'
           component={Catalogo}
+
+        />
+
+         <Route exact path='/forgot'
+          component={ForgotPass}
 
         />
 

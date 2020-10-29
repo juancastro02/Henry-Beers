@@ -48,7 +48,7 @@ User.hasMany(Carrito, {as: "user"}); // Con esto le damos el id de Usuario al ca
 User.belongsToMany(Product, {through: Review}) //TE da el product id
 Product.belongsToMany(User, {through: Review}) // Te da el user id        EL producto tiene reviews de muchos usuarios
 //Product.hasMany(User, {as: "product"});
-
+ 
 module.exports = {
   ...sequelize.models, // para poder importar los modelos así: const { Product, User } = require('./db.js');
   conn: sequelize,     // para importart la conexión { conn } = require('./db.js');
