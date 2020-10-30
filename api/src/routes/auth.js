@@ -3,7 +3,34 @@ const server = require("express").Router();
 const bcrypt = require("bcrypt");
 const jwt = require("jsonwebtoken");
 const {verifyToken} = require('../middleware/authentication')
-const { SIGNATURE } = process.env;
+const { SIGNATURE, RESET_PASSWORD_KEY } = process.env;
+const mailgunLoader = require('mailgun-js')
+
+let mailgun = mailgunLoader({
+  apiKey: '449040c3c5d90be79e408881926be11a-9b1bf5d3-6dcb9631',
+  domain: 'sandboxdaf8c8f62a9b47ffb8439c447170266e.mailgun.org'
+})
+
+const sendEmail = (to, from, subject) =>{
+ let data = {
+   to,
+   from,
+   subject,
+   template: 'forgot-password'
+  }
+ return mailgun.messages().send(data)
+}
+
+
+server.post('/mail', async(req, res) => {
+  try {
+    await sendEmail(req.body.email, 'henrybeers@gmail.com', `Hola!, olvidaste tu contraseña?`)
+    res.send('Email send')
+  } catch (error) {
+    console.log(error) 
+    res.status(500)
+  }
+})
 
 // Modelo user
 const { User } = require("../db");
@@ -31,6 +58,204 @@ server.get('/me', verifyToken, (request, response) => {
     })
 
 });
+
+
+
+
+// Forgot Password
+server.put('/forgot-password', (req, res) => {
+
+  const { email } = req.body;
+
+  // Buscar usuario en la BD
+  User.findOne({
+    where: {
+      email
+    }
+  })
+    .then(user => {
+
+      // Validar que el usuario existe en la BD
+      if (!user) {
+        return res.status(400).json({
+          error: `No existe un usuario con el mail: ${email}`
+        });
+      }
+
+      // Usuario verificado, generar el token
+      const token = jwt.sign({
+        id: user.id
+      }, RESET_PASSWORD_KEY, { expiresIn: '40m' });
+
+      // Generar mensaje
+
+      let data = {
+        to: email,
+        from:'henrybeers@gmail.com',
+        subject:`Hola!, olvidaste tu contraseña?`,
+        template: 'forgot-password',
+        'h:X-Mailgun-Variables': JSON.stringify({
+          'token': `${token}`
+        })
+      }
+
+
+      // Actualizar usuario y agregar token dentro del campo 'resetLink'
+      User.update({
+        resetLink: token
+      }, {
+        where: {
+          id: user.id
+        }
+      })
+        .then(userUpdated => {
+
+          // Verificar que se actualice el usuario
+          if (!userUpdated[0]) {
+            return res.status(400).json({
+              error: 'No se guardo token para resetear password del usuario.'
+            });
+          } else {
+
+            // Token guardado (User actualizado) , enviar correo al email
+            mailgun.messages().send(data, (error, body) => {
+
+              if (error) {
+                return res.status(500).json({
+                  error: error.message
+                });
+              }
+
+              // Correo enviado al email del user
+              return res.status(200).json({
+                message: `An email was sent to the address of user: ${user.username}`
+              });
+
+            });
+
+          }
+
+        })
+        .catch(error => {
+          return res.status(500).json({
+            error: error.message
+          });
+        })
+
+    })
+    .catch(error => {
+      return res.status(500).json({
+        error: error.message
+      });
+    })
+
+});
+
+
+// Reset password
+server.put('/reset-password', (req, res) => {
+
+  const { resetLink, newPassword } = req.body;
+
+  // Verificar que el token exista en el body
+  if (resetLink) {
+
+    // Verificar token
+    jwt.verify(resetLink, RESET_PASSWORD_KEY, (error, payload) => {
+
+      if (error) {
+        return res.status(401).json({
+          error: 'Token no válido o expirado.'
+        });
+      }
+
+      // Verificar que el usuario exista con el 'token' (resetLink) en la BD 
+      User.findOne({
+        where: {
+          resetLink
+        }
+      })
+        .then(user => {
+
+          if (!user) {
+            return res.status(400).json({
+              error: 'No existe un usuario con este token.'
+            });
+          }
+
+          // El usuario existe , cambiar contraseña y eliminar token
+          User.update({
+            password: bcrypt.hashSync(newPassword, 10),
+            resetLink: ''
+          }, {
+            where: {
+              id: payload.id
+            }
+          })
+            .then(userUpdated => {
+
+              if (!userUpdated[0]) {
+                return res.status(400).json({
+                  error: 'Error al cambiar tu password.'
+                });
+              }
+
+              // Se actualizo la password del usuario  
+              return res.status(200).json({
+                message: `The user: ${user.username} , has changed the password correctly. You can now log in!`
+              });
+
+            })
+            .catch(error => {
+              return res.status(500).json({
+                error: error.message
+              });
+            })
+
+        })
+        .catch(error => {
+          return res.status(500).json({
+            error: error.message
+          });
+        })
+
+
+
+server.put('/promote/:id', (req, res)=> {
+  const id = req.params.id
+
+  User.update({isAdmin:true}, {
+  where:{
+    id: req.params.id
+  }
+})
+ User.findByPk(id) 
+ .then(adminNuevo=>{
+ return res.status(201).send({message:"nuevo admin"+id, adminNuevo});
+  })
+  .catch(error=> {
+    console.log(error);
+ res.status(400).send(error);
+  })
+})
+
+server.put('/change/:id', (req, res)=> {
+  const id = req.params.id
+
+  User.update({isAdmin:false}, {
+  where:{
+    id: req.params.id
+  }
+})
+ User.findByPk(id) 
+ .then(noEsAdmin=>{
+ return res.status(201).send({message:"se quito el permiso con exito"+id, noEsAdmin});
+  })
+  .catch(error=> {
+    console.log(error);
+ res.status(400).send(error);
+  })
+})
 
 
 
@@ -71,6 +296,7 @@ server.post("/login", (request, response) => {
 
       // Devolver el token
       return response.status(200).json({
+        email: user.email,
         id: user.id,
         isAdmin: user.isAdmin,
         mensaje: "Token generado",
@@ -85,111 +311,6 @@ server.post("/login", (request, response) => {
     });
 });
 
-/* Crear Ruta para password reset
-
-  POST /users/:id/passwordReset */
-
-server.put("/:id/passwordReset", async (req, res) => {
-  const id = req.params.id;
-  const password = rep.body.password;
-  const user = await User.findByPk(id);
-  if (user) {
-    user.password = password || user.password;
-    const updatedPass = await user.save();
-    res.send({
-      password: updatedPass.password,
-    });
-    alert("Pass actualizada");
-  } else {
-    res.status(404).send({ message: "La pass no se actualizo" });
-  }
-});
-
-//suposicion1
-server.patch('/reset', async (req, res) => {
-	const {email, password, token} = req.body;
-
-	if (!email || !password || !token) return res.status(400).send('Faltan parámetros');
-
-	try {
-		const user = await User.findOne({where: {email, forgotPasswordToken: token}});
-		if (!user) return res.status(400).send('Token inválida');
-
-		user.password = password;
-		user.forgotPasswordToken = null;
-		await user.save();
-
-		return res.status(200).send('Contraseña actualizada con éxito');
-	} catch (error) {
-		res.status(500).send(error);
-	}
-});
-/* 
-//https://meanstackdeveloper.in/implement-reset-password-functionality-in-node-js-express.html
-server.post("/:id/passwordReset", function (req, res) {
-  const id = req.params.id;
-  User.findOne({
-    where: { id: userId },
-  }).then(function (user) {
-    if (!user) {
-      return { mesagge: "No user found with that email eireccion_envio." };
-    }
-    ResetPassword.findOne({
-      where: { userId: user.id, status: 0 },
-    }).then(function (resetPassword) {
-      if (resetPassword)
-        resetPassword.destroy({
-          where: {
-            id: resetPassword.id,
-          },
-        });
-      token = crypto.randomBytes(32).toString("hex");
-      bcrypt.hash(token, null, null, function (err, hash) {
-        ResetPassword.create({
-          userId: user.id,
-          resetPasswordToken: hash,
-          expire: moment.utc().add(config.tokenExpiry, "seconds"),
-        });
-      });
-    });
-  });
-});
- */
-server.put('/promote/:id', (req, res)=> {
-  const id = req.params.id
-
-  User.update({isAdmin:true}, {
-  where:{
-    id: req.params.id
-  }
-})
- User.findByPk(id) 
- .then(adminNuevo=>{
- return res.status(201).send({message:"nuevo admin"+id, adminNuevo});
-  })
-  .catch(error=> {
-    console.log(error);
- res.status(400).send(error);
-  })
-})
-
-server.put('/change/:id', (req, res)=> {
-  const id = req.params.id
-
-  User.update({isAdmin:false}, {
-  where:{
-    id: req.params.id
-  }
-})
- User.findByPk(id) 
- .then(noEsAdmin=>{
- return res.status(201).send({message:"se quito el permiso con exito"+id, noEsAdmin});
-  })
-  .catch(error=> {
-    console.log(error);
- res.status(400).send(error);
-  })
-})
 
 
 module.exports = server;
