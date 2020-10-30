@@ -19,10 +19,10 @@ import { getOrdenes } from "./Redux/Carrito";
 import ResetPass from './Components/User/ResetPass'
 import { positions, Provider as ProviderAlert } from "react-alert";
 import AlertTemplate from "react-alert-template-basic";
-import {validation} from './Redux/user'
+import {validation, validationGoogle} from './Redux/user'
 import UserActivity from './Components/userActivity/userActivity'
 import ForgotPass from './Components/User/ForgotPass'
-import FormularioDatosEnvio from './Components/Carrito/Checkout/checkout'
+import FormularioDatosEnvio from './Components/Carrito/Checkout/Checkout2'
 
 
 
@@ -45,6 +45,7 @@ array: [],
   const ordenes = useSelector(store => store.carrito.ordenes);
 
   useEffect(() => { // Similar al componentDidMount
+    dispatch(validationGoogle())
     dispatch(validation())
     dispatch(getbeers())
     dispatch(getCategory())

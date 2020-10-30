@@ -3,7 +3,10 @@ const server = require("express").Router();
 const bcrypt = require("bcrypt");
 const jwt = require("jsonwebtoken");
 const {verifyToken} = require('../middleware/authentication')
-const { SIGNATURE, RESET_PASSWORD_KEY } = process.env;
+const { SIGNATURE, CLIENT_ID, RESET_PASSWORD_KEY } = process.env;
+const { OAuth2Client } = require('google-auth-library');
+const client = new OAuth2Client('880118948373-ael4igsvhmjssb6qflr341rdgt45ct2f.apps.googleusercontent.com');
+
 const mailgunLoader = require('mailgun-js')
 
 let mailgun = mailgunLoader({
@@ -218,7 +221,9 @@ server.put('/reset-password', (req, res) => {
             error: error.message
           });
         })
-
+      })
+    }
+})
 
 
 server.put('/promote/:id', (req, res)=> {
@@ -310,6 +315,151 @@ server.post("/login", (request, response) => {
       });
     });
 });
+
+
+
+server.get('/me/google', verifyToken, (request, response) => {
+  console.log(request.user)
+   const { id_user } = request.user;
+
+   User.findOne({
+     where: {
+       id: id_user
+     }
+   })
+     .then(user => {
+       return response.json({
+         user
+       });
+     })
+     .catch(error => {
+       return response.status(400).json({
+         error: error.message
+       });
+     })
+
+ });
+
+ // Validar token de google
+async function verify(token) {
+
+  const ticket = await client.verifyIdToken({
+    idToken: token,
+    audience: CLIENT_ID
+  });
+
+  const payload = ticket.getPayload();
+
+  // Nuevo user
+  return {
+    name: payload.email.split('@')[0],
+    email: payload.email,
+    image: payload.picture,
+    google: true
+  }
+
+}
+
+
+
+
+// Login with Google
+server.post('/google', async (req, res) => {
+
+  const token = req.body.token;
+
+  const googleUser = await verify(token)
+    .catch(error => {
+      return res.status(403).json({
+        error: error.message
+      });
+    })
+
+
+  User.findOne({
+    where: {
+      email: googleUser.email
+    }
+  })
+    .then(user => {
+
+      // Verificar que el usuario existe en la BD.
+      if (user) {
+
+        // Si el user se autentico con Login normal
+        if (!user.google) {
+
+          return res.status(400).json({
+            message: 'Debes usar su autenticacion normal.'
+          });
+
+        } else {
+          // Generar el token
+          const token = jwt.sign({
+            user: {
+              id_user: user.id,
+              mail: user.email,
+              name: user.name,
+              admin: user.isAdmin,
+              google: user.google
+            }
+          }, SIGNATURE, { expiresIn: 60 * 60 * 24 * 30 })
+
+          // usuario logueado con google, retornar token
+          return res.status(200).json({
+            user: user,
+            token
+          });
+
+        }
+
+      } else {
+
+        // Si el usuario no existe en la BD agregarlo y devolver token
+        User.create({
+          name: googleUser.name,
+          email: googleUser.email,
+          image: googleUser.image,
+          google: true,
+          password: 'random-password'
+        })
+          .then(userCreated => {
+
+            // Generar token del userGoogle
+            const token = jwt.sign({
+              user: {
+                id_user: userCreated.id,
+                mail: userCreated.email,
+                name: userCreated.name,
+                admin: userCreated.isAdmin,
+                google: userCreated.google
+              }
+            }, SIGNATURE, { expiresIn: 60 * 60 * 24 * 30 });
+
+            // Usuario registrado 
+            return res.status(201).json({
+              user: userCreated,
+              token
+            });
+
+          })
+          .catch(error => {
+            return res.status(500).json({
+              error: error.message
+            });
+          })
+
+      }
+
+    })
+    .catch(error => {
+      return res.status(500).json({
+        error: error.message
+      });
+    })
+
+})
+
 
 
 
