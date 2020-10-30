@@ -21,7 +21,7 @@ import { positions, Provider as ProviderAlert } from "react-alert";
 import AlertTemplate from "react-alert-template-basic";
 import {validation} from './Redux/user'
 import UserActivity from './Components/userActivity/userActivity'
-import FormularioDatosEnvio from './Components/Carrito/Checkout/checkout'
+import FormularioDatosEnvio from './Components/Carrito/Checkout/Checkout2'
 
 const options = {
   timeout: 5000,

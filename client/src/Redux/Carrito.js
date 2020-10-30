@@ -78,10 +78,10 @@ export const getOrdenes = () => async (dispatch, getState) => {
     }
   };
 
-  export const postCheckout = (userId) => async (dispatch) => {
+ /*  export const postCheckout = (userId, Id) => async (dispatch) => {
     
     try {
-      const { data } = await axios.post(`http://localhost:4000/users/${userId}/carrito/:id`)
+      const { data } = await axios.post(`http://localhost:4000/users/${userId}/carritos/${Id}`)
       dispatch({
         type: POST_CHECKOUT,
         payload: data
@@ -89,7 +89,7 @@ export const getOrdenes = () => async (dispatch, getState) => {
     } catch (error) {
       console.log(error)
     }
-  }
+  } */
   
   //::::::::::::::::::::::::::::::::::::::::::::
 

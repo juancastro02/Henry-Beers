@@ -442,26 +442,5 @@ server.post("/:userId/carrito/:id", (req, res) => {
 });
  
 })
-/* server.put('/:id', async (req, res) => {
-    const {id} = req.params;
-  
-    const { pais, ciudad, direccion_envio, codigo_postal, numero_telefono} = req.body;
-  
-    const order = await Carrito.findByPk(id);
-  
-    try {
-      order.Pais = Pais;
-      order.Ciudad = Ciudad;
-      order.direccion_envio = direccion_envio;
-      order.codigo_postal = codigo_postal;
-      order.numero_telefono = numero_telefono;
-      order.tipo_envio = tipo_envio;
-      await order.save();
-  
-      const savedOrder = await order.reload();
 
-    } catch (error) {
-      return res.status(400).send(error.message);
-    }
-  }); */
 module.exports = server;
