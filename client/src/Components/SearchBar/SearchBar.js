@@ -36,8 +36,8 @@ const SearchBar = ({ setSearchApp }) => {
     //   </div>
     // </form>
     <div className="searchbar">
-      <form onSubmit={(e)=>handleSubmit(e)}>
-        <input type="search" name='search' onChange={(e)=>handleChange(e)}/>
+      <form className ="searchform" onSubmit={(e)=>handleSubmit(e)}>
+        <input type="search" name='search' className="inputsearch" onChange={(e)=>handleChange(e)}/>
         <Link to={`/products/search?name=${search}`} ><i onClick={(e)=>handleSubmit(e)} class="fa fa-search"></i></Link>
       </form>
     </div>

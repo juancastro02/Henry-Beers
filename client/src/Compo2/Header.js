@@ -1,5 +1,5 @@
 import React, { useEffect } from "react";
-import '../index.css';
+// import '../index.css';
 import { useSelector, useDispatch } from "react-redux";
 import { getcarrito } from "../../src/Redux/Carrito";
 import axios from "axios";

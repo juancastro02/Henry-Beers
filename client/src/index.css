@@ -1,26 +1,3 @@
-/* body {
-  margin: 0;
-  font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', 'Roboto', 'Oxygen',
-    'Ubuntu', 'Cantarell', 'Fira Sans', 'Droid Sans', 'Helvetica Neue',
-    sans-serif;
-  -webkit-font-smoothing: antialiased;
-  -moz-osx-font-smoothing: grayscale;
-  background-color: var(--gris1)
-
-}
-code {
-  font-family: source-code-pro, Menlo, Monaco, Consolas, 'Courier New',
-    monospace;
-}
-:root {
-  --blanco: #ffffff;
-  --gris1: #edf2f6;
-  --gris2: #2f3848;
-  --gris3: #1a202d;
-  --negro: #000000;
-  --headingFont:'Raleway', sans-serif;
-  --textFont:  'Roboto', sans-serif;
-}
 .campo-form {
   display: flex;
   align-items: center;
@@ -134,31 +111,6 @@ flex: 1;
   margin-left: 4.5rem;
   align-items: center;
 }
-h1, h2 {
-  font-family: var(--headingFont);
-  font-weight: 900;
-  margin: 0 0 4rem 0;
-  text-align: center;
-  color: var(--gris2);
-}
-h1 span {
-  font-weight: 400;
-}
-h1 {
-  font-size: 3rem;
-}
-h2 {
-  font-size: 2.4rem;
-}
-ul {
-  list-style: none;
-  padding: 0;
-  margin: 0;
-}
-a {
-  text-decoration: none;
-  color: var(--gris2);
-} */
 
 :root {
   --white: #fff;
@@ -236,7 +188,7 @@ img {
 }
 
 .navigation {
-  padding: 1.6rem 0;
+  padding: 0.6rem 0;
 }
 
 .nav-center {
@@ -447,7 +399,6 @@ img {
   }
 }
 
-/* Hero Area */
 .hero,
 .glide__hero,
 .banner {
@@ -464,8 +415,8 @@ img {
 
 .banner img.special_01 {
   margin-bottom: 2rem;
-  width: 30%;
-  margin-left: 70rem;
+  width: 40%;
+  right:9%;
 }
 .banner img.special_02 {
   margin-bottom: 5rem;
@@ -530,45 +481,6 @@ img {
 .buttons-group button:last-child:hover {
   background-color: var(--black);
   color: var(--white);
-}
-
-.glide__arrows {
-  /* position: absolute; */
-  top: 50%;
-}
-
-.glide__arrow {
-  position: absolute;
-  top: 50%;
-  background-color: #555;
-  border: 1px solid var(--black);
-  outline: none;
-  padding: 1.3rem 1.5rem;
-  border-radius: 50%;
-  font-size: 1.6rem;
-  color: var(--white);
-  visibility: hidden;
-  opacity: 0;
-  cursor: pointer;
-  transition: all 300ms ease-in-out;
-}
-
-.glide:hover .glide__arrow {
-  visibility: visible;
-  opacity: 1;
-}
-
-.glide__arrow:hover {
-  color: var(--black);
-  background-color: transparent;
-}
-
-.glide__arrow--left {
-  left: 5%;
-}
-
-.glide__arrow--right {
-  right: 5%;
 }
 
 @media only screen and (max-width: 1260px) {

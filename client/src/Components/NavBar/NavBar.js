@@ -1,4 +1,4 @@
-import React, {useEffect} from "react";
+import React, { useEffect } from "react";
 import { fade, makeStyles } from "@material-ui/core/styles";
 import AppBar from "@material-ui/core/AppBar";
 import Toolbar from "@material-ui/core/Toolbar";
@@ -13,11 +13,10 @@ import { Link } from "react-router-dom";
 import SearchBar from "../SearchBar/SearchBar"; // Importamos la SearchBar(cambiamos original de Material ui)
 import AddShoppingCartIcon from "@material-ui/icons/AddShoppingCart";
 import BuildIcon from "@material-ui/icons/Build";
-import {getcarrito} from '../../Redux/Carrito'
-import {logoutUser} from '../../Redux/user'
-import {useSelector, useDispatch} from 'react-redux'
-import './NavBar.css'
-
+import { getcarrito } from "../../Redux/Carrito";
+import { logoutUser } from "../../Redux/user";
+import { useSelector, useDispatch } from "react-redux";
+import "./NavBar.css";
 
 const useStyles = makeStyles((theme) => ({
   grow: {
@@ -83,23 +82,20 @@ const useStyles = makeStyles((theme) => ({
   },
 }));
 
-export default function PrimarySearchAppBar({ setSearchApp}) {
-  const usuario = useSelector(store => store.user.user)
-  const carrito = useSelector(store => store.carrito.carrito)
-  const dispatch = useDispatch()
+export default function PrimarySearchAppBar({ setSearchApp }) {
+  const usuario = useSelector((store) => store.user.user);
+  const carrito = useSelector((store) => store.carrito.carrito);
+  const dispatch = useDispatch();
 
-
-  useEffect(()=>{
-      console.log(usuario.id)
-      console.log(usuario)
-      dispatch(getcarrito(1))
-      // const fetchData =async()=>{
-      //   await axios.post(`http://localhost:4000/users/1/carrito`)    
-      // }
-      // fetchData()
-  },[usuario])
-
-
+  useEffect(() => {
+    console.log(usuario.id);
+    console.log(usuario);
+    dispatch(getcarrito(1));
+    // const fetchData =async()=>{
+    //   await axios.post(`http://localhost:4000/users/1/carrito`)
+    // }
+    // fetchData()
+  }, [usuario]);
 
   const classes = useStyles();
   const [anchorEl, setAnchorEl] = React.useState(null);
@@ -138,24 +134,37 @@ export default function PrimarySearchAppBar({ setSearchApp}) {
     >
       {/* <Link to='/admin' > <MenuItem onClick={handleMenuClose}>Admin</MenuItem> </Link> */}
       {/* crear funcion op.ternario para rol admin = true --> show admin features */}
-     {!usuario.id && <Link to="/login">
-        {" "}
-        <MenuItem onClick={handleMenuClose}>Iniciá Sesión</MenuItem>{" "}
-      </Link>}
-      {!usuario.id && <Link to="/NuevaCuenta">
-        {" "}
-        <MenuItem onClick={handleMenuClose}>Registrate</MenuItem>{" "}
-      </Link>}
-      {usuario.id ? <h6 className= "logueado">Logueado como {usuario.name}</h6> : null}
-      {usuario.id && <Link to= "/userActivity">
-        {" "}  
-        <MenuItem onClick={handleMenuClose}>Actividad del Usuario</MenuItem>{" "}
-        </Link>}  
-      {usuario.id && <Link to="/">
-        {" "}
-        <MenuItem onClick={()=>dispatch(logoutUser())}>Cerrar Sesión</MenuItem>{" "}
-      </Link>}
-
+      {!usuario.id && (
+        <Link to="/login">
+          {" "}
+          <MenuItem onClick={handleMenuClose}>Iniciá Sesión</MenuItem>{" "}
+        </Link>
+      )}
+      {!usuario.id && (
+        <Link to="/NuevaCuenta">
+          {" "}
+          <MenuItem onClick={handleMenuClose}>Registrate</MenuItem>{" "}
+        </Link>
+      )}
+      {usuario.id ? (
+        <h6 className="logueado">Logueado como {usuario.name}</h6>
+      ) : null}
+      {usuario.id && (
+        <Link to="/userActivity">
+          {" "}
+          <MenuItem onClick={handleMenuClose}>
+            Actividad del Usuario
+          </MenuItem>{" "}
+        </Link>
+      )}
+      {usuario.id && (
+        <Link to="/">
+          {" "}
+          <MenuItem onClick={() => dispatch(logoutUser())}>
+            Cerrar Sesión
+          </MenuItem>{" "}
+        </Link>
+      )}
     </Menu>
   );
   const mobileMenuId = "primary-search-account-menu-mobile";
@@ -217,28 +226,37 @@ export default function PrimarySearchAppBar({ setSearchApp}) {
                 marginLeft: "600px",
                 width: "150px",
                 height: "100px",
-                               
               }}
             />
           </Link>
           <div className={classes.grow} />
           <div className={classes.sectionDesktop}>
             <IconButton aria-label="carrito" color="inherit">
-
-             <Link to='/carrito' > <Badge badgeContent={carrito.products && carrito.products[0] && carrito.products.length} color="secondary">
-
-                <AddShoppingCartIcon />
-              </Badge></Link>
+              <Link to="/carrito">
+                {" "}
+                <Badge
+                  badgeContent={
+                    carrito.products &&
+                    carrito.products[0] &&
+                    carrito.products.length
+                  }
+                  color="secondary"
+                >
+                  <AddShoppingCartIcon />
+                </Badge>
+              </Link>
             </IconButton>
-            
-              {/* LINK A ADMIN */}
-           { usuario.isAdmin && <Link to="/admin">
-            <IconButton aria-label="admin" color="inherit">
-              <Badge  color="secondary">
-                <BuildIcon />
-              </Badge>
-            </IconButton>
-            </Link>}
+
+            {/* LINK A ADMIN */}
+            {usuario.isAdmin && (
+              <Link to="/admin">
+                <IconButton aria-label="admin" color="inherit">
+                  <Badge color="secondary">
+                    <BuildIcon />
+                  </Badge>
+                </IconButton>
+              </Link>
+            )}
             <IconButton
               edge="end"
               aria-label="account of current user"
@@ -261,10 +279,10 @@ export default function PrimarySearchAppBar({ setSearchApp}) {
               <MoreIcon />
             </IconButton>
           </div>
+      {renderMenu}
         </Toolbar>
       </AppBar>
       {/* {renderMobileMenu} */}
-      {renderMenu}
     </div>
   );
 }

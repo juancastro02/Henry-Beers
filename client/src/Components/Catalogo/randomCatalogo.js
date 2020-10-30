@@ -1,16 +1,15 @@
-impo
-
+import react from react
 import catalogo from './Catalogo'
 
-const getRandomInteger = (maxNumber) => Math.floor(Math.random() * maxNumber);
-    const NUMBER_OF_PRODUCT = 10;
+const getRandomInteger = (catalogo.length) => { Math.floor(Math.random() * maxNumber);
+    const NUMBER_OF_PRODUCT = catalogo.length;
 
-render() {
-    const randomCat = getRandomInteger(NUMBER_OF_CATS);
+render() 
+    const randomCat = getRandomInteger(NUMBER_OF_PRODUCT);
   
     return (
-      <a href="http://lorempixel.com">
-        <img src={ `http://lorempixel.com/400/200/cats/${randomCat}` } alt="Random cat" />
-      </a>
+      Catalogo[randomCat]
     );
   }
+  export default getRandomInteger
+  

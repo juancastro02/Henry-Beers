@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from "react";
-import "./index.css";
+// import "./index.css";
 import Header from "./Compo2/Header";
 import Footer from "./Compo2/Footer.jsx";
 import Product from './Components/Product/Product'
@@ -22,6 +22,8 @@ import {validation} from './Redux/user'
 import UserActivity from './Components/userActivity/userActivity'
 import Home from './Compo2/Home'
 import NavBar from './Components/NavBar/NavBar'
+
+
 
 
 const options = {

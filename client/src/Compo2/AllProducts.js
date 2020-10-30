@@ -33,7 +33,7 @@ const AllProducts = () => {
                 <img src={require("../img/b3.png")} alt="" />
               </li>
               <li class="glide__slide">
-                <img src={require("../img/hobsons-craft-beer-cans.png")} cla alt="" />
+                <img src={require("../img/hobsons-craft-beer-cans.png")}  alt="" />
               </li>
               <li class="glide__slide">
                 <img src={require("../img/DTX-Cans-Web.png")} alt="" />
