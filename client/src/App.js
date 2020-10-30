@@ -21,9 +21,9 @@ import { positions, Provider as ProviderAlert } from "react-alert";
 import AlertTemplate from "react-alert-template-basic";
 import {validation} from './Redux/user'
 import UserActivity from './Components/userActivity/userActivity'
-
 import ForgotPass from './Components/User/ForgotPass'
 import FormularioDatosEnvio from './Components/Carrito/Checkout/checkout'
+
 
 
 const options = {

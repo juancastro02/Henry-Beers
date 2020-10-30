@@ -23,7 +23,9 @@ const CLEAN_MESSAGE_USER_CREATE = 'CLEAN_MESSAGE_USER_CREATE'
 const ERROR_POST = "ERROR_POST"
 const LOGOUT_USER = 'LOGOUT_USER'
 const GET_USERS = "GET_USERS"
+
 const MESSAGE_RECOVER_PASSWORD = 'MESSAGE_RECOVER_PASSWORD'
+
 // const DELETE_USER = "DELETE_USER"
 
 //Reducer
@@ -68,6 +70,7 @@ export default function usersReducer(state = InicialState, action) {
         ...state,
         users: action.payload
       } 
+
       case MESSAGE_RESET_PASSWORD:
       return {
         ...state,
@@ -89,6 +92,7 @@ export default function usersReducer(state = InicialState, action) {
         return {
           ...state
     }     
+
 
       // case DELETE_USER:
       // return {
@@ -116,6 +120,9 @@ export const postUser = (datos) => async (dispatch) => {
     })
   }
 }
+
+
+
 
 // export const deleteUser = (datos) => async (dispatch) => {
 //   try {

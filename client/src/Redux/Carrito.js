@@ -6,6 +6,7 @@ const InicialState = {
   carrito: [],
   ordenes:[],
   orden:[],
+  ordenCompra:[]
 };
 
 //Constantes
@@ -13,6 +14,7 @@ const InicialState = {
 const GET_CARRITO = "GET_CARRITO";
 const GET_ORDEN = "GET_ORDEN";
 const GET_PEDIDO = "GET_PEDIDO"
+const POST_CHECKOUT = "POST_CHECKOUT"
 //Reducer
 
 export default function carritoReducer(state = InicialState, action) {
@@ -23,6 +25,10 @@ export default function carritoReducer(state = InicialState, action) {
       return { ...state, ordenes: action.payload };
       case GET_PEDIDO:
       return { ...state, orden: action.payload };
+      case POST_CHECKOUT:
+        return {
+          ...state, ordenCompra: action.payload
+        } 
     default:
       return state;
   }
@@ -72,7 +78,18 @@ export const getOrdenes = () => async (dispatch, getState) => {
     }
   };
 
-
+ /*  export const postCheckout = (userId, Id) => async (dispatch) => {
+    
+    try {
+      const { data } = await axios.post(`http://localhost:4000/users/${userId}/carritos/${Id}`)
+      dispatch({
+        type: POST_CHECKOUT,
+        payload: data
+      })
+    } catch (error) {
+      console.log(error)
+    }
+  } */
   
   //::::::::::::::::::::::::::::::::::::::::::::
 

@@ -9,6 +9,8 @@ import reviewReducer from '../review'
 import carritosReducer from '../Carrito'
 
 
+
+
 const rootReducer = combineReducers({
     beer: beerReducer,
     category: categoryReducer,
@@ -16,6 +18,8 @@ const rootReducer = combineReducers({
     user: usersReducer,
     review: reviewReducer,
     carritos: carritosReducer
+    
+    
 })
 
 const composeEnhancers = window.__REDUX_DEVTOOLS_EXTENSION_COMPOSE__ || compose;
