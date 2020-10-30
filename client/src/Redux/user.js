@@ -13,6 +13,7 @@ const InicialState = {
 };
 
 //Constantes
+const SET_USER_LOGIN = 'SET_USER_LOGIN'
 const CLEAN_MESSAGE_FORGOT_PASSWORD = 'CLEAN_MESSAGE_FORGOT_PASSWORD'
 const MESSAGE_RESET_PASSWORD = 'MESSAGE_RESET_PASSWORD'
 const CLEAN_MESSAGE_RESET_PASSWORD = 'CLEAN_MESSAGE_RESET_PASSWORD'
@@ -49,7 +50,12 @@ export default function usersReducer(state = InicialState, action) {
       return {
           ...state,
        error: 'Usuario o contraseña incorrectos.'
-      }  
+      } 
+    case SET_USER_LOGIN:
+        return {
+          ...state,
+          user: action.payload
+        }      
     case LOGOUT_USER:
         return {
           ...state,
@@ -262,4 +268,47 @@ export const recoverPassword = (email) => (dispatch) => {
 
 export const cleanMessageForgotPassword = () => (dispatch) => {
   dispatch({ type: CLEAN_MESSAGE_FORGOT_PASSWORD })
+}
+
+export const validationGoogle = () => async (dispatch) => { 
+  try {
+    const token = localStorage.getItem("token");
+    if (token) {
+
+      const config = {
+        headers: { 
+          'Authorization': 'Bearer ' + token
+        }
+      };
+
+      const { data } = await axios.get('http://localhost:4000/auth/me/google', config);
+      console.log(data)
+      dispatch({
+        type: SET_USER,
+        payload: data.user
+      });
+    }
+
+  } catch (error) {
+    console.log(error);
+  };
+};
+
+
+export const authGoogle = (googleUser) => (dispatch) => {
+
+  // Obtener token
+  const token = googleUser.uc.id_token;
+  // Mandar token al backend 
+  axios.post('http://localhost:4000/auth/google', { token })
+    .then(user => {
+      localStorage.setItem("token", user.data.token);
+      dispatch({
+        type: SET_USER_LOGIN,
+        payload: user.data.user
+      })
+    })
+    .catch(error => {
+      console.log(error.message)
+    })
 }
