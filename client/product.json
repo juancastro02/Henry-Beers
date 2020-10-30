@@ -3,7 +3,7 @@
       {
         "title": "Waikiki Summer Ale",
         "price": "155",
-        "image": "./images/c1.png",
+        "image": "../client/src/img/c1.png",
         "category": "featured"
       },
       {
