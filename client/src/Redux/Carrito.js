@@ -27,8 +27,7 @@ export default function carritoReducer(state = InicialState, action) {
       return { ...state, orden: action.payload };
       case POST_CHECKOUT:
         return {
-          ...state,
-          users: action.payload
+          ...state, ordenCompra: action.payload
         } 
     default:
       return state;
@@ -79,18 +78,16 @@ export const getOrdenes = () => async (dispatch, getState) => {
     }
   };
 
-  export const postCheckout = (req, res) => async (dispatch) => {
-    const {userId,id}= req.params
+  export const postCheckout = (userId) => async (dispatch) => {
+    
     try {
-      const { data } = await axios.post('http://localhost:4000/users/:userId/carrito/:id', datos)
+      const { data } = await axios.post(`http://localhost:4000/users/${userId}/carrito/:id`)
       dispatch({
         type: POST_CHECKOUT,
         payload: data
       })
     } catch (error) {
-      dispatch({
-        type: ERROR_POST
-      })
+      console.log(error)
     }
   }
   
