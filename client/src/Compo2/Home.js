@@ -15,6 +15,8 @@ import IconButton from "@material-ui/core/IconButton";
 import AddShoppingCartIcon from "@material-ui/icons/AddShoppingCart";
 import { fade, makeStyles } from "@material-ui/core/styles";
 import BuildIcon from "@material-ui/icons/Build";
+import { flexbox } from "@material-ui/system";
+import Box from "@material-ui/core/Box";
 
 const useStyles = makeStyles((theme) => ({
   grow: {
@@ -78,9 +80,9 @@ const useStyles = makeStyles((theme) => ({
       display: "none",
     },
   },
-  icon:{
-    backgroundColor: "black"
-  }
+  icon: {
+    color: "black",
+  },
 }));
 
 export default function Home({ setSearchApp }) {
@@ -148,7 +150,9 @@ export default function Home({ setSearchApp }) {
         </Link>
       )}
       {usuario.id ? (
-        <h6 className="logueado">Logueado como {usuario.name}</h6>
+        <div>
+          <h6 className="logueado">Hola {usuario.name}</h6>
+        </div>
       ) : null}
       {usuario.id && (
         <Link to="/userActivity">
@@ -171,16 +175,16 @@ export default function Home({ setSearchApp }) {
 
   return (
     <div className={classes.grow}>
-      <AppBar position="static">
+      <AppBar position="static" style={{ backgroundColor: "black" }}>
         <Toolbar>
           <header id="home" className="header">
             <nav className="navbar fixed-top navbar-light bg-light">
               <div className="nav-center container">
-              <Link to="/" className="logo">
+                <Link to="/" className="logo">
                   <h1>
                     HENRY <span>BEERS</span>
                   </h1>
-                  </Link>
+                </Link>
 
                 <div className="nav-menu">
                   <div className="nav-top">
@@ -209,9 +213,7 @@ export default function Home({ setSearchApp }) {
 
                     <li className="nav-item">
                       <Link to="/catalogo" className="nav-link scroll-link">
-                        
-                          Hot
-                        
+                        Hot
                       </Link>
                     </li>
                     <li className="nav-item">
@@ -223,54 +225,57 @@ export default function Home({ setSearchApp }) {
                 </div>
 
                 {/* <div className="iconitos"> */}
-                <div className={classes.sectionDesktop}>
-                {/* hacer menu desplegable para login y registrarse menu dropdown*/}
-                <IconButton
-                  edge="end"
-                  aria-label="account of current user"
-                  aria-controls={menuId}
-                  aria-haspopup="true"
-                  onClick={handleProfileMenuOpen}
-                  color="inherit"
-                >
-                  {!usuario.id && (
-                    <Link to="/login">
-                      {" "}
-                      <AccountCircle className={classes.icon}/>
-                    </Link>
-                  )}
-                </IconButton>
-                {/* LINK A ADMIN */}
-                {usuario.isAdmin && (
-                  <Link to="/admin">
-                    <IconButton aria-label="admin" color="inherit">
-                      <Badge color="secondary">
-                        <BuildIcon />
-                      </Badge>
-                    </IconButton>
-                  </Link>
-                )}
-                </div>
-                {/* ver el carrito */}
-                <IconButton aria-label="carrito" color="inherit">
-                  <Link to="/carrito">
-                    {" "}
-                    <Badge
-                      badgeContent={
-                        carrito.products &&
-                        carrito.products[0] &&
-                        carrito.products.length
-                      }
-                      color="secondary"
+                {/* <div className={classes.grow} /> */}
+                <Box display="flex" justifyContent="flex-end">
+                  <div className={classes.sectionDesktop}>
+                    {/* hacer menu desplegable para login y registrarse menu dropdown*/}
+                    <IconButton
+                      edge="end"
+                      aria-label="account of current user"
+                      aria-controls={menuId}
+                      aria-haspopup="true"
+                      onClick={handleProfileMenuOpen}
                     >
-                      <AddShoppingCartIcon />
-                    </Badge>
-                  </Link>
-                </IconButton>
-                <SearchBar setSearchApp={setSearchApp} />
-                <div className="hamburger">
-                  <i className="fas fa-bars"></i>
-                </div>
+                      <AccountCircle
+                        fontSize="large"
+                        className={classes.icon}
+                      />
+                    </IconButton>
+                    {/* LINK A ADMIN */}
+                    {usuario.isAdmin && (
+                      <Link to="/admin">
+                        <IconButton aria-label="admin" color="inherit">
+                          <Badge color="secondary">
+                            <BuildIcon />
+                          </Badge>
+                        </IconButton>
+                      </Link>
+                    )}
+                  </div>
+                  {/* ver el carrito */}
+                  <IconButton aria-label="carrito" color="inherit">
+                    <Link to="/carrito">
+                      {" "}
+                      <Badge
+                        badgeContent={
+                          carrito.products &&
+                          carrito.products[0] &&
+                          carrito.products.length
+                        }
+                        color="secondary"
+                      >
+                        <AddShoppingCartIcon
+                          fontSize="large"
+                          className={classes.icon}
+                        />
+                      </Badge>
+                    </Link>
+                  </IconButton>
+                  <SearchBar setSearchApp={setSearchApp} />
+                  <div className="hamburger">
+                    <i className="fas fa-bars"></i>
+                  </div>
+                </Box>
               </div>
               {/* </div> */}
             </nav>

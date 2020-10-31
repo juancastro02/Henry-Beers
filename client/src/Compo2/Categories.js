@@ -54,12 +54,7 @@ const Categories = () => {
 
   return (
     <div>
-      <a href="javascript:history.back(1)" className='btn1' style={{marginTop: "10px"}} >
-  <div  >
-  <Button variant="contained" color="secondary"  >
-   Volver
- </Button>
- </div></a>
+  
       <section class="section category">
         <h2 class="title">Encontra los mejores sabores a tu medida!</h2>
         <div class="category-center container">
@@ -74,6 +69,7 @@ const Categories = () => {
                 </div>
 
                 <Link to={`/products/catalogo/${e.id}`}>Ver mas </Link>
+                
               </div>
             </div>
           ))}

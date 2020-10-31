@@ -1,6 +1,8 @@
 import React from "react";
+import CatalogoH from '../Components/Catalogo/CatalogoH'
 
 const AllProducts = () => {
+  
   return (
     <div>
       <section class="section" id="shop">
@@ -16,8 +18,8 @@ const AllProducts = () => {
         <div class="shop-center product-center container"></div>
       </section>
 
-      <div class="section brands container">
-        <div class="glide" id="glide2">
+      <div class="section brands container"> <CatalogoH/>
+       {/*  <div class="glide" id="glide2">
           <div class="glide__track" data-glide-el="track">
             <ul class="glide__slides">
               <li class="glide__slide">
@@ -40,7 +42,7 @@ const AllProducts = () => {
               </li>
             </ul>
           </div>
-        </div>
+        </div> */}
       </div>
     </div>
   );

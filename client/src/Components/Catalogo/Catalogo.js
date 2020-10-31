@@ -4,6 +4,7 @@ import {useSelector, useDispatch} from 'react-redux'
 import axios from 'axios'
 import {getbeers} from '../../Redux/beer'
 import './Catalogo.css'
+import Button from "@material-ui/core/Button";
 
 function Catalogo ({category,search,products}) {
   const [productscatalogo, setProductscatalogo] = useState();
@@ -29,7 +30,15 @@ function Catalogo ({category,search,products}) {
 console.log(productscatalogo)
 
     return ( 
-      <div>
+      
+      
+      <div><br/><br/>
+        <a href="javascript:history.back(1)" className='btn1' style={{marginTop: "10px", marginRight: "auto", marginLeft: "auto"}} >
+  <div  >
+  <Button  variant="contained" color="secondary"  >
+   Volver
+ </Button>
+ </div></a>
         
       <div className = 'catalogo2'>
         
