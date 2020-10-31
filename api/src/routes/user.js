@@ -3,6 +3,23 @@ const { Sequelize } = require("sequelize");
 const bcrypt = require("bcrypt");
 const { User, Carrito, Product, Orden, Ordencompra } = require("../db.js");
 
+const mailgunLoader = require('mailgun-js')
+
+let mailgun = mailgunLoader({
+  apiKey: '449040c3c5d90be79e408881926be11a-9b1bf5d3-6dcb9631',
+  domain: 'sandboxdaf8c8f62a9b47ffb8439c447170266e.mailgun.org'
+})
+
+const sendEmail = (to, from, subject) =>{
+ let data = {
+   to,
+   from,
+   subject,
+   template: 'forgot-password'
+  }
+ return mailgun.messages().send(data)
+}
+
 // CART
 
 server.post("/:userId/carrito", (req, res) => {
@@ -307,8 +324,32 @@ server.post("/", (req, res) => {
     email,
     password: bcrypt.hashSync(password, 10),
   })
-    .then((user) => {
-      return res.status(201).json(user);
+    .then((user) => {      
+      let data = {
+        to: user.email,
+        from:'henrybeers@gmail.com',
+        subject:`Hola!`,
+        template: 'new-users',
+        'h:X-Mailgun-Variables': JSON.stringify({
+          'nombre': `${user.name}`
+        })
+      }
+
+      mailgun.messages().send(data, (error, body) => {
+
+        if (error) {
+          return res.status(500).json({
+            error: error.message
+          });
+        }
+
+        // Correo enviado al email del user
+        return res.status(200).json({
+          message: 'Creado correctamente'
+        });
+
+      });
+
     })
     .catch((error) => {
       console.log(error);

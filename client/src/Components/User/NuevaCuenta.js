@@ -1,12 +1,15 @@
 import React, { useState, useContext, useEffect } from 'react';
 import { Link } from 'react-router-dom';
-import { postUser, cleanMessage } from '../../Redux/user'
+import { postUser, cleanMessage, authGoogle } from '../../Redux/user'
 import { useDispatch, useSelector } from 'react-redux'
 import axios from 'axios'
+import { useHistory } from 'react-router';
 import { useAlert } from "react-alert";
+import { loadAuth2 } from "gapi-script";
 
 
 const NuevaCuenta = ({ history }) => {
+    const historia = useHistory()
     const usuario = useSelector(store => store.user.user);
     const error = useSelector(store => store.user.error)
     const dispatch = useDispatch()
@@ -14,13 +17,8 @@ const NuevaCuenta = ({ history }) => {
     const [err, setError] = useState(false)
     const [passworderr, setPassword] = useState(false)
     const [access, accessPassword] = useState(false)
-    useEffect(() => {
 
-        if (usuario.token) {
-            history.push('/')
-          }
-
-      }, [usuario,error])
+    
       const alert = useAlert();
 
     // State para iniciar sesión
@@ -68,6 +66,44 @@ const NuevaCuenta = ({ history }) => {
       }
 
 
+
+      const attachSignin = (element, auth2) => {
+        auth2.attachClickHandler(element, {},
+          (googleUser) => {
+            dispatch(authGoogle(googleUser));
+    
+          }, (error) => {
+            console.log(JSON.stringify(error))
+          });
+      }
+    
+    
+    
+      useEffect(() => {
+        const getApiGoogle = async () => {
+          const CLIENT_GOOGLE = '880118948373-ael4igsvhmjssb6qflr341rdgt45ct2f.apps.googleusercontent.com'
+          let auth2 = await loadAuth2(CLIENT_GOOGLE, '');
+          attachSignin(document.querySelector('#btn-google'), auth2);
+        }
+    
+        getApiGoogle();
+      }, [])
+    
+      useEffect(() => {
+    
+        if(usuario.token){
+          history.push('/')
+        }
+    
+        if (usuario.id) {
+          history.push('/')
+          historia.go(0)
+    
+        }
+      }, [usuario,error])
+
+
+
     return (
         <div className="form-usuario">
             <div className="contenedor-form sombra-dark">
@@ -76,6 +112,10 @@ const NuevaCuenta = ({ history }) => {
                 <form
                  onSubmit={(e)=>onSubmit(e)} 
                 >
+             <div>
+        <button onClick={(e) => e.preventDefault()} id='btn-google' style={{border: "0", backgroundColor: "gray", borderRadius: "100%", marginLeft: "180px"}} > <i className="fab fa-google-plus-g"></i> <img style={{width: "30px", height: "45px"}} src='https://www.flaticon.es/svg/static/icons/svg/60/60786.svg' /></button>
+           </div>
+           <br/><br/>
                     <div className="campo-form">
                         <label htmlFor="nombre">Nombre</label>
                         <input
