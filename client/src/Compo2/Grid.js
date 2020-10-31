@@ -1,13 +1,15 @@
 import React from "react";
+import { useSelector, useDispatch } from "react-redux";
 
 const Grid = () => {
+  const category = useSelector((store) => store.category.categories);
   return (
     <div>
       <section class="gallary container">
         <figure class="gallary-item item-1">
           <img src={require("../img/image1.jpg")} alt="" class="gallary-img" />
           <div class="content">
-            <h2>EL MEJOR</h2>
+            <h2>LO MEJOR</h2>
             <a href="#">Ver</a>
           </div>
         </figure>
@@ -36,7 +38,7 @@ const Grid = () => {
           <img src={require("../img/Dillenger-2.png")} alt="" class="gallary-img" />
           <div class="content">
             <h2>Aprovecha los ultimos descuentos!</h2>
-            <a href="#">Ver</a>
+            <a href="/catalogo">Ver</a>
           </div>
         </figure>
       </section>

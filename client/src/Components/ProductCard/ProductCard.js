@@ -118,7 +118,7 @@ export default function MediaCard({
 
   return (
     <Fragment >
-      <div style={{ background: "#ffd800", marginTop: "0px" }}>
+      <div style={{ background: "white", marginTop: "0px" }}>
         {stock > 0 && (
           <div className={`containerClass ${addProduct ? "card-waiting" : ""}`}>
             <Card className={classes.root} style={{ width: "340px" }}>

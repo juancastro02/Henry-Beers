@@ -29,7 +29,10 @@ function Catalogo ({category,search,products}) {
 console.log(productscatalogo)
 
     return ( 
+      <div>
+        
       <div className = 'catalogo2'>
+        
       <div className = 'catalogo'  >
                     {productscatalogo && productscatalogo.map(p=>(
                     <ProductCard
@@ -42,6 +45,7 @@ console.log(productscatalogo)
                     category={p.category}
                     />
                 ))}
+      </div>
       </div>
       </div>
     );

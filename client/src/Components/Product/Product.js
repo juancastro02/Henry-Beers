@@ -30,7 +30,7 @@ const Product = (data) => {
   console.log(beer.name) */
   const classes = useStyles();
     return (
-      <div style={{backgroundColor: "#ffd800",}} >
+      <div >
         <div style={{paddingTop: "20px",display: "flex",  flexDirection: "row"}} >
           <div className="card text-center" style={{backgroundColor: "whiteSmoke", color: "black", marginLeft: "200px", width: "500px"}} >
           <a href="javascript:history.back(1)" className='btn1' style={{marginTop: "10px"}} >

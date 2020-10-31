@@ -78,6 +78,9 @@ const useStyles = makeStyles((theme) => ({
       display: "none",
     },
   },
+  icon:{
+    backgroundColor: "black"
+  }
 }));
 
 export default function Home({ setSearchApp }) {
@@ -233,7 +236,7 @@ export default function Home({ setSearchApp }) {
                   {!usuario.id && (
                     <Link to="/login">
                       {" "}
-                      <AccountCircle />
+                      <AccountCircle className={classes.icon}/>
                     </Link>
                   )}
                 </IconButton>
