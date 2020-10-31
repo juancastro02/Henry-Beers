@@ -143,6 +143,7 @@ body {
   font-size: 1.6rem;
   font-weight: 400;
   color: var(--black);
+  /* background-image: url(https://brewhousemdp.com/wp-content/uploads/2020/08/brew-house-mar-del-plata-fondo-madera-claro.jpg); */
   background-color: var(--white);
   z-index: -1;
 }

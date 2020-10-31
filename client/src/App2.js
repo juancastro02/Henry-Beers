@@ -10,6 +10,7 @@ import { useSelector, useDispatch } from 'react-redux'
 import { getbeers } from './Redux/beer'
 import { getCategory } from './Redux/category'
 import Admin from './Components/Admin/Admin';
+import Dashboard from './Components/Admin/Dashboard';
 import Login from './Components/User/Login'
 import NuevaCuenta from './Components/User/NuevaCuenta'
 import Carrito from './Components/Carrito/Carrito'
@@ -113,8 +114,12 @@ function App() {
 
         <Route
           path='/admin'
-          component={Admin}
+          component={Dashboard}
         />
+         {/* <Route
+          path='/prueba'
+          component={Dashboard}
+        /> */}
 
       </BrowserRouter>
       </ProviderAlert>
