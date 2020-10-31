@@ -30,7 +30,7 @@ const Product = (data) => {
   console.log(beer.name) */
   const classes = useStyles();
     return (
-      <div style={{backgroundColor: "gray", height: "600px"}} >
+      <div style={{backgroundColor: "#ffd800",}} >
         <div style={{paddingTop: "20px",display: "flex",  flexDirection: "row"}} >
           <div className="card text-center" style={{backgroundColor: "whiteSmoke", color: "black", marginLeft: "200px", width: "500px"}} >
           <a href="javascript:history.back(1)" className='btn1' style={{marginTop: "10px"}} >
@@ -42,7 +42,7 @@ const Product = (data) => {
             <h2 className="card-title">{data.product[0] && data.product[0].name}</h2><hr/>
                     <div class="card-body">
                       <div>
-                    <img src={data.product[0] && data.product[0].image} style={{width: "400px", height: "200px"}} />
+                    <img src={data.product[0] && data.product[0].image} style={{width: "150px"}} />
                     </div><br/>
                 <p className="card-text">{data.product[0] && data.product[0].description}</p>
               </div><hr/>

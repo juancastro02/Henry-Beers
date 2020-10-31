@@ -71,7 +71,8 @@ const NuevaCuenta = ({ history }) => {
     return (
         <div className="form-usuario">
             <div className="contenedor-form sombra-dark">
-                <h1>Crear una cuenta</h1>
+                <h1 style= {{textAlign:"center"}}>Crear una cuenta</h1>
+                <br/> 
 
                 <form
                  onSubmit={(e)=>onSubmit(e)} 

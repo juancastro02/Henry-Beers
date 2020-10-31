@@ -173,11 +173,11 @@ export default function Home({ setSearchApp }) {
           <header id="home" className="header">
             <nav className="navbar fixed-top navbar-light bg-light">
               <div className="nav-center container">
-                <a href="#home" className="logo">
+              <Link to="/" className="logo">
                   <h1>
                     HENRY <span>BEERS</span>
                   </h1>
-                </a>
+                  </Link>
 
                 <div className="nav-menu">
                   <div className="nav-top">
@@ -192,23 +192,23 @@ export default function Home({ setSearchApp }) {
                   </div>
                   <ul className="nav-list">
                     <li className="nav-item">
-                      <a href="#home" className="nav-link scroll-link">
+                      <a href="/" className="nav-link scroll-link">
                         Inicio
                       </a>
                     </li>
                     <li className="nav-item">
                       <Link to="/catalogo">
-                        <a href="#shop" className="nav-link scroll-link">
+                        <a /* href="#shop" */ className="nav-link scroll-link">
                           Cervezas
                         </a>
                       </Link>
                     </li>
 
                     <li className="nav-item">
-                      <Link to="/catalogo">
-                        <a href="#new" className="nav-link scroll-link">
+                      <Link to="/catalogo" className="nav-link scroll-link">
+                        
                           Hot
-                        </a>
+                        
                       </Link>
                     </li>
                     <li className="nav-item">

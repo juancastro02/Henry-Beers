@@ -12,7 +12,6 @@ function Catalogo ({category,search,products}) {
 
   useEffect(()=>{
    dispatch(getbeers())
-   console.log('soy Categories')
   },[])
 
 
@@ -30,7 +29,7 @@ function Catalogo ({category,search,products}) {
 console.log(productscatalogo)
 
     return ( 
-      <div style={{backgroundColor: "gray", height: "750px"}} >
+      <div className = 'catalogo2'>
       <div className = 'catalogo'  >
                     {productscatalogo && productscatalogo.map(p=>(
                     <ProductCard

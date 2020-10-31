@@ -108,8 +108,9 @@ flex: 1;
 }
 .botonGoogle{
   display: flex;
-  margin-left: 4.5rem;
+  margin-left: 5rem;
   align-items: center;
+  margin-top: 45px;
 }
 
 :root {

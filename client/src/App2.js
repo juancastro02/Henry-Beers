@@ -55,9 +55,9 @@ function App() {
     <div >
  <ProviderAlert template={AlertTemplate} {...options}>
       <BrowserRouter>
-        {/* <Route path='/'
-           render={() => <Home setSearchApp={setSearchApp} />}
-        /> */}
+      <Route  path="/"
+          component={Home}
+        />
 
         <Route exact path="/"
           component={Header}

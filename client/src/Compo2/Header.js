@@ -12,7 +12,6 @@ import Grid from './Grid'
 import AllProducts from './AllProducts'
 import Popup from './Popup'
 import Home from './Home'
-import NavBarr from '../Components/NavBar/NavBarr'
 
 const Inicio = () => {
   const history = useHistory();
@@ -48,7 +47,6 @@ const Inicio = () => {
   return (
     <div >
       <Home />
-      {/* <NavBarr/> */}
       <GlideBanner/>
       <Categories />
       <FilterProducts/>
