@@ -25,7 +25,7 @@ const CrudCategory =()=>{
 
     useEffect(()=>{
       dispatch(getCategory())
-    },[])
+    },[categoria])
 
     const[category, setCategory] = useState({
         id: "",

@@ -14,20 +14,23 @@ let mailgun = mailgunLoader({
   domain: 'sandboxdaf8c8f62a9b47ffb8439c447170266e.mailgun.org'
 })
 
-const sendEmail = (to, from, subject) =>{
- let data = {
-   to,
-   from,
-   subject,
-   template: 'forgot-password'
+const sendEmail = (to, total) =>{
+  let data = {
+    to: to,
+    from:'henrybeers@gmail.com',
+    subject:`Hola!, gracias por tu compra!`,
+    template: 'forgot-pass',
+    'h:X-Mailgun-Variables': JSON.stringify({
+      'total': `${total}`
+    })
   }
  return mailgun.messages().send(data)
 }
 
 
-server.post('/mail', async(req, res) => {
+server.post('/checkout/user', async(req, res) => {
   try {
-    await sendEmail(req.body.email, 'henrybeers@gmail.com', `Hola!, olvidaste tu contraseña?`)
+    await sendEmail(req.body.email,req.body.total )
     res.send('Email send')
   } catch (error) {
     console.log(error) 
@@ -435,6 +438,18 @@ server.post('/google', async (req, res) => {
                 google: userCreated.google
               }
             }, SIGNATURE, { expiresIn: 60 * 60 * 24 * 30 });
+
+            let data = {
+              to: userCreated.email,
+              from:'henrybeers@gmail.com',
+              subject:`Hola!`,
+              template: 'new-users',
+              'h:X-Mailgun-Variables': JSON.stringify({
+                'nombre': `${userCreated.name}`
+              })
+            }
+
+           mailgun.messages().send(data)
 
             // Usuario registrado 
             return res.status(201).json({

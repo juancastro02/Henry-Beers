@@ -4,10 +4,11 @@ import {getcarrito} from '../../../Redux/Carrito'
 import axios from 'axios';
 /* import {postCheckout} from '../../../Redux/Carrito' */
 
- const FormularioDatosEnvio = () => {
+ const FormularioDatosEnvio = ({history}) => {
 
   const dispatch = useDispatch()
   const ordenes = useSelector((store) => store.carrito.carrito);
+  console.log(ordenes)
   const user = useSelector((store) => store.user.user)
   const [form, actualizarForm] = useState({
     pais: "",
@@ -16,6 +17,7 @@ import axios from 'axios';
     codigo_postal: "",
     numero_telefono: "",
   });
+  console.log(user.email)
 
   const onChange = (e) => {
     actualizarForm({
@@ -32,6 +34,27 @@ import axios from 'axios';
     numero_telefono,
   } = form;
  
+
+  var suma = 0
+
+
+  const sumar = async() => {
+
+    for(let i = 0; i < ordenes.products.length; i++){
+      suma += ordenes.products[i].price * ordenes.products[i].orden.quantity
+    }
+    console.log(suma)
+
+    const info = {
+      email: user.email,
+      total: suma
+    }
+
+    const {data} = await axios.post(`http://localhost:4000/auth/checkout/user`, info)
+
+    return suma
+
+  }
 
    /* onst handleCreate = () => {
     const form = {
@@ -63,6 +86,7 @@ import axios from 'axios';
  }
 
  const postChek = async (userId, Id)=>{
+  
   const info = {
     pais: form.pais,
     ciudad: form.ciudad,
@@ -73,8 +97,9 @@ import axios from 'axios';
 if(form.pais && form.ciudad && form.direccion_envio && form.codigo_postal && form.numero_telefono ){
   const {data}= await axios.post(`http://localhost:4000/users/${userId}/carrito/${Id}`, info)
   await axios.put(`http://localhost:4000/users/procesando/${Id}`) 
+  sumar()
   alert('Compra exitosa')
-   
+  history.push('/')
 }
  
 
