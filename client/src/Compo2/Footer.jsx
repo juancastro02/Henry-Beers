@@ -1,6 +1,12 @@
 import React from "react";
+import  {useDispatch, useSelector} from "react-redux"; 
+import {logoutUser} from '../Redux/user'
 
 const Footer = () => {
+
+  const usuario = useSelector(store => store.user.user)
+  const dispatch = useDispatch()
+
   return (
     <div>
       <footer id="footer" className="section footer">
@@ -20,8 +26,8 @@ const Footer = () => {
             <div className="footer-center">
               <h3>MI CUENTA</h3>
               <a href="/">Inicio</a>
-              <a href="#">Mi carrito</a>
-              <a href="#">Salir</a>
+              <a href="/carrito">Mi carrito</a>
+              <a  onClick={() => dispatch(logoutUser())} href="/">Salir</a>
             </div>
             <div className="footer-center">
               <h3>CONTACTANOS</h3>
