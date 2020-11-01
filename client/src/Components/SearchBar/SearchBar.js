@@ -22,10 +22,10 @@ const SearchBar = ({ setSearchApp }) => {
       `http://localhost:4000/products/find/search?name=${search}`
     );
     console.log(data);
-    setSearchApp({
-      array: data,
-      word: search,
-    });
+    // setSearchApp({
+    //   array: data,
+    //   word: search,
+    // });
   };
 
   return (

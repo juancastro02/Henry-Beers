@@ -36,7 +36,6 @@ const Admin = ({history}) => {
                 </div>
             </div>
             <div>
-                
 
 
                 <Route
