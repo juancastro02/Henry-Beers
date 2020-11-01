@@ -3,7 +3,40 @@ const server = require("express").Router();
 const bcrypt = require("bcrypt");
 const jwt = require("jsonwebtoken");
 const {verifyToken} = require('../middleware/authentication')
-const { SIGNATURE } = process.env;
+const { SIGNATURE, CLIENT_ID, RESET_PASSWORD_KEY } = process.env;
+const { OAuth2Client } = require('google-auth-library');
+const client = new OAuth2Client('880118948373-ael4igsvhmjssb6qflr341rdgt45ct2f.apps.googleusercontent.com');
+
+const mailgunLoader = require('mailgun-js')
+
+let mailgun = mailgunLoader({
+  apiKey: '449040c3c5d90be79e408881926be11a-9b1bf5d3-6dcb9631',
+  domain: 'sandboxdaf8c8f62a9b47ffb8439c447170266e.mailgun.org'
+})
+
+const sendEmail = (to, total) =>{
+  let data = {
+    to: to,
+    from:'henrybeers@gmail.com',
+    subject:`Hola!, gracias por tu compra!`,
+    template: 'forgot-pass',
+    'h:X-Mailgun-Variables': JSON.stringify({
+      'total': `${total}`
+    })
+  }
+ return mailgun.messages().send(data)
+}
+
+
+server.post('/checkout/user', async(req, res) => {
+  try {
+    await sendEmail(req.body.email,req.body.total )
+    res.send('Email send')
+  } catch (error) {
+    console.log(error) 
+    res.status(500)
+  }
+})
 
 // Modelo user
 const { User } = require("../db");
@@ -31,6 +64,206 @@ server.get('/me', verifyToken, (request, response) => {
     })
 
 });
+
+
+
+
+// Forgot Password
+server.put('/forgot-password', (req, res) => {
+
+  const { email } = req.body;
+
+  // Buscar usuario en la BD
+  User.findOne({
+    where: {
+      email
+    }
+  })
+    .then(user => {
+
+      // Validar que el usuario existe en la BD
+      if (!user) {
+        return res.status(400).json({
+          error: `No existe un usuario con el mail: ${email}`
+        });
+      }
+
+      // Usuario verificado, generar el token
+      const token = jwt.sign({
+        id: user.id
+      }, RESET_PASSWORD_KEY, { expiresIn: '40m' });
+
+      // Generar mensaje
+
+      let data = {
+        to: email,
+        from:'henrybeers@gmail.com',
+        subject:`Hola!, olvidaste tu contraseña?`,
+        template: 'forgot-password',
+        'h:X-Mailgun-Variables': JSON.stringify({
+          'token': `${token}`
+        })
+      }
+
+
+      // Actualizar usuario y agregar token dentro del campo 'resetLink'
+      User.update({
+        resetLink: token
+      }, {
+        where: {
+          id: user.id
+        }
+      })
+        .then(userUpdated => {
+
+          // Verificar que se actualice el usuario
+          if (!userUpdated[0]) {
+            return res.status(400).json({
+              error: 'No se guardo token para resetear password del usuario.'
+            });
+          } else {
+
+            // Token guardado (User actualizado) , enviar correo al email
+            mailgun.messages().send(data, (error, body) => {
+
+              if (error) {
+                return res.status(500).json({
+                  error: error.message
+                });
+              }
+
+              // Correo enviado al email del user
+              return res.status(200).json({
+                message: `An email was sent to the address of user: ${user.username}`
+              });
+
+            });
+
+          }
+
+        })
+        .catch(error => {
+          return res.status(500).json({
+            error: error.message
+          });
+        })
+
+    })
+    .catch(error => {
+      return res.status(500).json({
+        error: error.message
+      });
+    })
+
+});
+
+
+// Reset password
+server.put('/reset-password', (req, res) => {
+
+  const { resetLink, newPassword } = req.body;
+
+  // Verificar que el token exista en el body
+  if (resetLink) {
+
+    // Verificar token
+    jwt.verify(resetLink, RESET_PASSWORD_KEY, (error, payload) => {
+
+      if (error) {
+        return res.status(401).json({
+          error: 'Token no válido o expirado.'
+        });
+      }
+
+      // Verificar que el usuario exista con el 'token' (resetLink) en la BD 
+      User.findOne({
+        where: {
+          resetLink
+        }
+      })
+        .then(user => {
+
+          if (!user) {
+            return res.status(400).json({
+              error: 'No existe un usuario con este token.'
+            });
+          }
+
+          // El usuario existe , cambiar contraseña y eliminar token
+          User.update({
+            password: bcrypt.hashSync(newPassword, 10),
+            resetLink: ''
+          }, {
+            where: {
+              id: payload.id
+            }
+          })
+            .then(userUpdated => {
+
+              if (!userUpdated[0]) {
+                return res.status(400).json({
+                  error: 'Error al cambiar tu password.'
+                });
+              }
+
+              // Se actualizo la password del usuario  
+              return res.status(200).json({
+                message: `The user: ${user.username} , has changed the password correctly. You can now log in!`
+              });
+
+            })
+            .catch(error => {
+              return res.status(500).json({
+                error: error.message
+              });
+            })
+
+        })
+        .catch(error => {
+          return res.status(500).json({
+            error: error.message
+          });
+        })
+      })
+    }
+})
+
+
+server.put('/promote/:id', (req, res)=> {
+  const id = req.params.id
+
+  User.update({isAdmin:true}, {
+  where:{
+    id: req.params.id
+  }
+})
+ User.findByPk(id) 
+ .then(adminNuevo=>{
+ return res.status(201).send({message:"nuevo admin"+id, adminNuevo});
+  })
+  .catch(error=> {
+    console.log(error);
+ res.status(400).send(error);
+  })
+})
+
+server.put('/change/:id', (req, res)=> {
+  const id = req.params.id
+
+  User.update({isAdmin:false}, {
+  where:{
+    id: req.params.id
+  }
+})
+ User.findByPk(id) 
+ .then(noEsAdmin=>{
+ return res.status(201).send({message:"se quito el permiso con exito"+id, noEsAdmin});
+  })
+  .catch(error=> {
+    console.log(error);
+ res.status(400).send(error);
+  })
+})
 
 
 
@@ -71,6 +304,7 @@ server.post("/login", (request, response) => {
 
       // Devolver el token
       return response.status(200).json({
+        email: user.email,
         id: user.id,
         isAdmin: user.isAdmin,
         mensaje: "Token generado",
@@ -85,111 +319,163 @@ server.post("/login", (request, response) => {
     });
 });
 
-/* Crear Ruta para password reset
 
-  POST /users/:id/passwordReset */
 
-server.put("/:id/passwordReset", async (req, res) => {
-  const id = req.params.id;
-  const password = rep.body.password;
-  const user = await User.findByPk(id);
-  if (user) {
-    user.password = password || user.password;
-    const updatedPass = await user.save();
-    res.send({
-      password: updatedPass.password,
-    });
-    alert("Pass actualizada");
-  } else {
-    res.status(404).send({ message: "La pass no se actualizo" });
-  }
-});
+server.get('/me/google', verifyToken, (request, response) => {
+  console.log(request.user)
+   const { id_user } = request.user;
 
-//suposicion1
-server.patch('/reset', async (req, res) => {
-	const {email, password, token} = req.body;
+   User.findOne({
+     where: {
+       id: id_user
+     }
+   })
+     .then(user => {
+       return response.json({
+         user
+       });
+     })
+     .catch(error => {
+       return response.status(400).json({
+         error: error.message
+       });
+     })
 
-	if (!email || !password || !token) return res.status(400).send('Faltan parámetros');
+ });
 
-	try {
-		const user = await User.findOne({where: {email, forgotPasswordToken: token}});
-		if (!user) return res.status(400).send('Token inválida');
+ // Validar token de google
+async function verify(token) {
 
-		user.password = password;
-		user.forgotPasswordToken = null;
-		await user.save();
-
-		return res.status(200).send('Contraseña actualizada con éxito');
-	} catch (error) {
-		res.status(500).send(error);
-	}
-});
-/* 
-//https://meanstackdeveloper.in/implement-reset-password-functionality-in-node-js-express.html
-server.post("/:id/passwordReset", function (req, res) {
-  const id = req.params.id;
-  User.findOne({
-    where: { id: userId },
-  }).then(function (user) {
-    if (!user) {
-      return { mesagge: "No user found with that email address." };
-    }
-    ResetPassword.findOne({
-      where: { userId: user.id, status: 0 },
-    }).then(function (resetPassword) {
-      if (resetPassword)
-        resetPassword.destroy({
-          where: {
-            id: resetPassword.id,
-          },
-        });
-      token = crypto.randomBytes(32).toString("hex");
-      bcrypt.hash(token, null, null, function (err, hash) {
-        ResetPassword.create({
-          userId: user.id,
-          resetPasswordToken: hash,
-          expire: moment.utc().add(config.tokenExpiry, "seconds"),
-        });
-      });
-    });
+  const ticket = await client.verifyIdToken({
+    idToken: token,
+    audience: CLIENT_ID
   });
-});
- */
-server.put('/promote/:id', (req, res)=> {
-  const id = req.params.id
 
-  User.update({isAdmin:true}, {
-  where:{
-    id: req.params.id
+  const payload = ticket.getPayload();
+
+  // Nuevo user
+  return {
+    name: payload.email.split('@')[0],
+    email: payload.email,
+    image: payload.picture,
+    google: true
   }
-})
- User.findByPk(id) 
- .then(adminNuevo=>{
- return res.status(201).send({message:"nuevo admin"+id, adminNuevo});
+
+}
+
+
+
+
+// Login with Google
+server.post('/google', async (req, res) => {
+
+  const token = req.body.token;
+
+  const googleUser = await verify(token)
+    .catch(error => {
+      return res.status(403).json({
+        error: error.message
+      });
+    })
+
+
+  User.findOne({
+    where: {
+      email: googleUser.email
+    }
   })
-  .catch(error=> {
-    console.log(error);
- res.status(400).send(error);
-  })
+    .then(user => {
+
+      // Verificar que el usuario existe en la BD.
+      if (user) {
+
+        // Si el user se autentico con Login normal
+        if (!user.google) {
+
+          return res.status(400).json({
+            message: 'Debes usar su autenticacion normal.'
+          });
+
+        } else {
+          // Generar el token
+          const token = jwt.sign({
+            user: {
+              id_user: user.id,
+              mail: user.email,
+              name: user.name,
+              admin: user.isAdmin,
+              google: user.google
+            }
+          }, SIGNATURE, { expiresIn: 60 * 60 * 24 * 30 })
+
+          // usuario logueado con google, retornar token
+          return res.status(200).json({
+            user: user,
+            token
+          });
+
+        }
+
+      } else {
+
+        // Si el usuario no existe en la BD agregarlo y devolver token
+        User.create({
+          name: googleUser.name,
+          email: googleUser.email,
+          image: googleUser.image,
+          google: true,
+          password: 'random-password'
+        })
+          .then(userCreated => {
+
+            // Generar token del userGoogle
+            const token = jwt.sign({
+              user: {
+                id_user: userCreated.id,
+                mail: userCreated.email,
+                name: userCreated.name,
+                admin: userCreated.isAdmin,
+                google: userCreated.google
+              }
+            }, SIGNATURE, { expiresIn: 60 * 60 * 24 * 30 });
+
+            let data = {
+              to: userCreated.email,
+              from:'henrybeers@gmail.com',
+              subject:`Hola!`,
+              template: 'new-users',
+              'h:X-Mailgun-Variables': JSON.stringify({
+                'nombre': `${userCreated.name}`
+              })
+            }
+
+           mailgun.messages().send(data)
+
+            // Usuario registrado 
+            return res.status(201).json({
+              user: userCreated,
+              token
+            });
+
+          })
+          .catch(error => {
+            return res.status(500).json({
+              error: error.message
+            });
+          })
+
+      }
+
+    })
+    .catch(error => {
+      return res.status(500).json({
+        error: error.message
+      });
+    })
+
 })
 
-server.put('/change/:id', (req, res)=> {
-  const id = req.params.id
 
-  User.update({isAdmin:false}, {
-  where:{
-    id: req.params.id
-  }
-})
- User.findByPk(id) 
- .then(noEsAdmin=>{
- return res.status(201).send({message:"se quito el permiso con exito"+id, noEsAdmin});
-  })
-  .catch(error=> {
-    console.log(error);
- res.status(400).send(error);
-  })
-})
 
 
 module.exports = server;

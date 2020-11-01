@@ -19,8 +19,12 @@ import { getOrdenes } from "./Redux/Carrito";
 import ResetPass from './Components/User/ResetPass'
 import { positions, Provider as ProviderAlert } from "react-alert";
 import AlertTemplate from "react-alert-template-basic";
-import {validation} from './Redux/user'
+import {validation, validationGoogle} from './Redux/user'
 import UserActivity from './Components/userActivity/userActivity'
+import ForgotPass from './Components/User/ForgotPass'
+import FormularioDatosEnvio from './Components/Carrito/Checkout/Checkout2'
+
+
 
 
 const options = {
@@ -42,6 +46,7 @@ function App() {
   const ordenes = useSelector(store => store.carrito.ordenes);
 
   useEffect(() => { // Similar al componentDidMount
+    dispatch(validationGoogle())
     dispatch(validation())
     dispatch(getbeers())
     dispatch(getCategory())
@@ -67,8 +72,9 @@ function App() {
         <Route exact path="/nuevacuenta"
           component={NuevaCuenta}
         />
-        <Route exact path="/resetPass"
-          component={ResetPass}
+        <Route 
+        exact path='/resetpassword/:token'
+        render={({match}) => <ResetPass  token={match.params.token}/>}
         />
 
         <Route
@@ -95,6 +101,11 @@ function App() {
 
         />
 
+         <Route exact path='/forgot'
+          component={ForgotPass}
+
+        />
+
         <Route
          exact path='/carrito'
          component={Carrito}
@@ -111,6 +122,12 @@ function App() {
           path='/admin'
           component={Admin}
         />
+
+            <Route
+          path='/FormularioDatosEnvio'
+          component={FormularioDatosEnvio}
+        />
+
 
       </BrowserRouter>
       </ProviderAlert>

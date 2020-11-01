@@ -12,12 +12,15 @@ import ResetPass from "../User/ResetPass";
 
 const UserActivity = ({history}) => {
 
+
     const usuario = useSelector(store => store.user.user)
     const dispatch = useDispatch()
 
 
    useEffect(()=> {
+
     if (!usuario.id) {  
+
         history.push("/")
     }
 
@@ -25,6 +28,7 @@ const UserActivity = ({history}) => {
     
     return (
         <BrowserRouter>
+
        <h1 style= {{textAlign: "center", marginTop: "35px", fontFamily: "fantasy"}}>Panel de Usuario</h1>
      
      <div style={{  height: "130px", backgroundColor: "#ffe033"  , color: "white", marginTop: "20px", marginLeft: "auto", marginRight: "auto" }} >
@@ -64,6 +68,7 @@ const UserActivity = ({history}) => {
             
 
               
+
             </div>
         
         </BrowserRouter>

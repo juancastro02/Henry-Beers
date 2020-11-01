@@ -5,13 +5,15 @@ import axios from "axios";
 const InicialState = {
   carrito: [],
   ordenes:[],
-  orden:[]
+  orden:[],
+  ordenCompra:[]
 };
 
 //Constantes
 
 const GET_CARRITO = "GET_CARRITO";
 const GET_ORDEN = "GET_ORDEN";
+
 const GET_PEDIDO = "GET_PEDIDO";
 //--------------
 const GET_ORDEN_CANC  = "GET_ORDEN_CANC";
@@ -19,6 +21,7 @@ const GET_ORDEN_PROC = "GET_ORDEN_PROC";
 const GET_ORDEN_CARRI = "GET_ORDEN_CARR ";
 const GET_ORDEN_CREAD = "GET_ORDEN_CREAD "
 const GET_ORDEN_COMPL = "GET_ORDEN_COMPL "
+
 
 //Reducer
 
@@ -40,6 +43,10 @@ export default function carritoReducer(state = InicialState, action) {
               return { ...state, ordenes: action.payload };
     case GET_PEDIDO:
       return { ...state, orden: action.payload };
+      case POST_CHECKOUT:
+        return {
+          ...state, ordenCompra: action.payload
+        } 
     default:
       return state;
   }
@@ -107,6 +114,7 @@ export const getOrdenes = () => async (dispatch, getState) => { //todas las orde
   };
 
 
+
   export const getOrdenesCanc = () => async (dispatch, getState) => {//todas las ordenes estatus Cancelada
     try {
       const { data } = await axios.get(
@@ -160,6 +168,7 @@ export const getOrdenes = () => async (dispatch, getState) => { //todas las orde
       console.log(error);
     }
   };
+
 
   
   //::::::::::::::::::::::::::::::::::::::::::::

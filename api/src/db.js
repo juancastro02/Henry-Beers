@@ -38,8 +38,8 @@ const { User } = sequelize.models
 const { Carrito } = sequelize.models 
 const { Orden } = sequelize.models
 const { Review } = sequelize.models
-
-
+const { Ordencompra } = sequelize.models 
+    
 Product.belongsToMany(Category, {through: "category_products"})
 Category.belongsToMany(Product, {through: "category_products"})
 Carrito.belongsToMany(Product, {through: Orden}) //Carrito se relaciona con muchos productos, a través de "Orden"
@@ -48,9 +48,12 @@ User.hasMany(Carrito, {as: "user"}); // Con esto le damos el id de Usuario al ca
 User.belongsToMany(Product, {through: Review}) //TE da el product id
 Product.belongsToMany(User, {through: Review}) // Te da el user id        EL producto tiene reviews de muchos usuarios
 //Product.hasMany(User, {as: "product"});
-
+User.belongsToMany(Carrito, {through: Ordencompra})//La orden de compra contiene carritos de un usuario
+Carrito.belongsToMany(User, {through: Ordencompra})// toma los datos de carrito y user y crea la tabla intermedia Orden de compra
+  
 module.exports = {
   ...sequelize.models, // para poder importar los modelos así: const { Product, User } = require('./db.js');
   conn: sequelize,     // para importart la conexión { conn } = require('./db.js');
-};
- 
+
+}; 
+

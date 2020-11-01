@@ -5,6 +5,7 @@ import {useSelector, useDispatch} from 'react-redux'
 import { makeStyles } from '@material-ui/core/styles';
 import Button from '@material-ui/core/Button';
 import './Carrito.css'
+import { Link } from "react-router-dom";
 
 const useStyles = makeStyles((theme) => ({
   root: {
@@ -46,18 +47,17 @@ const Carrito = () => {
      alert('Carrito eliminado correctamente')
     }
 
-    const handleBuy = async() =>{ // Manejador de la compra: cambia el status de "creado" a "procesando"
+    /* const handleBuy = () =>{ // Manejador de la compra: cambia el status de "creado" a "procesando"
     if(!user.id){
       alert('Debes logearte primero')
     }
 
     if(user.id){
-      const {data} = await axios.put(`http://localhost:4000/users/procesando/${carrito.id}`) 
-      alert('Compra exitosa')
+      
     }
     
    
-    }
+    } */
 
     const DeleteProduct = async(id)=>{ //  Elimina el producto
       
@@ -135,7 +135,8 @@ const Carrito = () => {
       ))}
   </tbody>
 </table>
-<Button variant="contained" style={{backgroundColor: "green", color: "white", marginLeft: "10px"}} onClick={()=> handleBuy()} >Comprar</Button> 
+<Link to='/FormularioDatosEnvio'>
+<Button variant="contained" style={{backgroundColor: "green", color: "white", marginLeft: "10px"}} onClick={()=>!user.id && alert ('Para comprar debes iniciar sesión')}> Comprar </Button> </Link>
 <Button variant="contained" style={{backgroundColor: "red", color: "white", marginLeft: "30px"}} onClick={()=> DestroyCart()} >Borrar carrito</Button></div>}     
        { user.id && carrito.products && carrito.products[0] && <div><table class="table table-striped table-dark">
   <thead>
@@ -161,11 +162,12 @@ const Carrito = () => {
          <td scope="col"> <Button variant="contained" color="secondary" onClick={()=> DeleteProduct(e.id)} >Borrar</Button></td>
         </tr>
       ))}
-  </tbody>
+  </tbody> 
 </table>
-<Button variant="contained" style={{backgroundColor: "green", color: "white", marginLeft: "10px"}} onClick={()=> handleBuy()} >Comprar</Button> 
+<Link to='/FormularioDatosEnvio'>
+<Button variant="contained" style={{backgroundColor: "green", color: "white", marginLeft: "10px"}} onClick={()=>!user.id && alert ('Debes Inicir Sesion')}> Comprar </Button> </Link>
 <Button variant="contained" style={{backgroundColor: "red", color: "white", marginLeft: "30px"}} onClick={()=> DestroyCart()} >Borrar carrito</Button></div>}
-{user.id && !carrito.products[0] && <div className='titnocarrito' style={{marginLeft: "340px"}}>
+{user.id && carrito.products && !carrito.products[0] && <div className='titnocarrito' style={{marginLeft: "340px"}}>
                     <div className='divcarritovacio'>
                     <h2>¡Tu carrito está vacío!</h2>
                     </div>

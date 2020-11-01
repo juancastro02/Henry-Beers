@@ -30,7 +30,16 @@
         allowNull: true,
          required: true,
          default: false 
-        }
+        },
+     resetLink: { //token
+          type: DataTypes.STRING,
+          allowNull: true
+        },
+     google: {
+        type: DataTypes.BOOLEAN,
+        allowNull: false,
+        defaultValue: false
+    },    
   }); 
  };
 
