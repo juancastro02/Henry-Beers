@@ -14,8 +14,8 @@ server.get('/', (req, res) => {
 
 
 server.post('/create', (req, res)=>{
-    const {name, description} = req.body
-    Category.findOrCreate({where:{name, description}})
+    const {name, description, image} = req.body
+    Category.findOrCreate({where:{name, description, image}})
     .then(()=>{
         res.status(201).send('Categoria agregada exitosamente')
     })
@@ -26,8 +26,8 @@ server.post('/create', (req, res)=>{
 
 server.put('/update/:id', (req, res)=>{
     const  id = req.params.id
-    const {name, description} = req.body
-    Category.update({name, description}, {where: {id}})
+    const {name, description, image} = req.body
+    Category.update({name, description, image}, {where: {id}})
     .then(()=>{
         res.status(201).send('Modificado Correctamente')
     })

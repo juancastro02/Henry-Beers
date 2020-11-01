@@ -4,6 +4,7 @@ import {useSelector, useDispatch} from 'react-redux'
 import axios from 'axios'
 import {getbeers} from '../../Redux/beer'
 import './Catalogo.css'
+import Button from "@material-ui/core/Button";
 
 function Catalogo ({category,search,products}) {
   const [productscatalogo, setProductscatalogo] = useState();
@@ -12,7 +13,6 @@ function Catalogo ({category,search,products}) {
 
   useEffect(()=>{
    dispatch(getbeers())
-   console.log('soy Categories')
   },[])
 
 
@@ -30,7 +30,18 @@ function Catalogo ({category,search,products}) {
 console.log(productscatalogo)
 
     return ( 
-      <div style={{backgroundColor: "gray", height: "750px"}} >
+      
+      
+      <div><br/><br/>
+        <a href="javascript:history.back(1)" className='btn1' style={{marginTop: "10px", marginRight: "auto", marginLeft: "auto"}} >
+  <div  >
+  <Button  variant="contained" color="secondary"  >
+   Volver
+ </Button>
+ </div></a>
+        
+      <div className = 'catalogo2'>
+        
       <div className = 'catalogo'  >
                     {productscatalogo && productscatalogo.map(p=>(
                     <ProductCard
@@ -43,6 +54,7 @@ console.log(productscatalogo)
                     category={p.category}
                     />
                 ))}
+      </div>
       </div>
       </div>
     );

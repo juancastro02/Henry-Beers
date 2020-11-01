@@ -1,22 +1,17 @@
-import React from 'react'
-import './Profile.css'
+import React from "react";
+import "./Profile.css";
 
+const Profile = () => {
+  var now = new Date().toLocaleTimeString();
+  setTimeout(now, 1000);
 
-const Profile = () =>{
-    var now = new Date().toLocaleTimeString();
-    setTimeout(now, 1000)
-    
-    return(
-           <div style={{ display: 'flex', flexDirection: "column", textAlign: "center"}} >
-        <h1 style={{marginRight: "auto", marginLeft: "auto"}} > Hola Admin!</h1>
-    <h2 >La hora es: {now}</h2>
-       </div>
-    )
-    
-}
+  return (
+    <div className="divadmin">
+      <h1 className="h1adm"> Hola Admin!</h1>
+      <h2 className="h2adm">La hora es: {now}</h2>
+    </div>
+  );
+};
 
-
-  
-
-  export default Profile 
-  //setTimeout(function, milliseconds, param1, param2, ...)
+export default Profile;
+//setTimeout(function, milliseconds, param1, param2, ...)

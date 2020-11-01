@@ -26,6 +26,7 @@ import FormularioDatosEnvio from './Components/Carrito/Checkout/Checkout2'
 
 
 
+
 const options = {
   timeout: 5000,
   position: positions.MIDDLE
@@ -34,7 +35,7 @@ const options = {
 function App() {
 
   const [search, setSearchApp] = useState({
-array: [],
+    array: [],
     word: "",
   });
 
@@ -57,9 +58,9 @@ array: [],
     <div >
  <ProviderAlert template={AlertTemplate} {...options}>
       <BrowserRouter>
-        <Route path='/'
+        {/* <Route path='/'
           render={() => <NavBar setSearchApp={setSearchApp} />}
-        />
+        /> */}
 
         <Route exact path="/"
           component={Inicio}

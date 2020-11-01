@@ -6,7 +6,8 @@ import ResetPass from './ResetPass'
 import { useAlert } from "react-alert";
 import { useHistory } from 'react-router';
 import GoogleLogin from 'react-google-login';
-import { loadAuth2 } from "gapi-script";
+import './User.css'
+
 
 //falta la auth que compare las pass para loguear.
 
@@ -88,8 +89,8 @@ const Login = ({history}) => {
   return (
     <div className="form-usuario">
       <div className="contenedor-form sombra-dark">
-        <h1>Iniciar Sesión</h1>
-        <form onSubmit={onSubmit}>
+
+        <h1 style= {{textAlign: "center"}}>Iniciar Sesión</h1>
         <div>
         <button onClick={(e) => e.preventDefault()} id='btn-google' style={{border: "0", backgroundColor: "gray", borderRadius: "100%", marginLeft: "180px"}} > <i className="fab fa-google-plus-g"></i> <img style={{width: "30px", height: "45px"}} src='https://www.flaticon.es/svg/static/icons/svg/60/60786.svg' /></button>
            </div>

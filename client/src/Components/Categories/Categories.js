@@ -42,7 +42,9 @@ export default function Category() {
         </ListItem>
         {category.map((text) => (
           <ListItem>
-           <Link to={`/products/catalogo/${text.id}`} ><div>{text.name}</div></Link>
+           <Link to={`/products/catalogo/${text.id}`} >
+             <div className="category-box">{text.name}</div>
+             </Link>
          
           </ListItem>
         ))}
@@ -54,7 +56,7 @@ export default function Category() {
     <div>
       {['Cervezas'].map((anchor) => (
         <React.Fragment key={anchor}>
-          <Button onClick={toggleDrawer(anchor, true)} style={{color: "white"}}>{anchor}</Button>
+          <Button onClick={toggleDrawer(anchor, true)} >{anchor}</Button>
           <Drawer anchor={anchor} open={state[anchor]} onClose={toggleDrawer(anchor, false)} >
             {list(anchor)}
           </Drawer>

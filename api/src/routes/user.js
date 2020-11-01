@@ -167,18 +167,43 @@ server.get("/orden/:id", (req, res) => {
       },
       include: Product,
     },
-    {
-      include: Orden,
-    }
-  )
-    .then((carrito) => {
-      res.status(201).send(carrito);
-    })
-    .catch((err) => {
-      console.log(err);
-      res.status(400).send(err);
-    });
-});
+
+    include: Product
+  },{
+    include: Orden,
+  })
+  .then(carrito=>{
+      res.status(201).send(carrito)
+  })
+  .catch(err=>{
+    console.log(err)
+      res.status(400).send(err)
+  })
+})
+// http://localhost:4000/users/18/orden/50 
+
+server.get('/:idUser/orden/:id', (req, res)=>{ //para traer una sola orden de un determinado usuario
+  const Id = req.params.id
+  const idUser=req.params.idUser
+  Carrito.findOne({
+    where:{
+      userId:idUser,
+      id:Id,  
+    },
+    include: Product
+  },{
+    include: Orden,
+  })
+  .then(carrito=>{
+      res.status(201).send(carrito)
+  })
+  .catch(err=>{
+    console.log(err)
+      res.status(400).send(err)
+  })
+})
+
+
 
 server.put("/procesando/:carritoId", (req, res) => {
   const carritoId = req.params.carritoId;
@@ -259,14 +284,7 @@ server.put("/completada/:carritoId", (req, res) => {
     });
 });
 
-// Update queries also accept the where option, just like the read queries shown above.
 
-// // Change everyone without a last name to "Doe"
-// await User.update({ lastName: "Doe" }, {
-//   where: {
-//     lastName: null
-//   }
-// });
 
 server.get("/:userId/carritos", (req, res) => {
   const { userId } = req.params;
@@ -310,7 +328,110 @@ server.get("/carrito/:id", (req, res) => {
     });
 });
 
-//------------------------------------------------>
+
+
+
+
+
+//------------------------------------------------> rutas para filtrar 
+
+server.get('/get', (req, res)=>{ //TRAE TODOS LOS CARRITOS
+  Carrito.findAll({
+      include: Product  //Con el include, uno tablas
+  }, { 
+      include: Orden
+  })
+  .then(carrito=>{
+      res.status(201).send(carrito)
+  })
+  .catch(err=>{
+      res.status(400).send(err)
+  })
+})
+ //http://localhost:4000/users/getCread
+
+server.get('/getCread', (req, res)=>{ //TRAE TODOS LOS CARRITOS con status creada
+  Carrito.findAll({ where:{ status: "creada"},
+      include: Product  //Con el include, uno tablas
+  }, { 
+      include: Orden
+  })
+  .then(carritoCread=>{
+      res.status(201).send(carritoCread)
+  })
+  .catch(err=>{
+      res.status(400).send(err)
+  })
+})
+
+
+//http://localhost:4000/users/getCanc
+
+server.get('/getCanc', (req, res)=>{ //TRAE TODOS LOS CARRITOS con status cancelada
+  Carrito.findAll({ where:{ status: "cancelada"},
+      include: Product  //Con el include, uno tablas
+  }, {                                                                 
+      include: Orden
+  })
+  .then(carritoCanc=>{
+      res.status(201).send(carritoCanc)
+  })
+  .catch(err=>{
+      res.status(400).send(err)
+  })
+})
+
+//http://localhost:4000/users/getCarri  ruta para postman
+
+server.get('/getCarri', (req, res)=>{ //TRAE TODOS LOS CARRITOS con status carrito
+  Carrito.findAll({ where:{ status: "carrito"},
+      include: Product  //Con el include, uno tablas
+  }, { 
+      include: Orden
+  })
+  .then(carrito=>{
+      res.status(201).send(carrito)
+  })
+  .catch(err=>{
+      res.status(400).send(err)
+  })
+})
+
+//http://localhost:4000/users/getProce  ruta para postman
+
+server.get('/getProce', (req, res)=>{ //TRAE TODOS LOS CARRITOS con status procesando
+  Carrito.findAll({ where:{ status: "procesando"},
+      include: Product  //Con el include, uno tablas
+  }, { 
+      include: Orden
+  })
+  .then(carritoProce=>{
+      res.status(201).send(carritoProce)
+  })
+  .catch(err=>{
+      res.status(400).send(err)
+  })
+})
+//http://localhost:4000/users/getcomple
+server.get('/getcomple', (req, res)=>{ //TRAE TODOS LOS CARRITOS con status completada
+  Carrito.findAll({ where:{ status: "completa"},
+      include: Product  //Con el include, uno tablas
+  }, { 
+      include: Orden
+  })
+  .then(carritocomple=>{
+      res.status(201).send(carritocomple)
+  })
+  .catch(err=>{
+      res.status(400).send(err)
+  })
+})
+
+
+
+
+
+
 
 //This will add methods getUsers, setUsers, addUsers to Project, and getProjects
 //, setProjects and addProject to User.
@@ -443,46 +564,22 @@ server.post("/signin", async (req, res) => {
 });
 
 // crear admin
-server.post("/createadmin", async (req, res) => {
-  try {
-    const user = new User({
-      name: "admin",
-      email: "admin@admin.com",
-      password: bcrypt.hashSync("admin", 10),
-      isAdmin: true,
-    });
-    const newUser = await user.save();
-    res.send(newUser);
-  } catch (error) {
-    res.send({ message: error.message });
-  }
-});
 
-//checkout compra http://localhost:4000/users/:userId/carrito/:id
-
-server.post("/:userId/carrito/:id", (req, res) => {
-  const { userId, id } = req.params;
-  const { pais, ciudad, direccion_envio, codigo_postal, numero_telefono} = req.body;
-  User.findByPk(userId)
-  .then((user)=>{
-    user.addCarritos(id)
-    .then((jairo)=>{
-      Ordencompra.update({pais, ciudad, direccion_envio, codigo_postal, numero_telefono},{
-        where:{userId:userId, carritoId:id}})
-        .then(rev=>{
-          res.status(201).json(rev)
-    })
-    .catch((err) => {
-      console.log(err)
-      res.status(400).send(err)
-       })
-  })
-  .catch((err) => {
-     console.log(err, "sss=>")
-     res.status(400).send(err)
-      })
-});
- 
-})
-
+server.post('/createadmin', async (req, res) => {
+    try {
+      const user = new User({
+        name: 'admin',
+        email: 'admin@admin.com',
+        password: bcrypt.hashSync('admin', 10),
+        isAdmin: true,
+      }); 
+      const newUser = await user.save();
+      res.send(newUser);   
+    } catch (error) {
+      res.send({ message: error.message });
+    }
+  });
+  
+  
 module.exports = server;
+
