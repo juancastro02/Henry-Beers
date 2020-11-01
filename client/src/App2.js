@@ -55,7 +55,7 @@ function App() {
     <div >
  <ProviderAlert template={AlertTemplate} {...options}>
       <BrowserRouter>
-      <Route  path="/"
+      <Route exact path="/"
           component={Home}
         />
 
@@ -68,10 +68,12 @@ function App() {
         <Route exact path="/login"
           component={Login}
         />
+
         
         <Route exact path="/nuevacuenta"
           component={NuevaCuenta}
         />
+
         <Route exact path="/resetPass"
           component={ResetPass}
         />
@@ -97,14 +99,27 @@ function App() {
 
         <Route exact path='/catalogo'
           component={Catalogo}
+        />
 
+        
+        <Route exact path='/catalogo'
+          component={Home}
         />
 
         <Route
          exact path='/carrito'
          component={Carrito}
         />
+
+        <Route
+         exact path='/carrito'
+         component={Home}
+        />
         
+        <Route
+         exact path='/userActivity'
+         component={Home}
+        />
         
         <Route
          exact path='/userActivity'

@@ -49,8 +49,8 @@ const Inicio = () => {
       <Home />
       <GlideBanner/>
       <Categories />
-      <FilterProducts/>
-      <Grid/>
+      {/* <FilterProducts/> */}
+      {/* <Grid/> */}
       <AllProducts/>
       <Facilities/>
       <Popup/>

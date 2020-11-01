@@ -15,7 +15,6 @@ import IconButton from "@material-ui/core/IconButton";
 import AddShoppingCartIcon from "@material-ui/icons/AddShoppingCart";
 import { fade, makeStyles } from "@material-ui/core/styles";
 import BuildIcon from "@material-ui/icons/Build";
-import { flexbox } from "@material-ui/system";
 import Box from "@material-ui/core/Box";
 
 const useStyles = makeStyles((theme) => ({
@@ -33,7 +32,6 @@ const useStyles = makeStyles((theme) => ({
   },
   search: {
     position: "relative",
-    borderRadius: theme.shape.borderRadius,
     backgroundColor: fade(theme.palette.common.white, 0.15),
     "&:hover": {
       backgroundColor: fade(theme.palette.common.white, 0.25),
@@ -154,7 +152,17 @@ export default function Home({ setSearchApp }) {
           <h6 className="logueado">Hola {usuario.name}</h6>
         </div>
       ) : null}
-      {usuario.id && (
+      
+
+      {usuario.isAdmin && (
+        <Link to="/admin" >
+          {" "}
+          <MenuItem onClick={handleMenuClose}>
+            Panel Admin
+          </MenuItem>{" "}
+        </Link>
+      )}
+      {usuario.user && (
         <Link to="/userActivity">
           {" "}
           <MenuItem onClick={handleMenuClose}>
@@ -162,6 +170,14 @@ export default function Home({ setSearchApp }) {
           </MenuItem>{" "}
         </Link>
       )}
+      {usuario.id ? (
+        <Link to="/userActivity">
+          {" "}
+          <MenuItem onClick={handleMenuClose}>
+            Actividad del Usuario
+          </MenuItem>{" "}
+        </Link>
+      ):null}
       {usuario.id && (
         <Link to="/">
           {" "}
@@ -210,12 +226,11 @@ export default function Home({ setSearchApp }) {
                         </a>
                       </Link>
                     </li>
-
-                    <li className="nav-item">
+                    {/* <li className="nav-item">
                       <Link to="/catalogo" className="nav-link scroll-link">
                         Hot
                       </Link>
-                    </li>
+                    </li> */}
                     <li className="nav-item">
                       <a href="#blog" className="nav-link scroll-link">
                         Nosotros
@@ -227,8 +242,44 @@ export default function Home({ setSearchApp }) {
                 {/* <div className="iconitos"> */}
                 {/* <div className={classes.grow} /> */}
                 <Box display="flex" justifyContent="flex-end">
-                  <div className={classes.sectionDesktop}>
-                    {/* hacer menu desplegable para login y registrarse menu dropdown*/}
+                  {/* hacer menu desplegable para login y registrarse menu dropdown*/}
+
+                  {/* LINK A ADMIN */}
+                  {/* {usuario.isAdmin && (
+                      <Link to="/admin">
+                        <IconButton aria-label="admin" color="inherit">
+                          <Badge color="secondary">
+                            <BuildIcon />
+                          </Badge>
+                        </IconButton>
+                      </Link>
+                    )}
+                    <IconButton
+                      edge="end"
+                      aria-label="account of current user"
+                      aria-controls={menuId}
+                      aria-haspopup="true"
+                      onClick={handleProfileMenuOpen}
+                    >
+                      <AccountCircle
+                        fontSize="large"
+                        className={classes.icon}
+                      />
+                    </IconButton> */}
+
+                  {usuario.isAdmin && usuario.isAdmin ? (
+                    <IconButton
+                      edge="end"
+                      aria-label="account of current user"
+                      aria-controls={menuId}
+                      aria-haspopup="true"
+                      onClick={handleProfileMenuOpen}
+                    >
+  
+                        <BuildIcon fontSize="large" className={classes.icon} />
+                      
+                    </IconButton>
+                  ) : (
                     <IconButton
                       edge="end"
                       aria-label="account of current user"
@@ -241,17 +292,8 @@ export default function Home({ setSearchApp }) {
                         className={classes.icon}
                       />
                     </IconButton>
-                    {/* LINK A ADMIN */}
-                    {usuario.isAdmin && (
-                      <Link to="/admin">
-                        <IconButton aria-label="admin" color="inherit">
-                          <Badge color="secondary">
-                            <BuildIcon />
-                          </Badge>
-                        </IconButton>
-                      </Link>
-                    )}
-                  </div>
+                  )}
+
                   {/* ver el carrito */}
                   <IconButton aria-label="carrito" color="inherit">
                     <Link to="/carrito">

@@ -1,48 +1,54 @@
 import React from "react";
-import CatalogoH from '../Components/Catalogo/CatalogoH'
+import { Link } from "react-router-dom";
+import "react-responsive-carousel/lib/styles/carousel.min.css"; // requires a loader
+import { Carousel } from "react-responsive-carousel";
+import "../index.css";
 
 const AllProducts = () => {
-  
   return (
-    <div>
-      <section class="section" id="shop">
-        <div class="title-container">
-          <div class="section-titles">
-            <div class="section-title active" data-id="latest">
-              <span class="dot"></span>
-              <h1 class="primary-title">Todas las cervezas</h1>
+    <div className="carousel-wrapper">
+      <section className="section" id="shop">
+        <div className="title-container">
+          <div className="section-titles">
+            <div className="section-title active" data-id="latest">
+              <h1 className="primary-title">Todas las cervezas</h1>
             </div>
           </div>
         </div>
 
-        <div class="shop-center product-center container"></div>
+        <div className="shop-center product-center container"></div>
       </section>
 
-      <div class="section brands container"> <CatalogoH/>
-       {/*  <div class="glide" id="glide2">
-          <div class="glide__track" data-glide-el="track">
-            <ul class="glide__slides">
-              <li class="glide__slide">
-                <img src={require("../img/scotish.png")} alt="" />
-              </li>
-              <li class="glide__slide">
-                <img src={require("../img/b1.png")} alt="" />
-              </li>
-              <li class="glide__slide">
-                <img src={require("../img/b2.png")} alt="" />
-              </li>
-              <li class="glide__slide">
-                <img src={require("../img/b3.png")} alt="" />
-              </li>
-              <li class="glide__slide">
-                <img src={require("../img/hobsons-craft-beer-cans.png")}  alt="" />
-              </li>
-              <li class="glide__slide">
-                <img src={require("../img/DTX-Cans-Web.png")} alt="" />
-              </li>
-            </ul>
+      <div className="section brands container">
+        <div className="glide" id="glide2">
+          <div className="glide__track" data-glide-el="track">
+              <ul >
+            <Carousel infiniteLoop autoPlay>
+                <li className="glide__slide">
+                  <img src={require("../img/scotish.png")} alt="" />
+                </li>
+                <li className="glide__slide">
+                  <img src={require("../img/b1.png")} alt="" />
+                </li>
+                <li className="glide__slide">
+                  <img src={require("../img/b2.png")} alt="" />
+                </li>
+                <li className="glide__slide">
+                  <img src={require("../img/b3.png")} alt="" />
+                </li>
+                <li className="glide__slide">
+                  <img
+                    src={require("../img/hobsons-craft-beer-cans.png")}
+                    alt=""
+                  />
+                </li>
+                <li className="glide__slide">
+                  <img src={require("../img/DTX-Cans-Web.png")} alt="" />
+                </li>
+            </Carousel>
+              </ul>
           </div>
-        </div> */}
+        </div>
       </div>
     </div>
   );
