@@ -78,7 +78,7 @@ const MisCarritos = () => {
                     <td>{e.status}</td>
                     <td scope="col">
                        <Link to ={`/carrito/${e.id}`}  > {/*q lo mande a otro componente */}
-                            <Button variant="contained" color="secondary" > {/*tiene q traer de la ruta del back la info de un carrito especifico */}
+                            <Button variant="contained" color="secondary" style={{marginRight: "20px"}}  > {/*tiene q traer de la ruta del back la info de un carrito especifico */}
                               Ver Detalle 
                             </Button> 
                        </Link>

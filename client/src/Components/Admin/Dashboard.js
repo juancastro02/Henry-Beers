@@ -142,6 +142,7 @@ export default function Dashboard({history}) {
         <AppBar
           position="absolute"
           className={clsx(classes.appBar, open && classes.appBarShift)}
+          style={{backgroundColor: "#fdd835", height: "90px"}}
         >
           <Toolbar className={classes.toolbar} className={classes.kaka}>
             <IconButton
@@ -172,6 +173,7 @@ export default function Dashboard({history}) {
           </IconButton> */}
           </Toolbar>
         </AppBar>
+        
         <Drawer
           variant="permanent"
           classes={{

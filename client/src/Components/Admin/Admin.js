@@ -19,7 +19,7 @@ const Admin = ({history}) => {
 
     return (
         <BrowserRouter>
-            <div style={{ width: "15%", height: "120px", backgroundColor: "gray", color: "white", borderRadius: "10px", marginTop: "10px", marginLeft: "10px" }} >
+            <div style={{ width: "15%", height: "120px", color: "white", borderRadius: "10px", marginTop: "220px", marginLeft: "10px" }} >
                 <div style={{ padding: "15px 15px 15px 15px", color:"white" }} >
                     <div>
                         <Link to='/admin/crud/products'> <h6 style={{color:"white", textAlign:"center" }}>Products</h6> </Link>

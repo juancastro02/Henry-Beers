@@ -22,12 +22,29 @@ export default function Orden(data) {
 
     console.log(data);
     
+    var suma = 0
+
+    if(orden && orden.products){
+      const sumar = async() => {
+  
+        for(let i = 0; i < orden.products.length; i++){
+          suma += orden.products[i].price * orden.products[i].orden.quantity
+        }
+    
+        return suma
+    
+      }
+      sumar()
+    }
+
+
+  
+
+
     useEffect(() => {
         dispatch(getPedido(data.match.params.id))
       //Hago que siempre se actualice la pág. Cuando la pág, encuentra que el cart está en "procesando"
-  
     }, [orden]);
-  
   
 console.log(orden)
 
@@ -47,7 +64,7 @@ console.log(orden)
 
 
     return(
-<div>
+<div style={{marginTop: "70px"}}>
 <a href="javascript:history.back(1)" className='btn1' style={{marginTop: "10px"}} >
   <div  >
   <Button variant="contained" color="secondary"  >
@@ -67,6 +84,7 @@ console.log(orden)
                   <h6>Cantidad: {e.orden.quantity}</h6>
                   </div>
                  ))}
+           <h1>Total: ${suma}</h1>      
 {orden && orden.status === "procesando" && <Button onClick={()=>creada(orden.id)} variant="contained" color="secondary" style={{marginLeft: "10px", marginRight: "20px", backgroundColor: "green"}} >
    Procesar 
  </Button>}

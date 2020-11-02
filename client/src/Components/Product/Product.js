@@ -31,7 +31,7 @@ const Product = (data) => {
   const classes = useStyles();
     return (
       <div >
-        <div style={{paddingTop: "20px",display: "flex",  flexDirection: "row"}} >
+        <div style={{marginTop: "120px",display: "flex",  flexDirection: "row"}} >
           <div className="card text-center" style={{backgroundColor: "whiteSmoke", color: "black", marginLeft: "200px", width: "500px"}} >
           <a href="javascript:history.back(1)" className='btn1' style={{marginTop: "10px"}} >
              <div  >

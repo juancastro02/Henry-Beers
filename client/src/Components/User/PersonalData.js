@@ -48,7 +48,7 @@ function PersonalData(){
           
         {/* {<a href="javascript:history.back(3)" className='btn1' style={{marginTop: "10px"}} > */}
         <div>
-        <Link to={"/resetPass"} className="enlace-cuenta">
+        <Link to={`/resetPass/${usuario.token}`} className="enlace-cuenta">
 
 <Button variant="contained" color="secondary" style={{marginTop: "10px"}}  >
           Cambiar contraseña

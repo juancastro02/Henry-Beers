@@ -83,8 +83,8 @@ const useStyles = makeStyles((theme) => ({
   },
 }));
 
-export default function Home( {setBusquedaApp} ) {
-  console.log(setBusquedaApp)
+export default function Home(  ) {
+
   const usuario = useSelector((store) => store.user.user);
   const carrito = useSelector((store) => store.carrito.carrito);
   const dispatch = useDispatch();
@@ -216,9 +216,10 @@ export default function Home( {setBusquedaApp} ) {
                   </div>
                   <ul className="nav-list">
                     <li className="nav-item">
-                      <a href="/" className="nav-link scroll-link">
+                      <Link to='/' >
+                      <a className="nav-link scroll-link">
                         Inicio
-                      </a>
+                      </a></Link>
                     </li>
                     <li className="nav-item">
                       <Link to="/catalogo">
@@ -315,7 +316,7 @@ export default function Home( {setBusquedaApp} ) {
                     </Link>
                   </IconButton>
                   <div>
-                  <SearchBar setBusquedaApp={setBusquedaApp} />
+                  <SearchBar  />
                   </div>
                   <div className="hamburger">
                     <i className="fas fa-bars"></i>

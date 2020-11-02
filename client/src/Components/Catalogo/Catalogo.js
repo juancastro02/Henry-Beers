@@ -18,9 +18,27 @@ function Catalogo ({category,search,products}) {
 
   useEffect(() => {
     const fetchData = async()=>{
-        const {data} = await axios.get(`http://localhost:4000/products/${ category ? 'categoria/' + category : search ? 'find/search?name='+search : ""}`)
+
+      if(products ){
+        setProductscatalogo(products)
+      }
+
+      if(category){
+
+        const {data} = await axios.get(`http://localhost:4000/products/categoria/${ category}`)
         setProductscatalogo(data)
-        console.log(data)
+
+      } 
+      
+      if(!products && !category){
+        const {data} = await axios.get(`http://localhost:4000/products`)
+        setProductscatalogo(data)
+      }
+
+
+        // const {data} = await axios.get(`http://localhost:4000/products/${ category ? 'categoria/' + category : search ? 'find/search?name='+search : ""}`)
+        // setProductscatalogo(data)
+        // console.log(data)
     }
     fetchData()
     
