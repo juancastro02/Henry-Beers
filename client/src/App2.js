@@ -41,6 +41,7 @@ function App2() {
   const category = useSelector(store => store.category.categories)
   const products = useSelector(store => store.beer.beers)
   const ordenes = useSelector(store => store.carrito.ordenes);
+  const busqueda = useSelector(store => store.beer.busca)
 
   useEffect(() => { // Similar al componentDidMount
     dispatch(validationGoogle())
@@ -50,11 +51,9 @@ function App2() {
     dispatch(getOrdenes())
   }, []) 
 
-  const [search, setBusquedaApp] = useState({
-    array: [],
-    word: "",
-  });
-
+console.log(busqueda)
+console.log(busqueda.busqueda)
+console.log(busqueda.search)
   return (
     <div >
 
@@ -62,7 +61,7 @@ function App2() {
       <BrowserRouter>
 
       <Route path="/"
-          render={() => <Home setBusquedaApp={setBusquedaApp} />}
+          component={ Home}
         />
 
         <Route exact path="/"
@@ -95,7 +94,7 @@ function App2() {
 
         <Route
           exact path="/products/search"
-          render={() => <Catalogo products={search.array} search={search.word} />}
+          render={() => <Catalogo products={busqueda.busqueda} search={busqueda.search} />}
         />
 
         <Route exact path="/catalogo/:id"

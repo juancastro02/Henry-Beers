@@ -13,6 +13,10 @@
     "@testing-library/user-event": "^7.1.2",
     "axios": "^0.20.0",
     "devtools": "^6.6.2",
+<<<<<<< HEAD
+=======
+    "gapi-script": "^1.0.2",
+>>>>>>> 532d75ad2e7989e0c2cae0413beeb80724ed396f
     "material-dashboard-react": "^1.9.0",
     "react": "^16.13.1",
     "react-alert": "^7.0.2",

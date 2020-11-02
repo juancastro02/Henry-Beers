@@ -8,6 +8,7 @@ const InicialState = {
     id: "",
     email: "",
     password: "",
+    token: "",
     isAdmin: false
   },
 };

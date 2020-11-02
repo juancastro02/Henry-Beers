@@ -6,7 +6,7 @@ const Profile = () => {
   setTimeout(now, 1000);
 
   return (
-    <div className="divadmin">
+    <div className="divadmin" style={{marginTop:"50px"}} >
       <h1 className="h1adm"> Hola Admin!</h1>
       <h2 className="h2adm">La hora es: {now}</h2>
     </div>

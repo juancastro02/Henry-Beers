@@ -14,6 +14,7 @@ import beerIcon from "@iconify/icons-mdi/beer";
 import ListAltIcon from "@material-ui/icons/ListAlt";
 import { Link } from "react-router-dom";
 
+
 export const mainListItems = (
   <div>
     <Link to="/admin">
@@ -56,14 +57,14 @@ export const mainListItems = (
         <ListItemText primary="Categorias" />
       </ListItem>
     </Link>
-    <Link to="/">
+    <a href="/">
       <ListItem button>
         <ListItemIcon>
           <LayersIcon />
         </ListItemIcon>
         <ListItemText primary="Salir" />
       </ListItem>
-    </Link>
+    </a>
   </div>
 );
 

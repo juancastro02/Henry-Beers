@@ -65,7 +65,48 @@ server.get('/me', verifyToken, (request, response) => {
 
 });
 
+server.put('/update/password', verifyToken ,(req,res) =>{
+  const {actualPassword , newPassword} = req.body;
+  const {id_user} = req.user;
 
+  User.findOne({
+    where: {
+      id: id_user
+    }
+  })
+    .then(user => {
+
+      if (!bcrypt.compareSync(actualPassword, user.password)) {
+        return res.status(400).json({
+          error: 'Password dont match.'
+        });
+      }
+
+      // Contraseña coincide, actualizar user
+      User.update({
+        password: bcrypt.hashSync(newPassword, 10)
+      }, {
+        where: { id: user.id}
+      })
+        .then(userUpdated => {
+          return res.status(200).json({
+            message: 'Your password was changed.'
+          })
+        })
+        .catch(error => {
+          return res.status(500).json({
+            error: error.message
+          })
+        })
+
+    })
+    .catch(error => {
+      return res.status(500).json({
+        error: error.message
+      })
+    })
+
+})
 
 
 // Forgot Password
@@ -134,7 +175,7 @@ server.put('/forgot-password', (req, res) => {
 
               // Correo enviado al email del user
               return res.status(200).json({
-                message: `An email was sent to the address of user: ${user.username}`
+                message: `El email fue enviado al mail del usuario: ${user.name}`
               });
 
             });
@@ -208,7 +249,7 @@ server.put('/reset-password', (req, res) => {
 
               // Se actualizo la password del usuario  
               return res.status(200).json({
-                message: `The user: ${user.username} , has changed the password correctly. You can now log in!`
+                message: `El usuario: ${user.name} ,ha cambiado correactamente la contraseña!`
               });
 
             })

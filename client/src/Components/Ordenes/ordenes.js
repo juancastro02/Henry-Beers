@@ -73,7 +73,7 @@ const Ordenes = () => {
    } 
 
   return (
-    <div>
+    <div style={{marginTop: "50px"}} >
        <Dropdown isOpen = {dropdown} toggle={abrirCerrarDropdown}>
           <DropdownToggle caret >
             FILTRAR POR STATUS
@@ -123,11 +123,11 @@ const Ordenes = () => {
               </tbody>
           </table>
 
-          {ordenes && !ordenes[0]&&<div className="divcarritovacio">
-            <h2>¡No hay órdenes para visualizar!</h2>
-          </div>}
         </div>
       )}
+         {ordenes && !ordenes[0] && <div className="divcarritovacio">
+            <h2>¡No hay órdenes para visualizar!</h2>
+          </div>}
     </div>
   );
 };
