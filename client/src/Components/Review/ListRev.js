@@ -12,10 +12,8 @@ import axios from 'axios'
 export default function ReviewView({productId}){
   const dispatch = useDispatch();
   const reviews = useSelector(store => store.review.reviews);
-    console.log(reviews[0] && reviews.users && reviews[0].users);
-    console.log(reviews)
+
 useEffect(()=>{
-    console.log(productId)
   dispatch(getReviews(productId))
 }, [reviews] )
 

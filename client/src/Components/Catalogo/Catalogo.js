@@ -36,16 +36,12 @@ function Catalogo ({category,search,products}) {
       }
 
 
-        // const {data} = await axios.get(`http://localhost:4000/products/${ category ? 'categoria/' + category : search ? 'find/search?name='+search : ""}`)
-        // setProductscatalogo(data)
-        // console.log(data)
     }
     fetchData()
     
 },[products])
 
 
-console.log(productscatalogo)
 
     return ( 
       

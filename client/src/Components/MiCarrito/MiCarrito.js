@@ -20,7 +20,7 @@ function MiCarrito (data){
     const orden = useSelector(store => store.carrito.orden); //Accedo al estado del carrito
     const dispatch = useDispatch();
 
-    console.log(data);
+   
 
     var suma = 0
 
@@ -41,7 +41,7 @@ function MiCarrito (data){
       //Hago que siempre se actualice la pág. Cuando la pág, encuentra que el cart está en "procesando"
   
     }, [orden]);
-    console.log(orden)
+   
     return (
         <div style={{marginTop: "40px"}} >
 

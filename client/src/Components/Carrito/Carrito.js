@@ -24,7 +24,7 @@ const Carrito = () => {
     useEffect(()=>{  //Hago que siempre se actualice la pág. Cuando la pág, encuentra que el cart está en "procesando"
 
         dispatch(getcarrito(user.id))
-        console.log(user)
+        
         // const fetchData =async()=>{
         //   await axios.post(`http://localhost:4000/users/${user.id}/carrito`)    
         // }
@@ -63,11 +63,9 @@ const Carrito = () => {
       
       if (!localStorage.token) {
         if (localStorage.carrito) {
-            console.log("esta entrando")
+          
             let data = JSON.parse(localStorage.getItem("carrito"));
-            console.log(data.carrito)
-            console.log(data.carrito.productId)
-            console.log(id)
+            
             let otradata = data.carrito.filter(p => p.productId !== id);
             localStorage.setItem("carrito", JSON.stringify({ carrito: otradata }))
             return setProduct(otradata);
@@ -75,11 +73,9 @@ const Carrito = () => {
 
     }
     if (localStorage.carrito) {
-      console.log("esta entrando")
+      
       let dato = JSON.parse(localStorage.getItem("carrito"));
-      console.log(dato.carrito)
-      console.log(dato.carrito.productId)
-      console.log(id)
+     
       let otradata = dato.carrito.filter(p => p.productId !== id);
       localStorage.setItem("carrito", JSON.stringify({ carrito: otradata }))
       const {data} = await axios.delete(`http://localhost:4000/users/product/${id}/delete/${carrito.id}`)

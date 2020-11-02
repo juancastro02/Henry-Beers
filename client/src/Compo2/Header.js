@@ -31,7 +31,7 @@ const Inicio = () => {
 
     if (user.id && localStorage.carrito) {
       let data = JSON.parse(localStorage.getItem("carrito"));
-      console.log(data.carrito);
+    
       try {
         data.carrito.map(async (e) => {
           const { data } = await axios.post(

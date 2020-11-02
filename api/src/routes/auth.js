@@ -33,7 +33,6 @@ server.post('/checkout/user', async(req, res) => {
     await sendEmail(req.body.email,req.body.total )
     res.send('Email send')
   } catch (error) {
-    console.log(error) 
     res.status(500)
   }
 })
@@ -67,15 +66,14 @@ server.get('/me', verifyToken, (request, response) => {
 
 server.put('/update/password', verifyToken ,(req,res) =>{
   const {actualPassword , newPassword} = req.body;
-  const {id_user} = req.user;
+  const {userID} = req.user;
 
   User.findOne({
     where: {
-      id: id_user
+      id: userID
     }
   })
     .then(user => {
-
       if (!bcrypt.compareSync(actualPassword, user.password)) {
         return res.status(400).json({
           error: 'Password dont match.'
@@ -94,7 +92,7 @@ server.put('/update/password', verifyToken ,(req,res) =>{
           })
         })
         .catch(error => {
-          return res.status(500).json({
+          return res.status(404).json({
             error: error.message
           })
         })
@@ -283,7 +281,7 @@ server.put('/promote/:id', (req, res)=> {
  return res.status(201).send({message:"nuevo admin"+id, adminNuevo});
   })
   .catch(error=> {
-    console.log(error);
+
  res.status(400).send(error);
   })
 })
@@ -301,7 +299,6 @@ server.put('/change/:id', (req, res)=> {
  return res.status(201).send({message:"se quito el permiso con exito"+id, noEsAdmin});
   })
   .catch(error=> {
-    console.log(error);
  res.status(400).send(error);
   })
 })
@@ -363,7 +360,6 @@ server.post("/login", (request, response) => {
 
 
 server.get('/me/google', verifyToken, (request, response) => {
-  console.log(request.user)
    const { id_user } = request.user;
 
    User.findOne({

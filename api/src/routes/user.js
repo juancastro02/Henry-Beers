@@ -176,7 +176,7 @@ server.get("/orden/:id", (req, res) => {
       res.status(201).send(carrito)
   })
   .catch(err=>{
-    console.log(err)
+    
       res.status(400).send(err)
   })
 })

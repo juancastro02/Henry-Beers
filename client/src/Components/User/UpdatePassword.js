@@ -2,10 +2,10 @@ import React, { useState, useEffect } from "react";
 import axios from 'axios'
 import { useDispatch, useSelector } from 'react-redux';
 import { Link } from 'react-router-dom';
-import { resetPassword, cleanMessageResetPassword } from '../../Redux/user'
+import {cleanMessageResetPassword, updateUser } from '../../Redux/user'
 
 
-export default function ResetPass({token}) {
+export default function UpdatePassword({token}) {
   const resetPasswordMessage = useSelector(store => store.user.reset_password)
   const dispatch = useDispatch()
 
@@ -15,18 +15,35 @@ export default function ResetPass({token}) {
   const [usuario, guardarUsuario] = useState({
     password: '',
     nueva: '',
+    confirm: ''
   });
   
  
-  const handleResetPassword = async () => {
+  const handleUpdatePassword = async () => {
 
-    if(usuario.password != usuario.nueva){
+    if(usuario.confirm != usuario.nueva){
       setError(true)
     }
 
-    if (usuario.password == usuario.nueva) {
+    if (usuario.confirm == usuario.nueva) {
       setError(false)
-      dispatch(resetPassword(usuario.password, token));
+      // dispatch(updateUser(usuario.password, token));
+
+      const info = {
+        actualPassword: usuario.password,
+        newPassword: usuario.nueva
+      }
+
+      const config = {
+        headers: {
+          Authorization: 'Bearer ' + localStorage.getItem('token')
+        }
+      }
+
+      const { data } = await axios.put('http://localhost:4000/auth/update/password', info, config )
+
+      alert('La contraseña ha sido cambiada con exito')
+
     }
   }
   
@@ -84,22 +101,30 @@ export default function ResetPass({token}) {
               type="password"
               id="nueva"
               name="nueva"
-              placeholder="Repite tu Password"
+              placeholder="Escribe tu Password"
               value={usuario.nueva}
+              onChange={handleInput}
+            />
+          </div>
+          
+          <div className="campo-form">
+            <label htmlFor="confirmar">Confirmar contraseña</label>
+            <input
+              type="password"
+              id="confirm"
+              name="confirm"
+              placeholder="Repite tu Password"
+              value={usuario.confirm}
               onChange={handleInput}
             />
           </div>
 
           <div className="campo-form">
             <button
-              className=" btn btn-primario btn-block"  onClick={() => handleResetPassword()} 
+              className=" btn btn-primario btn-block"  onClick={() => handleUpdatePassword()} 
             >Enviar</button>
           </div>
         </form>
-        <span > <Link className="enlace-cuenta" to='/login'>Volver al login</Link>
-        </span>
-        <div ><Link className="enlace-cuenta" to='/NuevaCuenta'>Crear usuario</Link>
-        </div>
       </div>
     </div>
   );

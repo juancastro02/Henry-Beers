@@ -51,9 +51,7 @@ function App2() {
     dispatch(getOrdenes())
   }, []) 
 
-console.log(busqueda)
-console.log(busqueda.busqueda)
-console.log(busqueda.search)
+
   return (
     <div >
 

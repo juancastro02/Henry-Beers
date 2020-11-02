@@ -30,7 +30,6 @@ const Ordenes = () => {
 
   }, [ordenes]);
 
-  console.log(ordenes);
 
    const abrirCerrarDropdown = ()=> {
       setDropdown(!dropdown)

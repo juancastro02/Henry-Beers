@@ -19,7 +19,7 @@ function PersonalData(){
     const classes = useStyles();
     const usuario = useSelector(store => store.user.user); //Accedo al estado del carrito
 
-    console.log(usuario)
+   
     return (
 
       <div>
@@ -48,13 +48,13 @@ function PersonalData(){
           
         {/* {<a href="javascript:history.back(3)" className='btn1' style={{marginTop: "10px"}} > */}
         <div>
-        <Link to={`/resetPass/${usuario.token}`} className="enlace-cuenta">
+        <Link to={`/update/password`} className="enlace-cuenta">
 
 <Button variant="contained" color="secondary" style={{marginTop: "10px"}}  >
           Cambiar contraseña
         </Button>
         </Link>
-
+ 
         </div>
        
  

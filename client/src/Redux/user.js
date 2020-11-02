@@ -25,7 +25,7 @@ const CLEAN_MESSAGE_USER_CREATE = 'CLEAN_MESSAGE_USER_CREATE'
 const ERROR_POST = "ERROR_POST"
 const LOGOUT_USER = 'LOGOUT_USER'
 const GET_USERS = "GET_USERS"
-
+const UPDATE_USER = "UPDATE_USER"
 const DELETE_USER = "DELETE_USER"
 
 
@@ -109,6 +109,11 @@ export default function usersReducer(state = InicialState, action) {
         return {
           ...state
     }     
+    case UPDATE_USER:
+    return {
+      ...state,
+      user: action.payload
+    }
 
 
       // case DELETE_USER:
@@ -318,6 +323,18 @@ export const validationGoogle = () => async (dispatch) => {
     console.log(error);
   };
 };
+export const updateUser = (datos) => async (dispatch) => {
+  try {
+    const { data } = await axios.put('http://localhost:4000/update/password', datos)
+    dispatch({
+      type: UPDATE_USER,
+      payload: data
+    })
+  }  catch (error) {
+    console.log(error)
+    }
+
+  }
 
 
 export const authGoogle = (googleUser) => (dispatch) => {

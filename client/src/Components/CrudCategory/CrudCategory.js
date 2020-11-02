@@ -60,7 +60,7 @@ const CrudCategory =()=>{
             image: category.Imagen
         }
            const {data} = await axios.post('http://localhost:4000/category/create', info)
-           console.log(data)
+          
            alert('Categoria creada!')
            setCategory({
             id: "",
@@ -77,7 +77,7 @@ const CrudCategory =()=>{
             image: category.Imagen
         }
            const {data} = await axios.put(`http://localhost:4000/category/update/${category.id}`, info)
-           console.log(data)
+        
            alert('Categoria Modificada!')
            setCategory({
             id: "",

@@ -6,7 +6,8 @@ import {logoutUser} from '../../Redux/user'
 import MisCarritos from "../MisCarritos/MisCarritos";
 import MiCarrito from "../MiCarrito/MiCarrito";
 import PersonalData from "../User/PersonalData";
-import ResetPass from "../User/ResetPass";
+// import ResetPass from "../User/ResetPass";
+import UpdatePassword from "../User/UpdatePassword";
 
 
 
@@ -47,7 +48,7 @@ const UserActivity = ({history}) => {
          </div>
      </div>
      <div>
-            
+     
             <Route
                     exact path='/misCarritos'
                     render={() => <MisCarritos />}
@@ -61,9 +62,13 @@ const UserActivity = ({history}) => {
                     component= {PersonalData}
                 />
             
-            <Route
+            {/* <Route
                     exact path='/resetPass'
                     render={() => <ResetPass />}
+                /> */}
+            <Route
+                    exact path='/update/password'
+                    render={() => <UpdatePassword />}
                 />
             
 

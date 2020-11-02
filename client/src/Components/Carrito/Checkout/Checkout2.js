@@ -8,7 +8,7 @@ import axios from 'axios';
 
   const dispatch = useDispatch()
   const ordenes = useSelector((store) => store.carrito.carrito);
-  console.log(ordenes.id)
+  
   const user = useSelector((store) => store.user.user)
   const [form, actualizarForm] = useState({
     pais: "",
@@ -55,21 +55,6 @@ import axios from 'axios';
 
   }
 
-   /* onst handleCreate = () => {
-    const form = {
-        pais: form.pais,
-        ciudad: form.ciudad,
-        direccion_envio: form.direccion_envio,
-        codigo_postal: form.codigo_postal,
-        numero_telefono:form.numero_telefono
-    }
-    if(form.pais && form.ciudad && form.direccion_envio && form.codigo_postal && form.numero_telefono ){
-        dispatch(postCheckout(form))
-    }
-    console.log(form)
-  } */
-  
-  console.log(ordenes)
 
  const onSubmit= e =>{
    e.preventDefault()
