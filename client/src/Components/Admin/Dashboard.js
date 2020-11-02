@@ -17,7 +17,7 @@ import Paper from "@material-ui/core/Paper";
 import MenuIcon from "@material-ui/icons/Menu";
 import ChevronLeftIcon from "@material-ui/icons/ChevronLeft";
 // import NotificationsIcon from '@material-ui/icons/Notifications';
-import { mainListItems, secondaryListItems } from "./listItems";
+import { mainListItems} from "./listItems";
 import Chart from "./Chart";
 import Deposits from "./Deposits";
 import Orders from "./Orders";
@@ -29,6 +29,7 @@ import { useDispatch, useSelector } from "react-redux";
 import NewAdmin from "../NewAdmin/NewAdmin";
 import CrudCategory from "../CrudCategory/CrudCategory";
 import CrudBeer from "../CrudBeer/CrudBeer";
+import { Link } from "react-router-dom";
 
 const drawerWidth = 240;
 
@@ -122,6 +123,7 @@ export default function Dashboard({history}) {
         history.push('/')
       }
     }, [usuario])
+
   const classes = useStyles();
 
   const [open, setOpen] = React.useState(true);
@@ -177,6 +179,11 @@ export default function Dashboard({history}) {
           }}
           open={open}
         >
+           <Link to="/" className="logo" onClick={()=> history.push('/')}>
+                  <h1>
+                    HENRY <span>BEERS</span>
+                  </h1>
+                </Link>
           <div className={classes.toolbarIcon}>
             <IconButton onClick={handleDrawerClose}>
               <ChevronLeftIcon />
@@ -185,30 +192,29 @@ export default function Dashboard({history}) {
           <Divider />
           <List>{mainListItems}</List>
           <Divider />
-          <List>{secondaryListItems}</List>
         </Drawer>
         <main className={classes.content}>
           <div className={classes.appBarSpacer} />
           <Container maxWidth="lg" className={classes.container}>
             <Grid container spacing={3}>
               {/* Chart */}
-              <Grid item xs={12} md={8} lg={9}>
-                <Paper className={fixedHeightPaper}>
-                  <Chart />
-                </Paper>
-              </Grid>
+              {/* <Grid item xs={12} md={8} lg={9}>
+                <Paper className={fixedHeightPaper}> */}
+                  {/* <Chart /> */}
+                {/* </Paper> */}
+              {/* </Grid> */}
               {/* Recent Deposits */}
-              <Grid item xs={12} md={4} lg={3}>
+              {/* <Grid item xs={12} md={4} lg={3}>
                 <Paper className={fixedHeightPaper}>
                   <Deposits />
-                </Paper>
-              </Grid>
+                </Paper> */}
+              {/* </Grid> */}
               {/* Recent Orders */}
-              <Grid item xs={12}>
+              {/* <Grid item xs={12}>
                 <Paper className={classes.paper}>
                   <Orders />
                 </Paper>
-              </Grid>
+              </Grid> */}
             </Grid>
             <Route
               exact
@@ -230,6 +236,7 @@ export default function Dashboard({history}) {
             <Route exact path="/admin/users" render={() => <NewAdmin />} />
           </Container>
         </main>
+        
       </div>
     </BrowserRouter>
   );

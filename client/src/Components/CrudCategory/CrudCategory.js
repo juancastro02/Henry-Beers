@@ -95,21 +95,21 @@ const CrudCategory =()=>{
     }   
 
     return(
-      <div style={{backgroundColor: "rgb(108 117 125)", height: '2000px', marginTop: "-110px"}} >
-        <div  style={{display: "flex", color: "white", paddingTop: "120px"}} >
-          <div className='formCrudCategory' style={{marginLeft: "350px", marginTop: "-100px"}} >
+      <div >
+        <div  style={{display: "flex", color: "white", paddingTop: "100px"}} >
+          <div className='formCrudCategory' style={{marginLeft: "200px", marginTop: "-90px"}} >
          <form onSubmit={(e) => handleSubmit(e) } style={{marginBottom: "10px", marginTop: "10px"}} >
              <h6>Name</h6>
           <input type='text'   value={name} onChange={handleChange}  name='name'  /> 
              <h6>Description</h6>
           <input type='text'   value={description}  onChange={handleChange}  name='description'/><br/><br/>
-          <button type='submit' className='create' onClick={()=> addCategory()}  >Crear </button>   
-          <button type='submit' className='update' onClick={()=> updateCategory()}  >Actualizar </button>
-          <button type='submit' className='delete' onClick={()=> deleteCategory()}  >Borrar </button>   
+          <button type='submit' className='create' style={{width:"60px", height:"20px"}} onClick={()=> addCategory()}  >Crear </button>   
+          <button type='submit' className='update' style={{width:"60px", height:"20px"}} onClick={()=> updateCategory()}  >Actualizar </button>
+          <button type='submit' className='delete' style={{width:"60px", height:"20px"}} onClick={()=> deleteCategory()}  >Borrar </button>   
         </form>   
         </div>
         <div>
-        <div className = "divcategories"  style={{width: "200px", marginTop: "-100px"}} >
+        <div className = "divcategories"  style={{width: "300px", marginTop: "-100px"}} >
 
             <div className={classes.root}>
             <h3 style={{marginLeft: "10px"}} >Categorías</h3>

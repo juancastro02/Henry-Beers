@@ -19,12 +19,14 @@ import { getOrdenes } from "./Redux/Carrito";
 import ResetPass from './Components/User/ResetPass'
 import { positions, Provider as ProviderAlert } from "react-alert";
 import AlertTemplate from "react-alert-template-basic";
-import {validation} from './Redux/user'
+import {validation, validationGoogle} from './Redux/user'
 import UserActivity from './Components/userActivity/userActivity'
 import Home from './Compo2/Home'
 import NavBar from './Components/NavBar/NavBar'
-
-
+import FormularioDatosEnvio from './Components/Carrito/Checkout/Checkout2'
+import MisCarritos from './Components/MisCarritos/MisCarritos'
+import ForgotPass from './Components/User/ForgotPass'
+// import Catalogo from './Components/Catalogo/catalogo'
 
 
 const options = {
@@ -32,11 +34,7 @@ const options = {
   position: positions.MIDDLE
 };
 
-function App() {
-  const [search, setSearchApp] = useState({
-    array: [],
-    word: "",
-  });
+function App2() {
 
   const dispatch = useDispatch()
   const user = useSelector(store => store.user.user)
@@ -45,18 +43,26 @@ function App() {
   const ordenes = useSelector(store => store.carrito.ordenes);
 
   useEffect(() => { // Similar al componentDidMount
+    dispatch(validationGoogle())
     dispatch(validation())
     dispatch(getbeers())
     dispatch(getCategory())
     dispatch(getOrdenes())
   }, []) 
 
+  const [search, setBusquedaApp] = useState({
+    array: [],
+    word: "",
+  });
+
   return (
     <div >
+
  <ProviderAlert template={AlertTemplate} {...options}>
       <BrowserRouter>
-      <Route exact path="/"
-          component={Home}
+
+      <Route path="/"
+          render={() => <Home setBusquedaApp={setBusquedaApp} />}
         />
 
         <Route exact path="/"
@@ -69,14 +75,23 @@ function App() {
           component={Login}
         />
 
+         <Route exact path="/forgot"
+          component={ForgotPass}
+        />
         
         <Route exact path="/nuevacuenta"
           component={NuevaCuenta}
         />
 
-        <Route exact path="/resetPass"
-          component={ResetPass}
+        <Route 
+        exact path='/resetpassword/:token'
+        render={({match}) => <ResetPass  token={match.params.token}/>}
         />
+
+       <Route exact path='/catalogo'
+          component={Catalogo}
+        />
+
 
         <Route
           exact path="/products/search"
@@ -95,10 +110,6 @@ function App() {
         <Route
           exact path="/products/catalogo/:id"
           render={({ match }) => <Catalogo products={products.filter(p => p.categories.id === match.params.id)} category={match.params.id} />}
-        />
-
-        <Route exact path='/catalogo'
-          component={Catalogo}
         />
 
         
@@ -131,6 +142,16 @@ function App() {
           path='/admin'
           component={Dashboard}
         />
+        <Route
+          path='/FormularioDatosEnvio'
+          component={FormularioDatosEnvio}
+        />
+
+        <Route
+          path='/misCarritos'
+          component={MisCarritos}
+        />
+
          {/* <Route
           path='/prueba'
           component={Dashboard}
@@ -141,4 +162,4 @@ function App() {
     </div>
   );
 }
-export default App;
+export default App2;

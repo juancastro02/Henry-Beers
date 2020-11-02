@@ -6,6 +6,7 @@ import ResetPass from './ResetPass'
 import { useAlert } from "react-alert";
 import { useHistory } from 'react-router';
 import GoogleLogin from 'react-google-login';
+import { loadAuth2 } from "gapi-script";
 import './User.css'
 
 
@@ -92,9 +93,10 @@ const Login = ({history}) => {
 
         <h1 style= {{textAlign: "center"}}>Iniciar Sesión</h1>
         <div>
-        <button onClick={(e) => e.preventDefault()} id='btn-google' style={{border: "0", backgroundColor: "gray", borderRadius: "100%", marginLeft: "180px"}} > <i className="fab fa-google-plus-g"></i> <img style={{width: "30px", height: "45px"}} src='https://www.flaticon.es/svg/static/icons/svg/60/60786.svg' /></button>
+        <button onClick={(e) => e.preventDefault()} id='btn-google' style={{border: "0", backgroundColor: "white", borderRadius: "100%", marginLeft: "180px"}} > <img style={{width: "30px", height: "45px"}} src='https://www.flaticon.es/svg/static/icons/svg/60/60786.svg' /></button>
            </div>
            <br/><br/>
+           <form onSubmit={onSubmit}>
           <div className="campo-form">
             <label htmlFor="email"> Email </label>
             <input

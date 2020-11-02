@@ -2,13 +2,13 @@ import React, { useState, useEffect } from "react";
 import { useDispatch, useSelector } from 'react-redux'
 import {getcarrito} from '../../../Redux/Carrito'
 import axios from 'axios';
-/* import {postCheckout} from '../../../Redux/Carrito' */
+
 
  const FormularioDatosEnvio = ({history}) => {
 
   const dispatch = useDispatch()
   const ordenes = useSelector((store) => store.carrito.carrito);
-  console.log(ordenes)
+  console.log(ordenes.id)
   const user = useSelector((store) => store.user.user)
   const [form, actualizarForm] = useState({
     pais: "",
@@ -17,7 +17,6 @@ import axios from 'axios';
     codigo_postal: "",
     numero_telefono: "",
   });
-  console.log(user.email)
 
   const onChange = (e) => {
     actualizarForm({
@@ -25,6 +24,8 @@ import axios from 'axios';
       [e.target.name]: e.target.value,
     });
   };
+
+
 
   const {
     pais,
@@ -37,13 +38,11 @@ import axios from 'axios';
 
   var suma = 0
 
-
   const sumar = async() => {
 
     for(let i = 0; i < ordenes.products.length; i++){
       suma += ordenes.products[i].price * ordenes.products[i].orden.quantity
     }
-    console.log(suma)
 
     const info = {
       email: user.email,
@@ -71,7 +70,6 @@ import axios from 'axios';
   } */
   
   console.log(ordenes)
-  console.log(user)
 
  const onSubmit= e =>{
    e.preventDefault()
@@ -85,7 +83,7 @@ import axios from 'axios';
   });
  }
 
- const postChek = async (userId, Id)=>{
+ const postChek = async (userId, ordenId)=>{
   
   const info = {
     pais: form.pais,
@@ -95,8 +93,8 @@ import axios from 'axios';
     numero_telefono:form.numero_telefono
 }
 if(form.pais && form.ciudad && form.direccion_envio && form.codigo_postal && form.numero_telefono ){
-  const {data}= await axios.post(`http://localhost:4000/users/${userId}/carrito/${Id}`, info)
-  await axios.put(`http://localhost:4000/users/procesando/${Id}`) 
+  const {data}= await axios.post(`http://localhost:4000/users/${userId}/carrito/${ordenId}`, info)
+  await axios.put(`http://localhost:4000/users/procesando/${ordenId}`) 
   sumar()
   alert('Compra exitosa')
   history.push('/')
@@ -177,9 +175,8 @@ if(form.pais && form.ciudad && form.direccion_envio && form.codigo_postal && for
 
           <div className="campo-form">
             <button
-              type="submit"
               className=" btn btn-primario btn-block"
-              onClick={(e) => postChek(user.id, ordenes.id)}
+              onClick={() => postChek(user.id, ordenes.id)} 
             >
               Comprar
             </button>

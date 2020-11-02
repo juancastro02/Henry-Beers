@@ -194,7 +194,7 @@ export default function MediaCard({
                   style={{
                     position: "absolute",
                     fontSize: "30px",
-                    paddingTop: "20px",
+                    paddingTop: "-10px",
                     paddingLeft: "100px",
                   }}
                 >

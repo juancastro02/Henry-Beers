@@ -18,10 +18,10 @@ export const mainListItems = (
   <div>
     <Link to="/admin">
       <ListItem button>
-        <ListItemIcon>
+       {/*  <ListItemIcon>
           <DashboardIcon />
-        </ListItemIcon>
-        <ListItemText primary="Panel" />
+        </ListItemIcon> */}
+        {/* <ListItemText primary="Panel" /> */}
       </ListItem>
     </Link>
     <Link to="/admin/ordenes">
@@ -37,7 +37,7 @@ export const mainListItems = (
         <ListItemIcon>
           <PeopleIcon />
         </ListItemIcon>
-        <ListItemText primary="Clientes" />
+        <ListItemText primary="Usuarios" />
       </ListItem>
     </Link>
     <Link to="/admin/crud/products">
@@ -67,26 +67,4 @@ export const mainListItems = (
   </div>
 );
 
-export const secondaryListItems = (
-  <div>
-    <ListSubheader inset>Reportes Guardados</ListSubheader>
-    <ListItem button>
-      <ListItemIcon>
-        <AssignmentIcon />
-      </ListItemIcon>
-      <ListItemText primary="Mes Actual" />
-    </ListItem>
-    <ListItem button>
-      <ListItemIcon>
-        <AssignmentIcon />
-      </ListItemIcon>
-      <ListItemText primary="Ultimo periodo" />
-    </ListItem>
-    <ListItem button>
-      <ListItemIcon>
-        <AssignmentIcon />
-      </ListItemIcon>
-      <ListItemText primary="Ventas anuales" />
-    </ListItem>
-  </div>
-);
+

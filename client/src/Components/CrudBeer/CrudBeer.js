@@ -140,19 +140,19 @@ const handleDelete = async () => {
 
   const classes = useStyles();
     return(
-      <div style={{backgroundColor: "rgb(108 117 125)", height: '2000px', marginTop: "-110px"}} >
-      <div style={{display: "flex", marginLeft: "25px", marginTop: "-20px", paddingTop: "100px"}} >
+      <div style={{backgroundColor: "rgb(108 117 125)", height: '2000px', marginTop: "-110px", width: '100%'}} >
+      <div style={{display: "flex", marginLeft: "15px", marginTop: "100px", paddingTop: "100px"}} >
         <div className='formCrudProduct' >
         <form onSubmit={(e)=> handleSubmit(e)} >
-          <h6>Name</h6>
+          <h6>Nombre</h6>
           <input type='text'  value={name} onChange={handleChange} name='name' placeholder='Ingrese el nombre...'/>  
-          <h6>Description</h6>
+          <h6>Descripción</h6>
           <input type='text'  value={description} onChange={handleChange} name='description' placeholder='Ingrese una descripción...'/>  
-          <h6>Price</h6>
+          <h6>Precio</h6>
           <input  type='number'  value={price} onChange={handleChange} name='price' /> 
           <h6>Stock</h6>
           <input type='number'  value={stock} onChange={handleChange} name='stock' />  
-          <h6>Image</h6>
+          <h6>Imagen</h6>
           <input  type='text'  value={image} onChange={handleChange} name='image'  /> <br/><br/>
           <Select
           isMulti
@@ -166,9 +166,9 @@ const handleDelete = async () => {
           name= "category"
           />
           <div style={{display: "flex", justifyContent: 'space-between', marginTop: "10px" }} >
-          <button type='submit' className='create' onClick={()=> handlePost()} >Crear</button> 
-          <button type='submit' className='update' onClick={()=> handleUpdate()} >Actualizar</button>
-          <button type='submit' className='delete'  onClick={()=> handleDelete()}>Borrar</button>
+          <button type='submit' className='create'style={{width:"60px", height:"20px"}} onClick={()=> handlePost()} >Crear</button> 
+          <button type='submit' className='update'style={{width:"60px", height:"20px"}} onClick={()=> handleUpdate()} >Actualizar</button>
+          <button type='submit' className='delete'style={{width:"60px", height:"20px"}} onClick={()=> handleDelete()}>Borrar</button>
           </div>
         </form>
         </div>

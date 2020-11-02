@@ -141,7 +141,7 @@ server.post("/:productId/orden/:carritoId", (req, res) => {
 });
 
 server.get("/get", (req, res) => {
-  //TRAE TODOS LOS CARRITOS
+  //TRAE TODOS LOS CAMisCaI
   Carrito.findAll(
     {
       include: Product, //Con el include, uno tablas
@@ -168,8 +168,8 @@ server.get("/orden/:id", (req, res) => {
       include: Product,
     },
 
-    include: Product
-  },{
+   
+  {
     include: Orden,
   })
   .then(carrito=>{
@@ -192,7 +192,7 @@ server.get('/:idUser/orden/:id', (req, res)=>{ //para traer una sola orden de un
     },
     include: Product
   },{
-    include: Orden,
+    include: Orden
   })
   .then(carrito=>{
       res.status(201).send(carrito)
@@ -317,7 +317,9 @@ server.get("/carrito/:id", (req, res) => {
   Carrito.findAll({
     where: {
       userId: id,
-    },
+    }
+  },{
+    include: Ordencompra
   })
     .then((carrito) => {
       res.status(201).send(carrito);
@@ -338,7 +340,7 @@ server.get("/carrito/:id", (req, res) => {
 server.get('/get', (req, res)=>{ //TRAE TODOS LOS CARRITOS
   Carrito.findAll({
       include: Product  //Con el include, uno tablas
-  }, { 
+  },{ 
       include: Orden
   })
   .then(carrito=>{
@@ -581,5 +583,33 @@ server.post('/createadmin', async (req, res) => {
   });
   
   
+  //checkout compra http://localhost:4000/users/:userId/carrito/:id
+
+server.post("/:userId/carrito/:id", (req, res) => {
+  const { userId, id } = req.params;
+  const { pais, ciudad, direccion_envio, codigo_postal, numero_telefono} = req.body;
+  User.findByPk(userId)
+  .then((user)=>{
+    user.addCarritos(id)
+    .then((jairo)=>{
+      Ordencompra.update({pais, ciudad, direccion_envio, codigo_postal, numero_telefono},{
+        where:{userId:userId, carritoId:id}})
+        .then(rev=>{
+          res.status(201).json(rev)
+    })
+    .catch((err) => {
+      console.log(err)
+      res.status(400).send(err)
+       })
+  })
+  .catch((err) => {
+     console.log(err, "sss=>")
+     res.status(400).send(err)
+      })
+  });
+  
+});
+ 
+
 module.exports = server;
 

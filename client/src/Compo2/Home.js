@@ -83,7 +83,8 @@ const useStyles = makeStyles((theme) => ({
   },
 }));
 
-export default function Home({ setSearchApp }) {
+export default function Home( {setBusquedaApp} ) {
+  console.log(setBusquedaApp)
   const usuario = useSelector((store) => store.user.user);
   const carrito = useSelector((store) => store.carrito.carrito);
   const dispatch = useDispatch();
@@ -162,15 +163,15 @@ export default function Home({ setSearchApp }) {
           </MenuItem>{" "}
         </Link>
       )}
-      {usuario.user && (
+      {/* {usuario.user && (
         <Link to="/userActivity">
           {" "}
           <MenuItem onClick={handleMenuClose}>
             Actividad del Usuario
           </MenuItem>{" "}
         </Link>
-      )}
-      {usuario.id ? (
+      )} */}
+      {!usuario.isAdmin&& usuario.id ? (
         <Link to="/userActivity">
           {" "}
           <MenuItem onClick={handleMenuClose}>
@@ -191,7 +192,7 @@ export default function Home({ setSearchApp }) {
 
   return (
     <div className={classes.grow}>
-      <AppBar position="static" style={{ backgroundColor: "black" }}>
+      <AppBar  >
         <Toolbar>
           <header id="home" className="header">
             <nav className="navbar fixed-top navbar-light bg-light">
@@ -313,7 +314,9 @@ export default function Home({ setSearchApp }) {
                       </Badge>
                     </Link>
                   </IconButton>
-                  <SearchBar setSearchApp={setSearchApp} />
+                  <div>
+                  <SearchBar setBusquedaApp={setBusquedaApp} />
+                  </div>
                   <div className="hamburger">
                     <i className="fas fa-bars"></i>
                   </div>
