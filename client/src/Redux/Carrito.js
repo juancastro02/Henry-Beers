@@ -43,10 +43,7 @@ export default function carritoReducer(state = InicialState, action) {
               return { ...state, ordenes: action.payload };
     case GET_PEDIDO:
       return { ...state, orden: action.payload };
-      case POST_CHECKOUT:
-        return {
-          ...state, ordenCompra: action.payload
-        } 
+    
     default:
       return state;
   }

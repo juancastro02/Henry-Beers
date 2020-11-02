@@ -17,10 +17,10 @@ function Catalogo ({category,search,products}) {
 
 
   useEffect(() => {
-    dispatch(getbeers())
     const fetchData = async()=>{
         const {data} = await axios.get(`http://localhost:4000/products/${ category ? 'categoria/' + category : search ? 'find/search?name='+search : ""}`)
         setProductscatalogo(data)
+        console.log(data)
     }
     fetchData()
     
@@ -32,13 +32,11 @@ console.log(productscatalogo)
     return ( 
       
       
-      <div><br/><br/>
-        <a href="javascript:history.back(1)" className='btn1' style={{marginTop: "10px", marginRight: "auto", marginLeft: "auto"}} >
+      <div style={{marginTop: "90px"}}>
+      
   <div  >
-  <Button  variant="contained" color="secondary"  >
-   Volver
- </Button>
- </div></a>
+
+ </div>
         
       <div className = 'catalogo2'>
         
@@ -56,6 +54,12 @@ console.log(productscatalogo)
                 ))}
       </div>
       </div>
+      <a href="/" className='btn1' style={{marginTop: "40px", marginRight: "auto", marginLeft: "auto", width: "100px", marginBottom: "40px"}} >
+             <div  >
+             <Button variant="contained" color="secondary"  >
+              volver
+            </Button>
+            </div></a>
       </div>
     );
     } 

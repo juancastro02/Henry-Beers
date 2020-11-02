@@ -100,7 +100,7 @@ const NuevaCuenta = ({ history }) => {
           historia.go(0)
     
         }
-      }, [usuario,error])
+      }, [usuario])
 
 
 
@@ -114,7 +114,7 @@ const NuevaCuenta = ({ history }) => {
                  onSubmit={(e)=>onSubmit(e)} 
                 >
              <div>
-        <button onClick={(e) => e.preventDefault()} id='btn-google' style={{border: "0", backgroundColor: "gray", borderRadius: "100%", marginLeft: "180px"}} > <i className="fab fa-google-plus-g"></i> <img style={{width: "30px", height: "45px"}} src='https://www.flaticon.es/svg/static/icons/svg/60/60786.svg' /></button>
+        <button onClick={(e) => e.preventDefault()} id='btn-google' style={{border: "0", backgroundColor: "white", borderRadius: "50%", marginLeft: "180px"}} > <img style={{width: "30px", height: "45px"}} src='https://www.flaticon.es/svg/static/icons/svg/60/60786.svg' /></button>
            </div>
            <br/><br/>
                     <div className="campo-form">

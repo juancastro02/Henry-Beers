@@ -38,8 +38,8 @@ function MiCarrito (data){
 <h2 className="card-subtitle mb-2 text-muted">Status de la orden: {orden.status}</h2>
 {orden.products && orden.products.map((e)=>(
                  <div>
-                   <h5>Name: {e.name}</h5>
-                  <h6>Quantity: {e.orden.quantity}</h6>
+                   <h5>Nombre: {e.name}</h5>
+                  <h6>Cantidad: {e.orden.quantity}</h6>
                   </div>
                  ))}
 </div>

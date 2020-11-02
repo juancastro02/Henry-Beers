@@ -105,9 +105,9 @@ server.get('/find/search',(req,res) => {
 			}
 		  }
 	}).then(products => {
-		res.status(200).json(products)}
+	return res.status(200).json(products)}
 	).catch(error =>{ 
-		res.status(404).json(error)
+	return res.status(404).json(error)
 	})
 })
 

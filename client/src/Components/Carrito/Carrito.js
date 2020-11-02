@@ -109,14 +109,14 @@ const Carrito = () => {
 
 
     return( 
-        <div>
+        <div style={{marginTop: "90px"}} >
             { product && product[0] && <div><table class="table table-striped table-dark">
   <thead>
     <tr>
-      <th scope="col">Product</th>
-      <th scope="col">Price</th>
+      <th scope="col">Producto</th>
+      <th scope="col">Precio</th>
       <th scope="col">Stock</th>
-      <th scope="col">Quantity</th>
+      <th scope="col">Cantidad</th>
       <th scope="col">Total</th>
       <th scope="col"></th>
     </tr>
@@ -138,13 +138,13 @@ const Carrito = () => {
 <Link to='/FormularioDatosEnvio'>
 <Button variant="contained" style={{backgroundColor: "green", color: "white", marginLeft: "10px"}} onClick={()=>!user.id && alert ('Para comprar debes iniciar sesión')}> Comprar </Button> </Link>
 <Button variant="contained" style={{backgroundColor: "red", color: "white", marginLeft: "30px"}} onClick={()=> DestroyCart()} >Borrar carrito</Button></div>}     
-       { user.id && carrito.products && carrito.products[0] && <div><table class="table table-striped table-dark">
+       { user.id && carrito.products && carrito.products[0] && <div style={{marginTop: "90px"}} ><table class="table table-striped table-dark">
   <thead>
     <tr>
-      <th scope="col">Product</th>
-      <th scope="col">Price</th>
+      <th scope="col">Producto</th>
+      <th scope="col">Precio</th>
       <th scope="col">Stock</th>
-      <th scope="col">Quantity</th>
+      <th scope="col">Cantidad</th>
       <th scope="col"></th>
       <th scope="col">Total</th>
       <th scope="col"></th>

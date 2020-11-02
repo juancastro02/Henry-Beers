@@ -27,4 +27,4 @@ conn.sync({ force: false }).then(() => {
   server.listen(4000, () => {  
     console.log('%s listening at 4000'); // eslint-disable-line no-console
   });
-});   
+});    

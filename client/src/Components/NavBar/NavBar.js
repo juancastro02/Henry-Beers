@@ -149,7 +149,7 @@ export default function PrimarySearchAppBar({ setSearchApp }) {
       {usuario.id ? (
         <h6 className="logueado">Logueado como {usuario.name}</h6>
       ) : null}
-      {usuario.id && (
+      {!usuario.isAdmin && usuario.id && (
         <Link to="/userActivity">
           {" "}
           <MenuItem onClick={handleMenuClose}>

@@ -10,7 +10,7 @@ import { useSelector, useDispatch } from 'react-redux'
 import { getbeers } from './Redux/beer'
 import { getCategory } from './Redux/category'
 import Admin from './Components/Admin/Admin';
-import Inicio from './Components/index/index';
+// import Inicio from './Components/index/index';
 import Login from './Components/User/Login'
 import NuevaCuenta from './Components/User/NuevaCuenta'
 import Carrito from './Components/Carrito/Carrito'
@@ -62,9 +62,9 @@ function App() {
           render={() => <NavBar setSearchApp={setSearchApp} />}
         /> */}
 
-        <Route exact path="/"
+        {/* <Route exact path="/"
           component={Inicio}
-        />
+        /> */}
         <Route exact path="/login"
           component={Login}
         />
