@@ -51,12 +51,11 @@ const CrudBeer = () => {
        image: video.image,
      }
 
-     console.log(video.id, categoria)
+
      const {data} = await axios.post('http://localhost:4000/products/create', info)
-     console.log(data)
+
      {categoria.map(async(e)=>{
-      console.log(e.value) 
-      console.log(data.id)
+ 
        await axios.post(`http://localhost:4000/products/${data[0].id}/category/${e.value}`)
      })}
    alert('Producto creado')
@@ -73,8 +72,7 @@ const CrudBeer = () => {
 
    const handleSearch = async (product) => {
     setVideo(product)
-    // setCategory(product.categories.name)
-    // console.log(product.categories)
+
    };
 
 
@@ -94,7 +92,7 @@ const handleUpdate = async () => {
   };
 
    const {data} = axios.put(`http://localhost:4000/products/${video.id}`, dataPost)
-   console.log(categoria)
+
    categoria.map(async(e)=>( 
     await axios.post(`http://localhost:4000/products/${video.id}/category/${e.value}`)
    ))

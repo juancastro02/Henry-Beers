@@ -1,26 +1,16 @@
-import React,{useEffect, useState} from 'react'
-import {Link} from 'react-router-dom';
+import React,{useEffect} from 'react'
 import { useSelector, useDispatch } from "react-redux";
 import {getPedido} from '../../Redux/Carrito';
-import { makeStyles } from "@material-ui/core/styles";
 import Button from "@material-ui/core/Button";
 import axios from "axios";
 
-const useStyles = makeStyles((theme) => ({
-    root: {
-      "& > *": {
-        margin: theme.spacing(1),
-      },
-    },
-  }));
-
 export default function Orden(data) {
 
-    const classes = useStyles();
+
     const orden = useSelector(store => store.carrito.orden); //Accedo al estado del carrito
     const dispatch = useDispatch();
 
-    console.log(data);
+
     
     var suma = 0
 
@@ -46,8 +36,6 @@ export default function Orden(data) {
       //Hago que siempre se actualice la pág. Cuando la pág, encuentra que el cart está en "procesando"
     }, [orden]);
   
-console.log(orden)
-
 
   const completada = (id) =>{
     const {data} = axios.put(`http://localhost:4000/users/completada/${id}`)

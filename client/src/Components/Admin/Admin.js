@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from "react";
+import React, { useEffect } from "react";
 import CrudCategory from '../CrudCategory/CrudCategory'
 import CrudBeer from '../CrudBeer/CrudBeer'
 import { Link } from 'react-router-dom'
@@ -6,7 +6,7 @@ import { BrowserRouter, Route } from 'react-router-dom'
 import Profile from '../Profile/Profile'
 import Ordenes from '../Ordenes/ordenes'
 import Orden from '../Orden/orden'
-import { useDispatch, useSelector } from "react-redux";
+import { useSelector } from "react-redux";
 import NewAdmin from '../NewAdmin/NewAdmin' 
 
 const Admin = ({history}) => {

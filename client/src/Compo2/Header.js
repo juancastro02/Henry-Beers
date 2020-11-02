@@ -12,6 +12,7 @@ import Grid from './Grid'
 import AllProducts from './AllProducts'
 import Popup from './Popup'
 import Home from './Home'
+import Catalogo from '../Components/Catalogo/Catalogo'
 
 const Inicio = () => {
   const history = useHistory();
@@ -31,7 +32,6 @@ const Inicio = () => {
 
     if (user.id && localStorage.carrito) {
       let data = JSON.parse(localStorage.getItem("carrito"));
-      console.log(data.carrito);
       try {
         data.carrito.map(async (e) => {
           const { data } = await axios.post(

@@ -27,9 +27,6 @@ const MisCarritos = () => {
 
 
 
-  console.log(user)
-  console.log(ordenes);
-  console.log(orden); //me lo trae vacio//
 
 
   useEffect((id) => {

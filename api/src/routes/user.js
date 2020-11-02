@@ -176,7 +176,7 @@ server.get("/orden/:id", (req, res) => {
       res.status(201).send(carrito)
   })
   .catch(err=>{
-    console.log(err)
+    
       res.status(400).send(err)
   })
 })
@@ -541,7 +541,7 @@ server.put("/:id", async (req, res) => {
       password: updatedUser.password,
       isAdmin: updatedUser.isAdmin,
     });
-    console.log("Usuario actualizado");
+    // console.log("Usuario actualizado");
     alert("Usuario actualizado");
   } else {
     res.status(404).send({ message: "El usuario no se pudo actualizar" });

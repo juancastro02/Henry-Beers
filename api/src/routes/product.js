@@ -23,7 +23,7 @@ server.post('/create', (req,res)=>{
 			res.status(200).json(obj)
 		  })
 	.catch(err=>{
-			  console.log()
+			 
 			  res.status(400).json(err)
 	})
 })
@@ -69,11 +69,14 @@ server.put('/:id', (req,res)=>{// Es un put a /products/update/:id
 },{where: {id}})
 .then((product)=>{
 	res.status(200).send('Modificado correctamente')
-	console.log(product)
+<<<<<<< HEAD
+
+=======
+	// console.log(product)
+>>>>>>> dc3a2b4028ad7ed2a560faf3755d82ac18a0d6a0
  })
 .catch((err)=>{
 	res.status(400).json(err)
-	console.log(err)
  }) 
 })
 
@@ -86,7 +89,6 @@ server.get('/:id', (req, res)=>{
 	   res.status(201).json(product)
    })
    .catch(err =>{
-	   console.log(err)
 	   res.status(404).json(err)
    })
 })
@@ -156,7 +158,6 @@ server.put('/increment/:productId', (req, res)=>{
         res.status(201).send(product)
     })
     .catch(err=>{
-        console.log(err)
         res.status(400).send(err)
     })
 
@@ -172,7 +173,6 @@ server.put('/decrement/:productId', (req, res)=>{
         res.status(201).send(product)
     })
     .catch(err=>{
-        console.log(err)
         res.status(400).send(err)
     })
 
