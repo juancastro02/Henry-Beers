@@ -30,10 +30,11 @@ const CrudCategory =()=>{
     const[category, setCategory] = useState({
         id: "",
         name: "",
-        description: ""
+        description: "",
+        Imagen: ""
     });
     const classes = useStyles();
-    const {name, description} = category
+    const {name, description, Imagen} = category
     
     const handleSubmit = e => {
         e.preventDefault()
@@ -55,7 +56,8 @@ const CrudCategory =()=>{
     const addCategory = async() =>{
         const info = {
             name: category.name,
-            description: category.description
+            description: category.description,
+            image: category.Imagen
         }
            const {data} = await axios.post('http://localhost:4000/category/create', info)
            console.log(data)
@@ -63,14 +65,16 @@ const CrudCategory =()=>{
            setCategory({
             id: "",
             name: "",
-            description: ""
+            description: "",
+            Imagen: ""
            })
        }
 
     const updateCategory = async() =>{
         const info = {
             name: category.name,
-            description: category.description
+            description: category.description,
+            image: category.Imagen
         }
            const {data} = await axios.put(`http://localhost:4000/category/update/${category.id}`, info)
            console.log(data)
@@ -78,7 +82,8 @@ const CrudCategory =()=>{
            setCategory({
             id: "",
             name: "",
-            description: ""
+            description: "",
+            Imagen: ""
            })
        }
        
@@ -90,19 +95,22 @@ const CrudCategory =()=>{
         setCategory({
           id: "",
           name: "",
-          description: ""
+          description: "",
+          Imagen: ""
          })
     }   
-
+        
     return(
-      <div >
+      <div style={{marginTop: "100px"}}>
         <div  style={{display: "flex", color: "white", paddingTop: "100px"}} >
           <div className='formCrudCategory' style={{marginLeft: "200px", marginTop: "-90px"}} >
          <form onSubmit={(e) => handleSubmit(e) } style={{marginBottom: "10px", marginTop: "10px"}} >
              <h6>Name</h6>
           <input type='text'   value={name} onChange={handleChange}  name='name'  /> 
              <h6>Description</h6>
-          <input type='text'   value={description}  onChange={handleChange}  name='description'/><br/><br/>
+          <input type='text'   value={description}  onChange={handleChange}  name='description'/>
+          <h6>Imagen</h6>
+          <input type='text'   value={Imagen}  onChange={handleChange}  name='Imagen'/><br/><br/>
           <button type='submit' className='create' style={{width:"60px", height:"20px"}} onClick={()=> addCategory()}  >Crear </button>   
           <button type='submit' className='update' style={{width:"60px", height:"20px"}} onClick={()=> updateCategory()}  >Actualizar </button>
           <button type='submit' className='delete' style={{width:"60px", height:"20px"}} onClick={()=> deleteCategory()}  >Borrar </button>   

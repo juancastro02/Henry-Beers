@@ -19,6 +19,17 @@ const NuevaCuenta = ({ history }) => {
     const [access, accessPassword] = useState(false)
 
     
+    useEffect(() => {
+        if (usuario.token) {
+          history.push('/')
+        }
+        setError(false)
+        setPassword(false)
+        return () => dispatch(cleanMessage())
+    
+      }, [usuario])
+
+
       const alert = useAlert();
 
     // State para iniciar sesión
@@ -89,23 +100,10 @@ const NuevaCuenta = ({ history }) => {
         getApiGoogle();
       }, [])
     
-      useEffect(() => {
-    
-        if(usuario.token){
-          history.push('/')
-        }
-    
-        if (usuario.id) {
-          history.push('/')
-          historia.go(0)
-    
-        }
-      }, [usuario])
-
 
 
     return (
-        <div className="form-usuario">
+        <div className="form-usuario"  >
             <div className="contenedor-form sombra-dark">
                 <h1 style= {{textAlign:"center"}}>Crear una cuenta</h1>
                 <br/> 

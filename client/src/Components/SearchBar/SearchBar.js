@@ -2,14 +2,16 @@ import React, { useState } from "react";
 import axios from "axios";
 import SearchIcon from "@material-ui/icons/Search";
 import { Link } from "react-router-dom";
+import { useSelector, useDispatch } from 'react-redux'
+import {busqueda} from '../../Redux/beer'
 // import "../../index.css";
 
-const SearchBar = ({ setBusquedaApp }) => {
+const SearchBar = () => {
 
-  console.log(setBusquedaApp)
+
 
   const [search, setSearch] = useState();
-
+  const dispatch = useDispatch()
   const handleChange = (e) => {
     // e.target.value.toLowerCase();
     setSearch(e.target.value);
@@ -20,12 +22,7 @@ const SearchBar = ({ setBusquedaApp }) => {
     if (!search) {
      return alert("Ingrese una busqueda valida");
     }
-    const {data} = await axios.get(`http://localhost:4000/products/find/search?name=${search}`)
-    console.log(data)
-    setBusquedaApp({
-        array: data,
-        word: search,
-    });
+    dispatch(busqueda(search))
   };
 
   return (

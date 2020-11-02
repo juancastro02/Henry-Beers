@@ -96,6 +96,7 @@ if(form.pais && form.ciudad && form.direccion_envio && form.codigo_postal && for
   const {data}= await axios.post(`http://localhost:4000/users/${userId}/carrito/${ordenId}`, info)
   await axios.put(`http://localhost:4000/users/procesando/${ordenId}`) 
   sumar()
+  localStorage.removeItem("carrito");
   alert('Compra exitosa')
   history.push('/')
 }

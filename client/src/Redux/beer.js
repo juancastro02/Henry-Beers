@@ -5,13 +5,18 @@ import axios from 'axios'
 
 const InicialState = {
     beers: [],
-    beer: []
+    beer: [],
+    busca: {
+        busqueda: [],
+        search: ""
+    }
 }
 
 //Constantes 
 
 const GET_BEERS = 'GET_BEERS'
 const GET_BEER = 'GET_BEER'
+const BUSQUEDA = 'BUSQUEDA'
 
 //Reducer
 export default function beerReducer(state = InicialState, action) {
@@ -19,7 +24,9 @@ export default function beerReducer(state = InicialState, action) {
         case GET_BEER:
             return {...state, beer: action.payload}
         case GET_BEERS:
-            return { ...state, beers: action.payload }       
+            return { ...state, beers: action.payload }
+        case BUSQUEDA: 
+            return {...state, busca: action.payload}           
         default: return state
     }
 }
@@ -48,6 +55,21 @@ export const getcerveza =(id)=> async (dispatch)=>{
         dispatch({
             type: GET_BEER,
             payload: res.data
+        })
+
+    } catch (error) {
+        console.log(error)
+    }
+}
+
+export const busqueda = (search) => async (dispatch) => {
+    try {
+        
+        const {data} = await axios.get(`http://localhost:4000/products/find/search?name=${search}`)
+        console.log(data)
+        dispatch({
+            type: BUSQUEDA,
+            payload: data
         })
 
     } catch (error) {
