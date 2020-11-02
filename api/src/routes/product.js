@@ -69,7 +69,7 @@ server.put('/:id', (req,res)=>{// Es un put a /products/update/:id
 },{where: {id}})
 .then((product)=>{
 	res.status(200).send('Modificado correctamente')
-	console.log(product)
+	// console.log(product)
  })
 .catch((err)=>{
 	res.status(400).json(err)

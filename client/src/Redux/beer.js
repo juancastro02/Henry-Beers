@@ -66,7 +66,7 @@ export const busqueda = (search) => async (dispatch) => {
     try {
         
         const {data} = await axios.get(`http://localhost:4000/products/find/search?name=${search}`)
-        console.log(data)
+        // console.log(data)
         dispatch({
             type: BUSQUEDA,
             payload: data

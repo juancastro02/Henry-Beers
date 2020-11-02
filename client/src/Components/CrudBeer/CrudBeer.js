@@ -51,12 +51,12 @@ const CrudBeer = () => {
        image: video.image,
      }
 
-     console.log(video.id, categoria)
+    //  console.log(video.id, categoria)
      const {data} = await axios.post('http://localhost:4000/products/create', info)
-     console.log(data)
+    //  console.log(data)
      {categoria.map(async(e)=>{
-      console.log(e.value) 
-      console.log(data.id)
+      // console.log(e.value) 
+      // console.log(data.id)
        await axios.post(`http://localhost:4000/products/${data[0].id}/category/${e.value}`)
      })}
    alert('Producto creado')

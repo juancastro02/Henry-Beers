@@ -3,6 +3,7 @@ import { Link } from "react-router-dom";
 import "react-responsive-carousel/lib/styles/carousel.min.css"; // requires a loader
 import { Carousel } from "react-responsive-carousel";
 import "../index.css";
+import CatalogoH from '../Components/Catalogo/CatalogoH'
 
 const AllProducts = () => {
   return (
@@ -22,7 +23,8 @@ const AllProducts = () => {
       <div className="section brands container">
         <div className="glide" id="glide2">
           <div className="glide__track" data-glide-el="track">
-              <ul >
+           <CatalogoH/>
+              {/* <ul >
             <Carousel infiniteLoop autoPlay>
                 <li className="glide__slide">
                   <img src={require("../img/scotish.png")} alt="" />
@@ -46,7 +48,7 @@ const AllProducts = () => {
                   <img src={require("../img/DTX-Cans-Web.png")} alt="" />
                 </li>
             </Carousel>
-              </ul>
+              </ul> */}
           </div>
         </div>
       </div>

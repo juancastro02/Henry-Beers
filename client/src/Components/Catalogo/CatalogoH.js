@@ -32,7 +32,7 @@ function CatalogoH({ category, search, products }) {
     fetchData();
   }, [products]);
 
-  console.log(productscatalogo);
+  // console.log(productscatalogo);
 
   return (
     <div><br/><br/>

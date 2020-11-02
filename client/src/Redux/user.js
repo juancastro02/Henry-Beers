@@ -219,7 +219,7 @@ export const validation = () => async (dispatch) => {
       };
 
       const { data } = await axios.get('http://localhost:4000/auth/me', config);
-      console.log(data)
+      // console.log(data)
       dispatch({
         type: SET_USER,
         payload: data.user
@@ -307,7 +307,7 @@ export const validationGoogle = () => async (dispatch) => {
       };
 
       const { data } = await axios.get('http://localhost:4000/auth/me/google', config);
-      console.log(data)
+      // console.log(data)
       dispatch({
         type: SET_USER,
         payload: data.user

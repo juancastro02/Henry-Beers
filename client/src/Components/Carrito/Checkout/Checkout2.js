@@ -8,7 +8,7 @@ import axios from 'axios';
 
   const dispatch = useDispatch()
   const ordenes = useSelector((store) => store.carrito.carrito);
-  console.log(ordenes.id)
+  // console.log(ordenes.id)
   const user = useSelector((store) => store.user.user)
   const [form, actualizarForm] = useState({
     pais: "",
@@ -69,7 +69,7 @@ import axios from 'axios';
     console.log(form)
   } */
   
-  console.log(ordenes)
+  // console.log(ordenes)
 
  const onSubmit= e =>{
    e.preventDefault()

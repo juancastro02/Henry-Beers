@@ -90,8 +90,8 @@ export default function Home(  ) {
   const dispatch = useDispatch();
 
   useEffect(() => {
-    console.log(usuario.id);
-    console.log(usuario);
+    // console.log(usuario.id);
+    // console.log(usuario);
     dispatch(getcarrito(1));
     // const fetchData =async()=>{
     //   await axios.post(`http://localhost:4000/users/1/carrito`)
@@ -234,7 +234,7 @@ export default function Home(  ) {
                       </Link>
                     </li> */}
                     <li className="nav-item">
-                      <a href="#blog" className="nav-link scroll-link">
+                      <a href="/nosotros" className="nav-link scroll-link">
                         Nosotros
                       </a>
                     </li>

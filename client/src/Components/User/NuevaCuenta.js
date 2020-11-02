@@ -13,7 +13,7 @@ const NuevaCuenta = ({ history }) => {
     const usuario = useSelector(store => store.user.user);
     const error = useSelector(store => store.user.error)
     const dispatch = useDispatch()
-    console.log(usuario)
+    // console.log(usuario)
     const [err, setError] = useState(false)
     const [passworderr, setPassword] = useState(false)
     const [access, accessPassword] = useState(false)

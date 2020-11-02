@@ -1,5 +1,4 @@
-import React, { useState, useEffect } from "react";
-// import "./index.css";
+import React, { useEffect } from "react";
 import Header from "./Compo2/Header";
 import Footer from "./Compo2/Footer.jsx";
 import Product from './Components/Product/Product'
@@ -26,6 +25,7 @@ import NavBar from './Components/NavBar/NavBar'
 import FormularioDatosEnvio from './Components/Carrito/Checkout/Checkout2'
 import MisCarritos from './Components/MisCarritos/MisCarritos'
 import ForgotPass from './Components/User/ForgotPass'
+import Nosotros2 from '../src/Compo2/Nosotros2'
 // import Catalogo from './Components/Catalogo/catalogo'
 
 
@@ -51,9 +51,9 @@ function App2() {
     dispatch(getOrdenes())
   }, []) 
 
-console.log(busqueda)
-console.log(busqueda.busqueda)
-console.log(busqueda.search)
+// console.log(busqueda)
+// console.log(busqueda.busqueda)
+// console.log(busqueda.search)
   return (
     <div >
 
@@ -151,10 +151,10 @@ console.log(busqueda.search)
           component={MisCarritos}
         />
 
-         {/* <Route
-          path='/prueba'
-          component={Dashboard}
-        /> */}
+        <Route exact path='/nosotros'
+          component={Nosotros2}
+         />
+         
 
       </BrowserRouter>
       </ProviderAlert>

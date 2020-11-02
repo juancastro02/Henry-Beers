@@ -45,7 +45,7 @@ function Catalogo ({category,search,products}) {
 },[products])
 
 
-console.log(productscatalogo)
+// console.log(productscatalogo)
 
     return ( 
       

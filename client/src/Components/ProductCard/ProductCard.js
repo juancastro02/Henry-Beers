@@ -49,7 +49,7 @@ export default function MediaCard({
 
     if (user.id && localStorage.carrito) {
       let data = JSON.parse(localStorage.getItem("carrito"));
-      console.log(data.carrito);
+      // console.log(data.carrito);
       data.carrito.map(async (e) => {
         const { data } = await axios.post(
           `http://localhost:4000/users/${e.productId}/orden/${carrito.id}`
@@ -58,7 +58,6 @@ export default function MediaCard({
     }
   }, []);
 
-  console.log(carrito);
   const [buttonClicked, setButtonClicked] = useState(false);
   const [addProduct, setAddProduct] = useState(false);
 

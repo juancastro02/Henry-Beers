@@ -38,7 +38,7 @@ export default function ResetPass({token}) {
     // if (error) setError("");
     // if (Password) setResetPassword('');
     guardarUsuario({ ...usuario, [e.target.name]: e.target.value });
-    console.log(nueva);
+    // console.log(nueva);
   };
 
 

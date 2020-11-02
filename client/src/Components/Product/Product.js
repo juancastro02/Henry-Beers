@@ -21,7 +21,7 @@ const Product = (data) => {
   const dispatch = useDispatch()
   const beer = useSelector(store => store.beer.beer)
   // console.log(userId)
-  console.log(data.user)
+  // console.log(data.user)
 
   useEffect(()=>{
     dispatch(getcerveza(data.product[0] && data.product[0].id))

@@ -18,7 +18,7 @@ const SearchBar = () => {
   };
 
   async function handleSubmit (){
-    console.log(search);
+    // console.log(search);
     if (!search) {
      return alert("Ingrese una busqueda valida");
     }

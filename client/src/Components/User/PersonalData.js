@@ -19,7 +19,7 @@ function PersonalData(){
     const classes = useStyles();
     const usuario = useSelector(store => store.user.user); //Accedo al estado del carrito
 
-    console.log(usuario)
+    // console.log(usuario)
     return (
 
       <div>
