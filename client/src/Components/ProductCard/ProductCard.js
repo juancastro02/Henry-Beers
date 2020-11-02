@@ -49,7 +49,7 @@ export default function MediaCard({
 
     if (user.id && localStorage.carrito) {
       let data = JSON.parse(localStorage.getItem("carrito"));
-    
+
       data.carrito.map(async (e) => {
         const { data } = await axios.post(
           `http://localhost:4000/users/${e.productId}/orden/${carrito.id}`

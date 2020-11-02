@@ -1,22 +1,11 @@
-import React,{useEffect, useState} from 'react'
-import {Link} from 'react-router-dom';
+import React,{useEffect} from 'react'
 import { useSelector, useDispatch } from "react-redux";
 import {getPedido} from '../../Redux/Carrito';
-import { makeStyles } from "@material-ui/core/styles";
 import Button from "@material-ui/core/Button";
-import axios from "axios";
-
-const useStyles = makeStyles((theme) => ({
-    root: {
-      "& > *": {
-        margin: theme.spacing(1),
-      },
-    },
-  }));
 
 function MiCarrito (data){
     
-    const classes = useStyles();
+
     const orden = useSelector(store => store.carrito.orden); //Accedo al estado del carrito
     const dispatch = useDispatch();
 
@@ -41,7 +30,7 @@ function MiCarrito (data){
       //Hago que siempre se actualice la pág. Cuando la pág, encuentra que el cart está en "procesando"
   
     }, [orden]);
-   
+    
     return (
         <div style={{marginTop: "40px"}} >
 
@@ -62,8 +51,8 @@ function MiCarrito (data){
                   </div>
                  ))}
                 <h1>Total:${suma}</h1> 
-</div>
-</div>
+  </div>
+    </div>
             
 
         </div>

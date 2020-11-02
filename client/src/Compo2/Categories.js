@@ -59,8 +59,8 @@ const Categories = () => {
         <h2 class="title">Encontra los mejores sabores a tu medida!</h2>
         <div class="category-center container">
           {category.map((e) => (
-            <div class="category-box">
-              <img src={e.image} alt="" />
+            <div class="category-box" >
+              <img key= {e.image} src={e.image} alt="" />
               <div class="content">
                 {/* <h2>Cerveza Lager</h2>
               <span>5 Cervezas</span> */}

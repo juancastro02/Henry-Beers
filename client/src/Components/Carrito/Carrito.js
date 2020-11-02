@@ -75,7 +75,7 @@ const Carrito = () => {
     if (localStorage.carrito) {
       
       let dato = JSON.parse(localStorage.getItem("carrito"));
-     
+    
       let otradata = dato.carrito.filter(p => p.productId !== id);
       localStorage.setItem("carrito", JSON.stringify({ carrito: otradata }))
       const {data} = await axios.delete(`http://localhost:4000/users/product/${id}/delete/${carrito.id}`)

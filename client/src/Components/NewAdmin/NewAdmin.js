@@ -27,7 +27,6 @@ export default function NewAdmin () {  ///CTRL+K+C COMENTAR Y CTRL+K+U DESCOMENT
       
   if(window.confirm('¿Esta seguro que quiere asignarlo como ADMINISTRADOR?')) {
         const {data} = await axios.put(`http://localhost:4000/auth/promote/${id}`)
-  
         alert('se ha asignado un nuevo ADMINISTRADOR')
   }
 
@@ -37,7 +36,7 @@ export default function NewAdmin () {  ///CTRL+K+C COMENTAR Y CTRL+K+U DESCOMENT
 
     if(window.confirm('¿Esta seguro que quiere quitarle los permisos como ADMINISTRADOR?')) {
     const {data} = await axios.put(`http://localhost:4000/auth/change/${id}`)
-  
+
     alert('Este usuario ya no es administrador')
     }
 }

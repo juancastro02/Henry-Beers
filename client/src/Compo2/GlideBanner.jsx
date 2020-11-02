@@ -11,7 +11,7 @@ const GlideBanner = () => {
       <div class="carousel-wrapper">
         <main>
           <section className="hero">
-            <Carousel infiniteLoop useKeyboardArrows autoPlay>
+            <Carousel infiniteLoop useKeyboardArrows autoPlay showThumbs={false}>
               <li class="glide__slide">
                 <div className="banner">
                   <div className="banner-content">
