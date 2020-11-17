@@ -4,6 +4,8 @@ import Footer from "./Compo2/Footer.jsx";
 import Product from './Components/Product/Product'
 import Catalogo from './Components/Catalogo/Catalogo.js'
 import axios from 'axios'
+import Orders from './Components/Admin/Orders'
+import Chart from './Components/Admin/Chart'
 import { BrowserRouter, Route } from 'react-router-dom';
 import { useSelector, useDispatch } from 'react-redux'
 import { getbeers } from './Redux/beer'
@@ -152,7 +154,17 @@ function App2() {
         <Route exact path='/nosotros'
           component={Nosotros2}
          />
-         
+
+        {/* <Route 
+         exact path = '/administrador/ordenes'
+         component={Orders}
+        />          */}
+        <Route 
+         exact path = '/administrador/ordenes'
+         component={Chart}
+        />   
+
+
 
       </BrowserRouter>
       </ProviderAlert>

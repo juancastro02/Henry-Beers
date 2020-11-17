@@ -131,8 +131,8 @@ const Carrito = () => {
       ))}
   </tbody>
 </table>
-<Link to='/FormularioDatosEnvio'>
-<Button variant="contained" style={{backgroundColor: "green", color: "white", marginLeft: "10px"}} onClick={()=>!user.id && alert ('Para comprar debes iniciar sesión')}> Comprar </Button> </Link>
+
+<Button variant="contained" style={{backgroundColor: "green", color: "white", marginLeft: "10px"}} onClick={()=>!user.id && alert ('Para comprar debes iniciar sesión')}> Comprar </Button> 
 <Button variant="contained" style={{backgroundColor: "red", color: "white", marginLeft: "30px"}} onClick={()=> DestroyCart()} >Borrar carrito</Button></div>}     
        { user.id && carrito.products && carrito.products[0] && <div style={{marginTop: "90px"}} ><table class="table table-striped table-dark">
   <thead>
